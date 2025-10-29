@@ -32,14 +32,16 @@
 
 ## 🎯 Overview
 
-This pipeline implements a **4-phase forensic audio analysis system** designed to detect voice manipulation attacks, including:
+This pipeline implements a **5-phase forensic audio analysis system** designed to detect voice manipulation and AI-generated voices, including:
 
 - **Pitch-shifting** (male ↔ female voice conversion)
 - **Time-stretching** (speed manipulation)
 - **Phase vocoder artifacts** (deepfake/alteration signatures)
 - **Combined manipulations** (multi-vector attacks)
+- **AI-generated voices** (TTS, voice cloning, deepfakes)
+- **Neural vocoder detection** (WaveNet, WaveGlow, HiFi-GAN)
 
-The system uses **three independent detection methods** to provide high-confidence results with cryptographically verifiable outputs.
+The system uses **multiple independent detection methods** across manipulation detection and AI voice detection to provide high-confidence results with cryptographically verifiable outputs.
 
 ### 🔬 How It Works
 
@@ -58,11 +60,18 @@ MANIPULATED:     F0 = 220 Hz (Female) ✗ + Formants = Male ✓ → INCOHERENT �
 
 - **PHASE 1:** Baseline F0 Analysis - Isolates presented pitch
 - **PHASE 2:** Vocal Tract Analysis - Extracts physical formant characteristics
-- **PHASE 3:** Artifact Detection - Three independent methods:
+- **PHASE 3:** Manipulation Artifact Detection - Three independent methods:
   - 🎵 Pitch-Formant Incoherence Detection
   - 📊 Mel Spectrogram Artifact Analysis
   - ⚡ Phase Decoherence / Transient Smearing Detection
-- **PHASE 4:** Report Synthesis - Generates verified, tamper-evident reports
+- **PHASE 4:** AI Voice Detection - Six independent methods:
+  - 🤖 Neural Vocoder Artifact Detection
+  - 🎭 Prosody & Naturalness Analysis
+  - 🫁 Breathing & Pause Pattern Analysis
+  - ⏱️ Micro-timing Consistency Analysis
+  - 🎼 Harmonic Structure Analysis
+  - 📊 Statistical Feature Anomaly Detection
+- **PHASE 5:** Report Synthesis - Generates verified, tamper-evident reports
 
 ### 🖥️ Interactive TUI
 
@@ -332,8 +341,9 @@ voice/
 │
 ├── phase1_baseline.py           # PHASE 1: F0 Analysis
 ├── phase2_formants.py           # PHASE 2: Formant Analysis
-├── phase3_artifacts.py          # PHASE 3: Artifact Detection
-├── phase4_report.py             # PHASE 4: Report Synthesis
+├── phase3_artifacts.py          # PHASE 3: Manipulation Detection
+├── phase4_report.py             # PHASE 4: Report Synthesis (legacy)
+├── phase5_ai_detection.py       # PHASE 4: AI Voice Detection
 │
 ├── pipeline.py                  # Main orchestrator
 ├── tui.py                       # Text User Interface

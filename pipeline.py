@@ -1,7 +1,7 @@
 """
 VOICE MANIPULATION DETECTION PIPELINE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Main orchestrator for the 4-phase forensic audio analysis system
+Main orchestrator for the 5-phase forensic audio analysis system
 """
 
 import librosa
@@ -12,18 +12,20 @@ from phase1_baseline import BaselineAnalyzer
 from phase2_formants import VocalTractAnalyzer
 from phase3_artifacts import ArtifactAnalyzer
 from phase4_report import ReportSynthesizer
+from phase5_ai_detection import AIVoiceDetector
 from verification import OutputVerifier, ReportExporter
 
 
 class VoiceManipulationDetector:
     """
-    Main pipeline orchestrator for voice manipulation detection.
+    Main pipeline orchestrator for voice manipulation and AI voice detection.
 
-    Executes 4-phase analysis:
+    Executes 5-phase analysis:
     1. Baseline F0 Analysis
     2. Vocal Tract Formant Analysis
-    3. Artifact & Coherence Analysis
-    4. Report Synthesis
+    3. Artifact & Coherence Analysis (Pitch-shift/Time-stretch)
+    4. AI Voice Detection (Deepfake/TTS/Voice Cloning)
+    5. Report Synthesis
     """
 
     def __init__(self):
@@ -31,7 +33,8 @@ class VoiceManipulationDetector:
         self.phase1 = BaselineAnalyzer()
         self.phase2 = VocalTractAnalyzer()
         self.phase3 = ArtifactAnalyzer()
-        self.phase4 = ReportSynthesizer()
+        self.phase4 = AIVoiceDetector()
+        self.phase5 = ReportSynthesizer()
         self.verifier = OutputVerifier()
         self.exporter = ReportExporter()
 
@@ -108,12 +111,31 @@ class VoiceManipulationDetector:
 
         print()
 
-        # PHASE 4: Report Synthesis
-        print("[PHASE 4] SYNTHESIS & FINAL REPORT")
+        # PHASE 4: AI Voice Detection
+        print("[PHASE 4] AI VOICE DETECTION (DEEPFAKE/TTS/SYNTHETIC)")
+        print("━" * 80)
+        print("[*] Analyzing spectral artifacts (neural vocoder detection)...")
+        print("[*] Analyzing prosody and naturalness...")
+        print("[*] Detecting breathing patterns and pauses...")
+        print("[*] Analyzing micro-timing consistency...")
+        print("[*] Performing harmonic analysis...")
+        print("[*] Extracting statistical features...")
+        phase4_results = self.phase4.analyze(y, sr)
+
+        if phase4_results['ai_detected']:
+            print(f"    ⚠ AI VOICE DETECTED: {phase4_results['ai_type']}")
+            print(f"    ⚠ Confidence: {phase4_results['confidence']:.0%}")
+        else:
+            print("    ✓ No AI voice artifacts detected")
+
+        print()
+
+        # PHASE 5: Report Synthesis
+        print("[PHASE 5] SYNTHESIS & FINAL REPORT")
         print("━" * 80)
         print("[*] Synthesizing findings...")
-        report = self.phase4.synthesize(
-            asset_id, phase1_results, phase2_results, phase3_results
+        report = self.phase5.synthesize(
+            asset_id, phase1_results, phase2_results, phase3_results, phase4_results
         )
 
         # Add verification metadata

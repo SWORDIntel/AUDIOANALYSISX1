@@ -29,7 +29,7 @@ class ReportSynthesizer:
             'DETAILED_FINDINGS': None
         }
 
-    def synthesize(self, asset_id, phase1, phase2, phase3):
+    def synthesize(self, asset_id, phase1, phase2, phase3, phase4):
         """
         Create comprehensive forensic report from all phases.
 
@@ -38,6 +38,7 @@ class ReportSynthesizer:
             phase1: PHASE 1 results (baseline F0)
             phase2: PHASE 2 results (formants)
             phase3: PHASE 3 results (artifacts)
+            phase4: PHASE 4 results (AI detection)
 
         Returns:
             dict: Comprehensive forensic report
@@ -55,20 +56,26 @@ class ReportSynthesizer:
         mel_artifacts = phase3['mel_spectrogram_artifacts']
         phase_artifacts = phase3['phase_artifacts']
 
-        # Determine overall alteration status
-        alteration_detected = phase3['overall_manipulation_detected']
+        # AI detection results
+        ai_detected = phase4['ai_detected']
+        ai_confidence = phase4['confidence']
+        ai_type = phase4['ai_type']
+
+        # Determine overall alteration status (manipulation OR AI)
+        alteration_detected = phase3['overall_manipulation_detected'] or ai_detected
 
         # Calculate confidence score
-        confidence = self._calculate_confidence(incoherence, mel_artifacts, phase_artifacts)
+        confidence = self._calculate_confidence(incoherence, mel_artifacts, phase_artifacts, ai_detected, ai_confidence)
 
         # Build evidence vectors
         evidence_pitch = self._build_pitch_evidence(incoherence)
         evidence_time = self._build_time_evidence(phase_artifacts)
         evidence_spectral = self._build_spectral_evidence(mel_artifacts)
+        evidence_ai = self._build_ai_evidence(phase4)
 
         # Generate detailed findings
         detailed_findings = self._generate_detailed_findings(
-            phase1, phase2, phase3, alteration_detected
+            phase1, phase2, phase3, phase4, alteration_detected
         )
 
         # Construct report
@@ -82,16 +89,19 @@ class ReportSynthesizer:
             ),
             'PROBABLE_SEX': probable_sex,
             'ALTERATION_DETECTED': alteration_detected,
+            'AI_VOICE_DETECTED': ai_detected,
+            'AI_TYPE': ai_type,
             'EVIDENCE_VECTOR_1_PITCH': evidence_pitch,
             'EVIDENCE_VECTOR_2_TIME': evidence_time,
             'EVIDENCE_VECTOR_3_SPECTRAL': evidence_spectral,
+            'EVIDENCE_VECTOR_4_AI': evidence_ai,
             'CONFIDENCE': f"{confidence:.0%} ({self._confidence_label(confidence)})",
             'DETAILED_FINDINGS': detailed_findings
         }
 
         return report
 
-    def _calculate_confidence(self, incoherence, mel_artifacts, phase_artifacts):
+    def _calculate_confidence(self, incoherence, mel_artifacts, phase_artifacts, ai_detected, ai_confidence):
         """
         Calculate overall confidence score based on evidence strength.
 
@@ -100,24 +110,31 @@ class ReportSynthesizer:
         evidence_count = sum([
             incoherence['incoherence_detected'],
             mel_artifacts['artifacts_detected'],
-            phase_artifacts['transient_smearing_detected']
+            phase_artifacts['transient_smearing_detected'],
+            ai_detected
         ])
 
         if evidence_count == 0:
             return 0.0
         elif evidence_count == 1:
             # Single vector - medium confidence
-            base_confidence = max(
-                incoherence.get('confidence', 0),
-                0.60 if mel_artifacts['artifacts_detected'] else 0,
-                0.65 if phase_artifacts['transient_smearing_detected'] else 0
-            )
-            return base_confidence
+            if ai_detected:
+                return ai_confidence
+            else:
+                base_confidence = max(
+                    incoherence.get('confidence', 0),
+                    0.60 if mel_artifacts['artifacts_detected'] else 0,
+                    0.65 if phase_artifacts['transient_smearing_detected'] else 0
+                )
+                return base_confidence
         elif evidence_count == 2:
             # Two vectors - high confidence
             return 0.85
+        elif evidence_count == 3:
+            # Three vectors - very high confidence
+            return 0.95
         else:
-            # All three vectors - very high confidence
+            # All four vectors - maximum confidence
             return 0.99
 
     def _confidence_label(self, confidence):
@@ -152,10 +169,36 @@ class ReportSynthesizer:
         else:
             return "No spectral artifacts detected"
 
-    def _generate_detailed_findings(self, phase1, phase2, phase3, alteration_detected):
+    def _build_ai_evidence(self, phase4):
+        """Build evidence string for AI voice detection."""
+        if phase4['ai_detected']:
+            confidence = f"{phase4['confidence']:.0%}"
+            ai_type = phase4['ai_type']
+
+            # Build evidence list
+            evidence_items = []
+            if phase4['spectral_artifacts']['artifacts_detected']:
+                evidence_items.append("Neural vocoder artifacts detected")
+            if phase4['prosody_analysis']['prosody_artifacts']:
+                evidence_items.append("Unnatural prosody patterns")
+            if phase4['breathing_pauses']['breathing_artifacts']:
+                evidence_items.append("Lack of natural breathing/pauses")
+            if phase4['micro_timing']['timing_artifacts']:
+                evidence_items.append("Timing too perfect")
+            if phase4['harmonic_analysis']['harmonic_artifacts']:
+                evidence_items.append("Unnatural harmonics")
+            if phase4['statistical_features']['statistical_artifacts']:
+                evidence_items.append("Statistical anomalies")
+
+            evidence_str = "; ".join(evidence_items)
+            return f"AI Voice Detected ({ai_type}, {confidence} confidence). {evidence_str}"
+        else:
+            return "No AI voice artifacts detected"
+
+    def _generate_detailed_findings(self, phase1, phase2, phase3, phase4, alteration_detected):
         """Generate detailed findings section."""
         findings = {
-            'summary': self._generate_summary(alteration_detected, phase1, phase2),
+            'summary': self._generate_summary(alteration_detected, phase1, phase2, phase4),
             'phase1_baseline': {
                 'f0_median': phase1['f0_median'],
                 'f0_mean': phase1['f0_mean'],
@@ -185,21 +228,37 @@ class ReportSynthesizer:
                     'onset_sharpness': phase3['phase_artifacts']['onset_sharpness'],
                     'transient_smearing': phase3['phase_artifacts']['transient_smearing']
                 }
+            },
+            'phase4_ai_detection': {
+                'ai_detected': phase4['ai_detected'],
+                'ai_type': phase4['ai_type'],
+                'confidence': phase4['confidence'],
+                'spectral_artifacts': phase4['spectral_artifacts']['artifacts_detected'],
+                'prosody_artifacts': phase4['prosody_analysis']['prosody_artifacts'],
+                'breathing_artifacts': phase4['breathing_pauses']['breathing_artifacts'],
+                'timing_artifacts': phase4['micro_timing']['timing_artifacts'],
+                'harmonic_artifacts': phase4['harmonic_analysis']['harmonic_artifacts'],
+                'statistical_artifacts': phase4['statistical_features']['statistical_artifacts']
             }
         }
 
         return findings
 
-    def _generate_summary(self, alteration_detected, phase1, phase2):
+    def _generate_summary(self, alteration_detected, phase1, phase2, phase4=None):
         """Generate executive summary."""
         if alteration_detected:
-            return (
+            base_msg = (
                 f"MANIPULATION DETECTED: Audio presents as {phase1['presented_sex']} "
                 f"(F0: {phase1['f0_median']:.1f} Hz) but physical vocal tract "
                 f"characteristics indicate {phase2['probable_sex']} "
                 f"(F1: {phase2['f1_median']:.0f} Hz). "
-                f"Multiple independent artifact detection methods confirm alteration."
             )
+
+            if phase4 and phase4['ai_detected']:
+                base_msg += f"AI voice detected: {phase4['ai_type']}. "
+
+            base_msg += "Multiple independent artifact detection methods confirm alteration."
+            return base_msg
         else:
             return (
                 f"NO MANIPULATION DETECTED: Audio characteristics are coherent. "
