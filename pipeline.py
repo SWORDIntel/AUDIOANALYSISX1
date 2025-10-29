@@ -144,7 +144,7 @@ class VoiceManipulationDetector:
 
         # Save report (JSON)
         report_path = output_dir / f"{asset_id}_report.json"
-        self.phase4.save_report(report, report_path)
+        self.phase5.save_report(report, report_path)
         print(f"    ✓ Report saved: {report_path}")
 
         # Export Markdown version
@@ -165,7 +165,7 @@ class VoiceManipulationDetector:
             print(f"    ✓ Visualizations saved: {len(viz_paths)} plots")
 
         # Print report
-        self.phase4.print_report(report)
+        self.phase5.print_report(report)
 
         return report
 
