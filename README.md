@@ -73,6 +73,16 @@ MANIPULATED:     F0 = 220 Hz (Female) ✗ + Formants = Male ✓ → INCOHERENT �
   - 📊 Statistical Feature Anomaly Detection
 - **PHASE 5:** Report Synthesis - Generates verified, tamper-evident reports
 
+### 🌐 Web GUI (NEW)
+
+Modern web-based interface with:
+- 🖱️ Drag-and-drop file upload
+- 📊 Real-time visualization updates
+- 📥 One-click report downloads (JSON, Markdown, CSV)
+- 📁 Batch processing with progress bars
+- 🎨 Dark theme with responsive layout
+- 🌍 Shareable links for demos
+
 ### 🖥️ Interactive TUI
 
 Beautiful terminal interface with:
@@ -134,32 +144,47 @@ click>=8.1.0             # CLI framework
 
 ## 🚀 Quick Start
 
-### Option 1: Interactive TUI (Recommended)
+### Option 1: Web GUI (Recommended - Most User-Friendly) 🆕
+
+```bash
+python start_gui.py
+```
+
+Opens a beautiful web interface at `http://localhost:7860` with:
+- 🖱️ **Drag-and-drop** file upload
+- 📊 **Real-time** visualizations
+- 📥 **Download** JSON/Markdown reports
+- 📁 **Batch processing** with progress tracking
+- 🎨 **Modern UI** with dark theme
+
+Perfect for: Visual analysis, presentations, non-technical users
+
+### Option 2: Simple Command Line
+
+```bash
+# Analyze a single file
+python analyze.py suspicious_call.wav
+
+# Batch process a directory
+python analyze.py --batch ./audio_samples/ -o ./results/
+
+# Faster (no visualizations)
+python analyze.py sample.wav --no-viz
+```
+
+Perfect for: Quick analysis, scripting, automation
+
+### Option 3: Interactive TUI
 
 ```bash
 python tui.py interactive
 ```
 
-This launches an interactive menu where you can:
-- Analyze single files
-- Process batches
-- Create test samples
-- View help
+Terminal-based menu interface with full features.
 
-### Option 2: Command Line
+Perfect for: Server environments, SSH sessions
 
-```bash
-# Analyze a single file
-python tui.py analyze suspicious_call.wav
-
-# Batch process a directory
-python tui.py batch ./audio_samples/ -o ./results/
-
-# Disable visualizations (faster)
-python tui.py analyze sample.wav --no-viz
-```
-
-### Option 3: Python API
+### Option 4: Python API
 
 ```python
 from pipeline import VoiceManipulationDetector
@@ -171,10 +196,11 @@ report = detector.analyze('sample.wav', output_dir='results/')
 if report['ALTERATION_DETECTED']:
     print(f"⚠ MANIPULATION DETECTED")
     print(f"Confidence: {report['CONFIDENCE']}")
-    print(f"Evidence: {report['EVIDENCE_VECTOR_1_PITCH']}")
 else:
     print(f"✓ No manipulation detected")
 ```
+
+Perfect for: Integration, custom workflows, automation
 
 ---
 
@@ -226,9 +252,71 @@ Each analysis generates a comprehensive report:
 
 ---
 
+## 🌐 Web GUI Features
+
+### Launch the GUI
+
+```bash
+python start_gui.py
+
+# Custom port
+python start_gui.py --port=8080
+
+# Create shareable public link
+python start_gui.py --share
+```
+
+### GUI Interface
+
+The web GUI provides **4 ways to interact** with the system:
+
+#### 1. Single File Analysis Tab
+- **Drag-and-drop** audio file upload
+- **Real-time progress** updates (Phase 1-5)
+- **Instant results** display with HTML formatting
+- **Visual gallery** showing all 4 analysis plots
+- **Download buttons** for JSON and Markdown reports
+
+#### 2. Batch Processing Tab
+- **Multi-file upload** support
+- **Progress tracking** for each file
+- **Summary statistics** table
+- **CSV export** for batch results
+
+#### 3. About & Help Tab
+- **Detection methods** explanation
+- **Confidence levels** guide
+- **Interpretation** tips
+- **Security** information
+
+### GUI Screenshots
+
+Access at: `http://localhost:7860`
+
+**Features:**
+- 🎨 Dark theme interface
+- 📱 Responsive design
+- ⚡ Real-time updates
+- 🔒 Secure (local processing)
+
+---
+
 ## 💡 Examples
 
-### Example 1: Basic Analysis
+### Example 1: Web GUI (Easiest)
+
+```bash
+python start_gui.py
+```
+
+Then:
+1. Open browser to http://localhost:7860
+2. Drag audio file onto upload area
+3. Click "Analyze Audio"
+4. View results and visualizations
+5. Download reports
+
+### Example 2: Basic CLI Analysis
 
 ```bash
 python tui.py analyze suspicious_voice.wav
@@ -342,14 +430,21 @@ voice/
 ├── phase1_baseline.py           # PHASE 1: F0 Analysis
 ├── phase2_formants.py           # PHASE 2: Formant Analysis
 ├── phase3_artifacts.py          # PHASE 3: Manipulation Detection
-├── phase4_report.py             # PHASE 4: Report Synthesis (legacy)
 ├── phase5_ai_detection.py       # PHASE 4: AI Voice Detection
+├── phase4_report.py             # PHASE 5: Report Synthesis
 │
 ├── pipeline.py                  # Main orchestrator
-├── tui.py                       # Text User Interface
+│
+├── start_gui.py                 # 🆕 Web GUI Launcher
+├── gui_app.py                   # 🆕 Gradio Web Interface
+├── gui_utils.py                 # 🆕 GUI Helper Functions
+├── tui.py                       # Terminal User Interface
+├── analyze.py                   # Simple CLI Interface
+│
 ├── visualizer.py                # Visualization generator
 ├── verification.py              # Cryptographic verification
 │
+├── download_samples.py          # Sample generator
 ├── example.py                   # Usage examples
 └── test_pipeline.py             # Test suite
 ```

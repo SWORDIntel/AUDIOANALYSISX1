@@ -21,6 +21,20 @@ This creates test samples in `samples/` directory:
 
 ### 3. Analyze Audio
 
+**Option A: Web GUI (Recommended - Most User-Friendly)**
+
+```bash
+python start_gui.py
+```
+
+Opens a beautiful web interface in your browser with:
+- 🖱️ Drag-and-drop file upload
+- 📊 Real-time visualizations
+- 📥 Download reports
+- 📁 Batch processing
+
+**Option B: Simple Command Line**
+
 ```bash
 # Analyze a single file
 python analyze.py samples/tts/tts_smooth_prosody.wav

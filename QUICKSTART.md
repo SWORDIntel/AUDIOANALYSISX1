@@ -22,21 +22,23 @@ python test_pipeline.py
 
 ### 3. Use
 
-**Interactive Mode (Recommended):**
+**Web GUI (Recommended - Easiest):**
+```bash
+python start_gui.py
+```
+→ Opens browser at http://localhost:7860 with drag-and-drop interface
+
+**Command Line (Quick):**
+```bash
+python analyze.py sample.wav
+```
+
+**Interactive Terminal (Full features):**
 ```bash
 python tui.py interactive
 ```
 
-**Command Line:**
-```bash
-# Analyze single file
-python tui.py analyze sample.wav
-
-# Batch process
-python tui.py batch ./audio_files/ -o ./results/
-```
-
-**Python API:**
+**Python API (Integration):**
 ```python
 from pipeline import VoiceManipulationDetector
 

@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+"""
+AUDIOANALYSISX1 GUI Launcher
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Simple launcher for the Gradio web interface
+
+Usage:
+    python start_gui.py                # Start on default port 7860
+    python start_gui.py --port=8080    # Custom port
+    python start_gui.py --share        # Create public share link
+"""
+
+import sys
+import subprocess
+from pathlib import Path
+
+
+def print_banner():
+    """Print startup banner."""
+    banner = """
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║   ██╗   ██╗ ██████╗ ██╗ ██████╗███████╗    ███╗   ███╗██████╗ ██████╗     ║
+║   ██║   ██║██╔═══██╗██║██╔════╝██╔════╝    ████╗ ████║██╔══██╗██╔══██╗    ║
+║   ██║   ██║██║   ██║██║██║     █████╗      ██╔████╔██║██║  ██║██║  ██║    ║
+║   ╚██╗ ██╔╝██║   ██║██║██║     ██╔══╝      ██║╚██╔╝██║██║  ██║██║  ██║    ║
+║    ╚████╔╝ ╚██████╔╝██║╚██████╗███████╗    ██║ ╚═╝ ██║██████╔╝██████╔╝    ║
+║     ╚═══╝   ╚═════╝ ╚═╝ ╚═════╝╚══════╝    ╚═╝     ╚═╝╚═════╝ ╚═════╝     ║
+║                                                                              ║
+║                        WEB GUI INTERFACE                                     ║
+║              Voice Manipulation & AI Detection System                       ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+    """
+    print(banner)
+
+
+def check_dependencies():
+    """Check if required dependencies are installed."""
+    print("🔍 Checking dependencies...")
+
+    try:
+        import gradio
+        print(f"  ✓ Gradio {gradio.__version__}")
+    except ImportError:
+        print("  ✗ Gradio not installed")
+        print("\n📦 Installing dependencies...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt", "-q"])
+        print("  ✓ Dependencies installed")
+
+    try:
+        import librosa
+        import parselmouth
+        import rich
+        print("  ✓ Core dependencies found")
+    except ImportError as e:
+        print(f"  ✗ Missing dependency: {e}")
+        print("\n💡 Run: pip install -r requirements.txt")
+        return False
+
+    return True
+
+
+def main():
+    """Main entry point."""
+    print_banner()
+
+    # Check dependencies
+    if not check_dependencies():
+        print("\n❌ Dependency check failed. Please install requirements.")
+        return 1
+
+    print("\n" + "=" * 80)
+    print("LAUNCHING WEB INTERFACE")
+    print("=" * 80 + "\n")
+
+    # Parse arguments
+    port = 7860
+    share = False
+
+    for arg in sys.argv[1:]:
+        if arg.startswith('--port='):
+            port = int(arg.split('=')[1])
+        elif arg == '--share':
+            share = True
+        elif arg in ['-h', '--help']:
+            print("Usage: python start_gui.py [OPTIONS]")
+            print("\nOptions:")
+            print("  --port=PORT    Set custom port (default: 7860)")
+            print("  --share        Create public share link")
+            print("  -h, --help     Show this help message")
+            print("\nExamples:")
+            print("  python start_gui.py")
+            print("  python start_gui.py --port=8080")
+            print("  python start_gui.py --share")
+            return 0
+
+    print(f"🚀 Starting server on port {port}...")
+    print(f"🌐 URL: http://localhost:{port}")
+
+    if share:
+        print("🔗 Share mode: Creating public link...")
+
+    print("\n💡 Tips:")
+    print("  - Drag and drop audio files to analyze")
+    print("  - View real-time visualizations")
+    print("  - Download JSON/Markdown reports")
+    print("  - Use batch tab for multiple files")
+
+    print("\n⚠  Press Ctrl+C to stop the server")
+    print("=" * 80 + "\n")
+
+    # Import and launch
+    try:
+        from gui_app import AudioAnalysisGUI
+
+        gui = AudioAnalysisGUI()
+        gui.launch(share=share, server_port=port)
+
+    except KeyboardInterrupt:
+        print("\n\n👋 Shutting down server...")
+        print("✓ Server stopped\n")
+        return 0
+
+    except Exception as e:
+        print(f"\n❌ Error: {e}")
+        print("\n💡 Troubleshooting:")
+        print("  - Check dependencies: pip install -r requirements.txt")
+        print("  - Try different port: python start_gui.py --port=8080")
+        print("  - Check logs above for details")
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())
