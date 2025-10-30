@@ -1,0 +1,73 @@
+{
+  "ASSET_ID": "male_pitched_up",
+  "ANALYSIS_TIMESTAMP": "2025-10-30T10:59:21.865864Z",
+  "DECEPTION_BASELINE_F0": "170.2 Hz (Median)",
+  "PRESENTED_AS": "Female",
+  "PHYSICAL_BASELINE_FORMANTS": "F1: 374 Hz, F2: 2347 Hz, F3: 3429 Hz",
+  "PROBABLE_SEX": "Male",
+  "ALTERATION_DETECTED": true,
+  "AI_VOICE_DETECTED": true,
+  "AI_TYPE": "Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN)",
+  "EVIDENCE_VECTOR_1_PITCH": "Pitch-Formant Incoherence Detected. Pitch suggests Female (F0: 170.2 Hz), but formants suggest Male (F1: 373.6 Hz, F2: 2346.6 Hz)",
+  "EVIDENCE_VECTOR_2_TIME": "Phase Decoherence / Transient Smearing Detected. High phase variance detected (3.24); Transient smearing detected (sharpness: 0.15)",
+  "EVIDENCE_VECTOR_3_SPECTRAL": "Spectral Artifacts Detected. Unnatural harmonic structure (smoothness: 5.81)",
+  "EVIDENCE_VECTOR_4_AI": "AI Voice Detected (Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN), 95% confidence). Neural vocoder artifacts detected; Unnatural prosody patterns; Lack of natural breathing/pauses; Unnatural harmonics; Statistical anomalies",
+  "CONFIDENCE": "99% (Very High)",
+  "DETAILED_FINDINGS": {
+    "summary": "MANIPULATION DETECTED: Audio presents as Female (F0: 170.2 Hz) but physical vocal tract characteristics indicate Male (F1: 374 Hz). AI voice detected: Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN). Multiple independent artifact detection methods confirm alteration.",
+    "phase1_baseline": {
+      "f0_median": 170.22988891601562,
+      "f0_mean": 170.20457458496094,
+      "f0_std": 0.22920426726341248,
+      "presented_sex": "Female"
+    },
+    "phase2_formants": {
+      "f1_median": 373.6249112262591,
+      "f2_median": 2346.5573595041387,
+      "f3_median": 3428.5841889351086,
+      "probable_sex": "Male"
+    },
+    "phase3_artifacts": {
+      "pitch_formant_incoherence": {
+        "detected": true,
+        "confidence": 0.7219543981078459,
+        "evidence": "Pitch suggests Female (F0: 170.2 Hz), but formants suggest Male (F1: 373.6 Hz, F2: 2346.6 Hz)"
+      },
+      "mel_spectrogram": {
+        "artifacts_detected": true,
+        "consistent_noise_floor": false,
+        "unnatural_harmonics": true
+      },
+      "phase_coherence": {
+        "time_stretch_detected": true,
+        "phase_variance": 3.2418813705444336,
+        "onset_sharpness": 0.14702832698822021,
+        "transient_smearing": true
+      }
+    },
+    "phase4_ai_detection": {
+      "ai_detected": true,
+      "ai_type": "Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN)",
+      "confidence": 0.95,
+      "spectral_artifacts": true,
+      "prosody_artifacts": true,
+      "breathing_artifacts": true,
+      "timing_artifacts": false,
+      "harmonic_artifacts": true,
+      "statistical_artifacts": true
+    }
+  },
+  "VERIFICATION": {
+    "timestamp_utc": "2025-10-30T10:59:21.867181Z",
+    "audio_file": {
+      "path": "/home/john/voice/samples/manipulated/male_pitched_up.wav",
+      "filename": "male_pitched_up.wav",
+      "file_hash_sha256": "b44c7d9df1d1c05eb96150613b0bee2491b271315257c9f497af03522e6a26cd",
+      "audio_hash_sha256": "c27971b40b210bb316543db23733cff02c0c1e379736c7f4a12be0c81a1472bc",
+      "file_size_bytes": 220544
+    },
+    "pipeline_version": "1.0.0",
+    "verification_protocol": "FORENSIC-AUDIO-v1",
+    "report_hash_sha256": "14551b31e514ffc56c756a0e800b0fe78ca0a0b67fedf855a89b6a6e57ca5a6e"
+  }
+}

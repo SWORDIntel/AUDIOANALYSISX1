@@ -8,12 +8,12 @@ import librosa
 import soundfile as sf
 from pathlib import Path
 
-from phase1_baseline import BaselineAnalyzer
-from phase2_formants import VocalTractAnalyzer
-from phase3_artifacts import ArtifactAnalyzer
-from phase4_report import ReportSynthesizer
-from phase5_ai_detection import AIVoiceDetector
-from verification import OutputVerifier, ReportExporter
+from .phases.baseline import BaselineAnalyzer
+from .phases.formants import VocalTractAnalyzer
+from .phases.artifacts import ArtifactAnalyzer
+from .phases.reporting import ReportSynthesizer
+from .phases.ai_detection import AIVoiceDetector
+from .verification import OutputVerifier, ReportExporter
 
 
 class VoiceManipulationDetector:

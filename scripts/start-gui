@@ -112,7 +112,8 @@ def main():
 
     # Import and launch
     try:
-        from gui_app import AudioAnalysisGUI
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from audioanalysisx1.gui.app import AudioAnalysisGUI
 
         gui = AudioAnalysisGUI()
         gui.launch(share=share, server_port=port)

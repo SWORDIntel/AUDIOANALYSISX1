@@ -147,7 +147,9 @@ click>=8.1.0             # CLI framework
 ### Option 1: Web GUI (Recommended - Most User-Friendly) 🆕
 
 ```bash
-python start_gui.py
+python scripts/start-gui
+# or
+python run_gui.py
 ```
 
 Opens a beautiful web interface at `http://localhost:7860` with:
@@ -163,13 +165,13 @@ Perfect for: Visual analysis, presentations, non-technical users
 
 ```bash
 # Analyze a single file
-python analyze.py suspicious_call.wav
+python scripts/analyze suspicious_call.wav
 
 # Batch process a directory
-python analyze.py --batch ./audio_samples/ -o ./results/
+python scripts/analyze --batch ./audio_samples/ -o ./results/
 
 # Faster (no visualizations)
-python analyze.py sample.wav --no-viz
+python scripts/analyze sample.wav --no-viz
 ```
 
 Perfect for: Quick analysis, scripting, automation
@@ -177,7 +179,7 @@ Perfect for: Quick analysis, scripting, automation
 ### Option 3: Interactive TUI
 
 ```bash
-python tui.py interactive
+python -m audioanalysisx1.cli.interactive
 ```
 
 Terminal-based menu interface with full features.
@@ -187,7 +189,7 @@ Perfect for: Server environments, SSH sessions
 ### Option 4: Python API
 
 ```python
-from pipeline import VoiceManipulationDetector
+from audioanalysisx1 import VoiceManipulationDetector
 
 detector = VoiceManipulationDetector()
 report = detector.analyze('sample.wav', output_dir='results/')
@@ -208,10 +210,15 @@ Perfect for: Integration, custom workflows, automation
 
 ### Core Documentation
 
-- **[USAGE.md](USAGE.md)** - Comprehensive usage guide with examples
-- **[TECHNICAL.md](TECHNICAL.md)** - Technical implementation details
-- **[API.md](API.md)** - Complete API reference
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Production deployment guide
+All documentation is in the `docs/` directory:
+
+- **[Getting Started](docs/getting-started.md)** - Quick start guide
+- **[GUI Guide](docs/gui-guide.md)** - Web interface guide
+- **[Usage Guide](docs/usage.md)** - Comprehensive usage
+- **[Technical Docs](docs/technical.md)** - Implementation details
+- **[API Reference](docs/api-reference.md)** - Complete API docs
+- **[Deployment](docs/deployment.md)** - Production deployment
+- **[Debug Report](docs/debug-report.md)** - System validation
 
 ### Understanding Reports
 
@@ -417,36 +424,57 @@ MANIPULATION DETECTION: 4/4 PASSED (100%)
 ## 📁 Project Structure
 
 ```
-voice/
-│
+AUDIOANALYSISX1/
 ├── README.md                    # This file
-├── USAGE.md                     # Comprehensive usage guide
-├── TECHNICAL.md                 # Technical documentation
-├── API.md                       # API reference
-├── DEPLOYMENT.md                # Deployment guide
-│
+├── setup.py                     # Package installation
 ├── requirements.txt             # Python dependencies
+├── .gitignore                   # Git ignore rules
 │
-├── phase1_baseline.py           # PHASE 1: F0 Analysis
-├── phase2_formants.py           # PHASE 2: Formant Analysis
-├── phase3_artifacts.py          # PHASE 3: Manipulation Detection
-├── phase5_ai_detection.py       # PHASE 4: AI Voice Detection
-├── phase4_report.py             # PHASE 5: Report Synthesis
+├── docs/                        # 📚 Documentation
+│   ├── getting-started.md       # Quick start guide
+│   ├── gui-guide.md            # Web GUI guide
+│   ├── usage.md                # Usage guide
+│   ├── technical.md            # Technical details
+│   ├── api-reference.md        # API documentation
+│   ├── deployment.md           # Deployment guide
+│   └── debug-report.md         # Debug validation
 │
-├── pipeline.py                  # Main orchestrator
+├── audioanalysisx1/            # 🔬 Main Package
+│   ├── __init__.py
+│   ├── pipeline.py             # Main orchestrator
+│   ├── verification.py         # Cryptographic verification
+│   ├── visualizer.py           # Visualization engine
+│   │
+│   ├── phases/                 # Detection phases
+│   │   ├── baseline.py         # PHASE 1: F0 Analysis
+│   │   ├── formants.py         # PHASE 2: Formant Analysis
+│   │   ├── artifacts.py        # PHASE 3: Manipulation Detection
+│   │   ├── ai_detection.py     # PHASE 4: AI Detection
+│   │   └── reporting.py        # PHASE 5: Report Synthesis
+│   │
+│   ├── gui/                    # Web GUI
+│   │   ├── app.py             # Gradio interface
+│   │   └── utils.py           # GUI utilities
+│   │
+│   └── cli/                    # CLI interfaces
+│       ├── simple.py           # Simple CLI
+│       └── interactive.py      # Interactive TUI
 │
-├── start_gui.py                 # 🆕 Web GUI Launcher
-├── gui_app.py                   # 🆕 Gradio Web Interface
-├── gui_utils.py                 # 🆕 GUI Helper Functions
-├── tui.py                       # Terminal User Interface
-├── analyze.py                   # Simple CLI Interface
+├── scripts/                    # 🚀 Executable Scripts
+│   ├── start-gui               # Launch web GUI
+│   ├── analyze                 # Simple analysis
+│   └── download-samples        # Sample generator
 │
-├── visualizer.py                # Visualization generator
-├── verification.py              # Cryptographic verification
+├── tests/                      # 🧪 Test Suite
+│   ├── test_pipeline.py        # Pipeline tests
+│   ├── validate_system.py      # System validation
+│   └── examples.py             # Usage examples
 │
-├── download_samples.py          # Sample generator
-├── example.py                   # Usage examples
-└── test_pipeline.py             # Test suite
+└── samples/                    # 🎵 Sample Audio
+    ├── README.md
+    ├── human/                  # Clean recordings
+    ├── tts/                    # AI-generated
+    └── manipulated/            # Pitch/time-shifted
 ```
 
 ---

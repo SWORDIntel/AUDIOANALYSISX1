@@ -7,7 +7,7 @@ Objective: Synthesize all data points into comprehensive forensic report
 import json
 from datetime import datetime
 from pathlib import Path
-from verification import sanitize_for_json
+from ..verification import sanitize_for_json
 
 
 class ReportSynthesizer:

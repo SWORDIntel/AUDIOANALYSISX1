@@ -18,7 +18,7 @@ from rich.table import Table
 from rich.panel import Panel
 from rich import box
 
-from pipeline import VoiceManipulationDetector
+from ..pipeline import VoiceManipulationDetector
 
 
 console = Console()

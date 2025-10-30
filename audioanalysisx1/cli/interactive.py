@@ -17,7 +17,7 @@ from rich.text import Text
 from rich import box
 import time
 
-from pipeline import VoiceManipulationDetector
+from ..pipeline import VoiceManipulationDetector
 
 
 console = Console()

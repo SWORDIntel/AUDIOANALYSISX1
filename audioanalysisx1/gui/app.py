@@ -10,8 +10,8 @@ from pathlib import Path
 import tempfile
 import shutil
 
-from pipeline import VoiceManipulationDetector
-from gui_utils import (
+from ..pipeline import VoiceManipulationDetector
+from .utils import (
     format_results_html,
     create_batch_summary_df,
     export_batch_csv,
