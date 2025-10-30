@@ -157,10 +157,13 @@ class OutputVerifier:
             }
 
         # Verify report integrity
-        report_copy = report.copy()
-        stored_report_hash = report_copy['VERIFICATION'].pop('report_hash_sha256')
+        # Make a deep copy and remove entire VERIFICATION block
+        import copy
+        report_copy = copy.deepcopy(report)
+        stored_report_hash = report_copy['VERIFICATION']['report_hash_sha256']
+        del report_copy['VERIFICATION']
 
-        # Sanitize for JSON
+        # Sanitize for JSON (same as during signing)
         report_sanitized = sanitize_for_json(report_copy)
         report_json = json.dumps(report_sanitized, sort_keys=True)
         current_report_hash = hashlib.sha256(report_json.encode()).hexdigest()
