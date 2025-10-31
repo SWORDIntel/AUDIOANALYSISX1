@@ -101,7 +101,7 @@ class AudioAnalysisGUI:
 
             # Generate visualizations
             progress(0.95, desc="Generating visualizations...")
-            from visualizer import Visualizer
+            from ..visualizer import Visualizer
             viz = Visualizer()
             viz.generate_all(
                 audio_path, y, sr,

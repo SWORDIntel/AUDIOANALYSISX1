@@ -154,7 +154,7 @@ class VoiceManipulationDetector:
 
         # Generate visualizations
         if save_visualizations:
-            from visualizer import Visualizer
+            from .visualizer import Visualizer
             print("[*] Generating visualizations...")
             viz = Visualizer()
             viz_paths = viz.generate_all(
