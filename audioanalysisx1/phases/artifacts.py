@@ -142,7 +142,7 @@ class ArtifactAnalyzer:
         noise_floor_std = np.std(noise_floor)
 
         # Lower std indicates more consistent (artificial) noise floor
-        consistent_noise_floor = noise_floor_std < 3.0
+        consistent_noise_floor = noise_floor_std < 2.0  # More conservative threshold
 
         # Analyze spectral smoothness (ringing detection)
         # Calculate variation in spectral envelope
@@ -151,7 +151,7 @@ class ArtifactAnalyzer:
         spectral_smoothness = np.std(spectral_gradient)
 
         # High smoothness variance can indicate artificial harmonics
-        unnatural_harmonics = spectral_smoothness > 2.5
+        unnatural_harmonics = spectral_smoothness > 6.2 # Increased threshold
 
         artifacts_detected = consistent_noise_floor or unnatural_harmonics
 
@@ -226,11 +226,11 @@ class ArtifactAnalyzer:
         onset_sharpness = np.mean(np.abs(np.diff(onset_env)))
 
         # Low sharpness indicates smeared transients
-        transient_smearing = onset_sharpness < 0.5
+        transient_smearing = onset_sharpness < 0.1 # Lowered threshold
 
         # Overall detection
         # High phase variance OR low transient sharpness indicates time-stretching
-        time_stretch_detected = (phase_variance > 2.5) or transient_smearing
+        time_stretch_detected = (phase_variance > 4.0) or transient_smearing # Increased threshold
 
         return {
             'transient_smearing_detected': time_stretch_detected,

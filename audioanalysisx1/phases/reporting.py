@@ -174,24 +174,7 @@ class ReportSynthesizer:
         if phase4['ai_detected']:
             confidence = f"{phase4['confidence']:.0%}"
             ai_type = phase4['ai_type']
-
-            # Build evidence list
-            evidence_items = []
-            if phase4['spectral_artifacts']['artifacts_detected']:
-                evidence_items.append("Neural vocoder artifacts detected")
-            if phase4['prosody_analysis']['prosody_artifacts']:
-                evidence_items.append("Unnatural prosody patterns")
-            if phase4['breathing_pauses']['breathing_artifacts']:
-                evidence_items.append("Lack of natural breathing/pauses")
-            if phase4['micro_timing']['timing_artifacts']:
-                evidence_items.append("Timing too perfect")
-            if phase4['harmonic_analysis']['harmonic_artifacts']:
-                evidence_items.append("Unnatural harmonics")
-            if phase4['statistical_features']['statistical_artifacts']:
-                evidence_items.append("Statistical anomalies")
-
-            evidence_str = "; ".join(evidence_items)
-            return f"AI Voice Detected ({ai_type}, {confidence} confidence). {evidence_str}"
+            return f"AI Voice Detected ({ai_type}, {confidence} confidence)."
         else:
             return "No AI voice artifacts detected"
 
@@ -232,13 +215,7 @@ class ReportSynthesizer:
             'phase4_ai_detection': {
                 'ai_detected': phase4['ai_detected'],
                 'ai_type': phase4['ai_type'],
-                'confidence': phase4['confidence'],
-                'spectral_artifacts': phase4['spectral_artifacts']['artifacts_detected'],
-                'prosody_artifacts': phase4['prosody_analysis']['prosody_artifacts'],
-                'breathing_artifacts': phase4['breathing_pauses']['breathing_artifacts'],
-                'timing_artifacts': phase4['micro_timing']['timing_artifacts'],
-                'harmonic_artifacts': phase4['harmonic_analysis']['harmonic_artifacts'],
-                'statistical_artifacts': phase4['statistical_features']['statistical_artifacts']
+                'confidence': phase4['confidence']
             }
         }
 

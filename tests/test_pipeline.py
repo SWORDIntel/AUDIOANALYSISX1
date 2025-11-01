@@ -11,8 +11,8 @@ from pathlib import Path
 import json
 import sys
 
-from pipeline import VoiceManipulationDetector
-from verification import OutputVerifier
+from audioanalysisx1.pipeline import VoiceManipulationDetector
+from audioanalysisx1.verification import OutputVerifier
 
 
 class TestSuiteRunner:
@@ -145,12 +145,13 @@ class TestSuiteRunner:
         print("\n✓ Test samples created successfully!\n")
 
         return [
-            (male_path, False, "Clean male voice"),
-            (female_path, False, "Clean female voice"),
-            (male_pitched_path, True, "Male voice pitch-shifted"),
-            (female_pitched_path, True, "Female voice pitch-shifted"),
-            (male_both_path, True, "Male voice pitch+time manipulated"),
-            (female_time_path, True, "Female voice time-stretched")
+            (male_path, False, "Clean male voice", False),
+            (female_path, False, "Clean female voice", False),
+            (male_pitched_path, True, "Male voice pitch-shifted", False),
+            (female_pitched_path, True, "Female voice pitch-shifted", False),
+            (male_both_path, True, "Male voice pitch+time manipulated", False),
+            (female_time_path, True, "Female voice time-stretched", False),
+            (female_path, False, "Clean female voice (AI check)", True)
         ]
 
     def run_tests(self):
@@ -168,10 +169,13 @@ class TestSuiteRunner:
 
         results = []
 
-        for i, (audio_path, expected_manipulation, description) in enumerate(test_cases, 1):
+        for i, (audio_path, expected_manipulation, description, is_ai_check) in enumerate(test_cases, 1):
             print(f"[TEST {i}/{len(test_cases)}] {description}")
             print(f"  File: {audio_path.name}")
-            print(f"  Expected: {'MANIPULATION' if expected_manipulation else 'CLEAN'}")
+            if is_ai_check:
+                print("  Expected: CLEAN (No AI voice detected)")
+            else:
+                print(f"  Expected: {'MANIPULATION' if expected_manipulation else 'CLEAN'}")
 
             try:
                 # Run analysis
@@ -183,16 +187,23 @@ class TestSuiteRunner:
 
                 # Verify detection
                 detected = report['ALTERATION_DETECTED']
-                correct = (detected == expected_manipulation)
+                ai_detected = "AI VOICE DETECTED" in report.get('SUMMARY', '')
 
-                print(f"  Actual: {'MANIPULATION' if detected else 'CLEAN'}")
+                if is_ai_check:
+                    correct = not ai_detected and not detected
+                    print(f"  Actual: {'AI VOICE DETECTED' if ai_detected else 'No AI voice detected'}")
+                else:
+                    correct = (detected == expected_manipulation)
+                    print(f"  Actual: {'MANIPULATION' if detected else 'CLEAN'}")
+
                 print(f"  Confidence: {report['CONFIDENCE']}")
                 print(f"  Result: {'✓ PASS' if correct else '✗ FAIL'}")
 
                 results.append({
                     'test': description,
-                    'expected': expected_manipulation,
+                    'expected': "CLEAN (No AI)" if is_ai_check else expected_manipulation,
                     'detected': detected,
+                    'ai_detected': ai_detected,
                     'correct': correct,
                     'confidence': report['CONFIDENCE']
                 })
@@ -240,8 +251,17 @@ class TestSuiteRunner:
         for i, result in enumerate(results, 1):
             status = "✓ PASS" if result['correct'] else "✗ FAIL"
             print(f"{i}. {result['test']}")
-            print(f"   Expected: {'MANIPULATION' if result['expected'] else 'CLEAN'}")
-            print(f"   Detected: {'MANIPULATION' if result['detected'] else 'CLEAN'}")
+            expected = result['expected']
+            if isinstance(expected, bool):
+                print(f"   Expected: {'MANIPULATION' if expected else 'CLEAN'}")
+            else:
+                print(f"   Expected: {expected}")
+
+            if result.get('ai_detected') is not None:
+                 print(f"   Detected: {'MANIPULATION' if result['detected'] else 'CLEAN'} (AI: {'Yes' if result['ai_detected'] else 'No'})")
+            else:
+                print(f"   Detected: {'MANIPULATION' if result['detected'] else 'CLEAN'}")
+
             print(f"   Confidence: {result.get('confidence', 'N/A')}")
             print(f"   Status: {status}")
             if 'error' in result:

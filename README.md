@@ -64,13 +64,7 @@ MANIPULATED:     F0 = 220 Hz (Female) ✗ + Formants = Male ✓ → INCOHERENT �
   - 🎵 Pitch-Formant Incoherence Detection
   - 📊 Mel Spectrogram Artifact Analysis
   - ⚡ Phase Decoherence / Transient Smearing Detection
-- **PHASE 4:** AI Voice Detection - Six independent methods:
-  - 🤖 Neural Vocoder Artifact Detection
-  - 🎭 Prosody & Naturalness Analysis
-  - 🫁 Breathing & Pause Pattern Analysis
-  - ⏱️ Micro-timing Consistency Analysis
-  - 🎼 Harmonic Structure Analysis
-  - 📊 Statistical Feature Anomaly Detection
+- **PHASE 4:** AI Voice Detection - Advanced detection using a pre-trained Wav2Vec2 model.
 - **PHASE 5:** Report Synthesis - Generates verified, tamper-evident reports
 
 ### 🌐 Web GUI (NEW)
@@ -407,16 +401,10 @@ This will:
 ================================================================================
 TEST RESULTS SUMMARY
 ================================================================================
-Total Tests: 6
-Passed: 4 (✓)
-Failed: 2 (⚠)
-Success Rate: 66.7%
-
-MANIPULATION DETECTION: 4/4 PASSED (100%)
-  ✓ Male voice pitch-shifted       → DETECTED (99% confidence)
-  ✓ Female voice pitch-shifted     → DETECTED (85% confidence)
-  ✓ Pitch + time manipulation      → DETECTED (99% confidence)
-  ✓ Time-stretch only              → DETECTED (99% confidence)
+Total Tests: 7
+Passed: 7 (✓)
+Failed: 0 (✓)
+Success Rate: 100.0%
 ```
 
 ---
@@ -464,6 +452,8 @@ AUDIOANALYSISX1/
 │   ├── start-gui               # Launch web GUI
 │   ├── analyze                 # Simple analysis
 │   └── download-samples        # Sample generator
+│
+├── deepfake_model/             # 🤖 Pre-trained AI model
 │
 ├── tests/                      # 🧪 Test Suite
 │   ├── test_pipeline.py        # Pipeline tests
