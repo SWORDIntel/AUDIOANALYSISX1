@@ -186,17 +186,18 @@ class TestSuiteRunner:
                 )
 
                 # Verify detection
-                detected = report['ALTERATION_DETECTED']
-                ai_detected = "AI VOICE DETECTED" in report.get('SUMMARY', '')
+                detected = report['alteration_detected']
+                ai_detected = report['ai_voice_detected']
 
                 if is_ai_check:
                     correct = not ai_detected and not detected
-                    print(f"  Actual: {'AI VOICE DETECTED' if ai_detected else 'No AI voice detected'}")
+                    print(f"  Actual: {'AI voice detected' if ai_detected else 'No AI voice detected'}")
                 else:
                     correct = (detected == expected_manipulation)
                     print(f"  Actual: {'MANIPULATION' if detected else 'CLEAN'}")
 
-                print(f"  Confidence: {report['CONFIDENCE']}")
+                confidence_str = f"{report['confidence']['score']:.0%} ({report['confidence']['label']})"
+                print(f"  Confidence: {confidence_str}")
                 print(f"  Result: {'✓ PASS' if correct else '✗ FAIL'}")
 
                 results.append({
@@ -205,7 +206,7 @@ class TestSuiteRunner:
                     'detected': detected,
                     'ai_detected': ai_detected,
                     'correct': correct,
-                    'confidence': report['CONFIDENCE']
+                    'confidence': confidence_str
                 })
 
             except Exception as e:
@@ -303,8 +304,8 @@ class TestSuiteRunner:
             report_data = json.load(f)
 
         # Tamper with the data
-        original_confidence = report_data['CONFIDENCE']
-        report_data['CONFIDENCE'] = 'TAMPERED'
+        original_confidence = report_data['confidence']['score']
+        report_data['confidence']['score'] = 'TAMPERED'
 
         tampered_path = self.results_dir / 'tampered_report.json'
         with open(tampered_path, 'w') as f:

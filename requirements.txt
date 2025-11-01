@@ -8,3 +8,5 @@ rich>=13.0.0
 click>=8.1.0
 gradio>=4.0.0
 pandas>=2.0.0
+transformers>=4.30.0
+torch>=2.0.0

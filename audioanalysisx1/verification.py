@@ -111,7 +111,7 @@ class OutputVerifier:
         verification['report_hash_sha256'] = report_hash
 
         # Add verification block to report
-        report['VERIFICATION'] = verification
+        report['verification'] = verification
 
         return report
 
@@ -128,13 +128,13 @@ class OutputVerifier:
         with open(report_path, 'r') as f:
             report = json.load(f)
 
-        if 'VERIFICATION' not in report:
+        if 'verification' not in report:
             return {
                 'valid': False,
                 'error': 'Report does not contain verification metadata'
             }
 
-        verification = report['VERIFICATION']
+        verification = report['verification']
 
         # Check if audio file still exists
         audio_path = verification['audio_file']['path']
@@ -157,11 +157,11 @@ class OutputVerifier:
             }
 
         # Verify report integrity
-        # Make a deep copy and remove entire VERIFICATION block
+        # Make a deep copy and remove entire verification block
         import copy
         report_copy = copy.deepcopy(report)
-        stored_report_hash = report_copy['VERIFICATION']['report_hash_sha256']
-        del report_copy['VERIFICATION']
+        stored_report_hash = report_copy['verification']['report_hash_sha256']
+        del report_copy['verification']
 
         # Sanitize for JSON (same as during signing)
         report_sanitized = sanitize_for_json(report_copy)
@@ -207,8 +207,8 @@ class OutputVerifier:
                 'hash_sha256': self.compute_audio_hash(audio_path)['file_hash']
             },
             'analysis': {
-                'alteration_detected': report['ALTERATION_DETECTED'],
-                'confidence': report['CONFIDENCE'],
+                'alteration_detected': report['alteration_detected'],
+                'confidence': report['confidence']['score'],
                 'method': 'MULTI-PHASE-FORENSIC-ANALYSIS'
             },
             'integrity_verified': True
@@ -233,51 +233,51 @@ class ReportExporter:
         """
         md_content = f"""# FORENSIC AUDIO ANALYSIS REPORT
 
-**Generated:** {report.get('ANALYSIS_TIMESTAMP', 'N/A')}
+**Generated:** {report.get('timestamp', 'N/A')}
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-- **Asset ID:** {report['ASSET_ID']}
-- **Alteration Detected:** {report['ALTERATION_DETECTED']}
-- **Confidence:** {report['CONFIDENCE']}
+- **Asset ID:** {report['asset_id']}
+- **Alteration Detected:** {report['alteration_detected']}
+- **Confidence:** {report['confidence']['score']:.0%} ({report['confidence']['label']})
 
 ---
 
 ## CLASSIFICATION
 
-- **Presented As:** {report['PRESENTED_AS']}
-- **Probable Sex:** {report['PROBABLE_SEX']}
+- **Presented As:** {report['presented_sex']}
+- **Probable Sex:** {report['probable_sex']}
 
 ---
 
 ## BASELINE METRICS
 
 ### Pitch Analysis (F0)
-- **Deception Baseline:** {report['DECEPTION_BASELINE_F0']}
+- **Deception Baseline:** {report['f0_baseline']}
 
 ### Vocal Tract Analysis (Formants)
-- **Physical Baseline:** {report['PHYSICAL_BASELINE_FORMANTS']}
+- **Physical Baseline:** F1: {report['formant_baseline']['f1']}, F2: {report['formant_baseline']['f2']}
 
 ---
 
 ## EVIDENCE VECTORS
 
 ### [1] PITCH MANIPULATION
-{report['EVIDENCE_VECTOR_1_PITCH']}
+{report['evidence']['pitch']}
 
 ### [2] TIME MANIPULATION
-{report['EVIDENCE_VECTOR_2_TIME']}
+{report['evidence']['time']}
 
 ### [3] SPECTRAL ARTIFACTS
-{report['EVIDENCE_VECTOR_3_SPECTRAL']}
+{report['evidence']['spectral']}
 
 ---
 
 ## DETAILED FINDINGS
 
-{report['DETAILED_FINDINGS']['summary']}
+{report['summary']}
 
 ---
 
@@ -285,8 +285,8 @@ class ReportExporter:
 
 """
 
-        if 'VERIFICATION' in report:
-            v = report['VERIFICATION']
+        if 'verification' in report:
+            v = report['verification']
             md_content += f"""
 **Timestamp:** {v['timestamp_utc']}
 **Audio File:** {v['audio_file']['filename']}
@@ -311,13 +311,14 @@ This report is cryptographically signed and tamper-evident.
         import csv
 
         headers = [
-            'ASSET_ID',
-            'ALTERATION_DETECTED',
-            'CONFIDENCE',
-            'PRESENTED_AS',
-            'PROBABLE_SEX',
-            'F0_MEDIAN_HZ',
-            'TIMESTAMP'
+            'asset_id',
+            'alteration_detected',
+            'confidence_score',
+            'confidence_label',
+            'presented_sex',
+            'probable_sex',
+            'f0_median_hz',
+            'timestamp'
         ]
 
         with open(output_path, 'w', newline='') as f:
@@ -326,14 +327,15 @@ This report is cryptographically signed and tamper-evident.
 
             for report in reports:
                 # Extract F0 value from string
-                f0_str = report['DECEPTION_BASELINE_F0'].split()[0]
+                f0_str = report['f0_baseline'].split()[0]
 
                 writer.writerow({
-                    'ASSET_ID': report['ASSET_ID'],
-                    'ALTERATION_DETECTED': report['ALTERATION_DETECTED'],
-                    'CONFIDENCE': report['CONFIDENCE'],
-                    'PRESENTED_AS': report['PRESENTED_AS'],
-                    'PROBABLE_SEX': report['PROBABLE_SEX'],
-                    'F0_MEDIAN_HZ': f0_str,
-                    'TIMESTAMP': report.get('ANALYSIS_TIMESTAMP', 'N/A')
+                    'asset_id': report['asset_id'],
+                    'alteration_detected': report['alteration_detected'],
+                    'confidence_score': report['confidence']['score'],
+                    'confidence_label': report['confidence']['label'],
+                    'presented_sex': report['presented_sex'],
+                    'probable_sex': report['probable_sex'],
+                    'f0_median_hz': f0_str,
+                    'timestamp': report.get('timestamp', 'N/A')
                 })

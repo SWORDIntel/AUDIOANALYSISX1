@@ -183,15 +183,16 @@ Perfect for: Server environments, SSH sessions
 ### Option 4: Python API
 
 ```python
-from audioanalysisx1 import VoiceManipulationDetector
+from audioanalysisx1.pipeline import VoiceManipulationDetector
 
 detector = VoiceManipulationDetector()
 report = detector.analyze('sample.wav', output_dir='results/')
 
 # Check results
-if report['ALTERATION_DETECTED']:
+if report['alteration_detected']:
     print(f"⚠ MANIPULATION DETECTED")
-    print(f"Confidence: {report['CONFIDENCE']}")
+    confidence = report['confidence']
+    print(f"Confidence: {confidence['score']:.0%} ({confidence['label']})")
 else:
     print(f"✓ No manipulation detected")
 ```
@@ -220,21 +221,22 @@ Each analysis generates a comprehensive report:
 
 ```json
 {
-  "ASSET_ID": "sample_001",
-  "ALTERATION_DETECTED": true,
-  "CONFIDENCE": "99% (Very High)",
-
-  "PRESENTED_AS": "Female",          // Based on pitch (F0)
-  "PROBABLE_SEX": "Male",            // Based on formants (physical)
-
-  "DECEPTION_BASELINE_F0": "221.5 Hz (Median)",
-  "PHYSICAL_BASELINE_FORMANTS": "F1: 498 Hz, F2: 1510 Hz, F3: 2490 Hz",
-
-  "EVIDENCE_VECTOR_1_PITCH": "Pitch-Formant Incoherence Detected...",
-  "EVIDENCE_VECTOR_2_TIME": "Phase Decoherence / Transient Smearing Detected...",
-  "EVIDENCE_VECTOR_3_SPECTRAL": "Spectral Artifacts Detected...",
-
-  "VERIFICATION": {
+  "asset_id": "sample_001",
+  "alteration_detected": true,
+  "confidence": {
+    "score": 0.99,
+    "label": "Very High"
+  },
+  "presented_sex": "Female",
+  "probable_sex": "Male",
+  "f0_baseline": "221.5 Hz",
+  "evidence": {
+    "pitch": "Pitch-Formant Incoherence Detected...",
+    "time": "Phase Decoherence / Transient Smearing Detected...",
+    "spectral": "Spectral Artifacts Detected...",
+    "ai": "No AI voice artifacts detected"
+  },
+  "verification": {
     "file_hash_sha256": "7bd4d4ce92be3174...",
     "report_hash_sha256": "6e5edefb6fd84dc9...",
     "timestamp_utc": "2025-10-29T23:05:08Z"
@@ -244,12 +246,12 @@ Each analysis generates a comprehensive report:
 
 ### Confidence Levels
 
-| Level | Description | Detection Methods Triggered |
-|-------|-------------|----------------------------|
-| **99% (Very High)** | Multiple independent confirmations | All 3 methods |
-| **85% (High)** | Strong evidence | 2 methods |
-| **60-75% (Medium)** | Moderate evidence | 1 method |
-| **0% (Low)** | No manipulation detected | 0 methods |
+| Level | Score Range | Description |
+|---|---|---|
+| **Very High** | >= 90% | Multiple independent confirmations |
+| **High** | 75% - 89% | Strong evidence from multiple vectors |
+| **Medium** | 50% - 74% | Moderate evidence from a single vector |
+| **Low** | < 50% | No significant manipulation detected |
 
 ---
 
