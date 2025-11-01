@@ -80,23 +80,31 @@ class ReportSynthesizer:
 
         # Construct report
         report = {
-            'ASSET_ID': asset_id,
-            'ANALYSIS_TIMESTAMP': datetime.utcnow().isoformat() + 'Z',
-            'DECEPTION_BASELINE_F0': f"{f0_median:.1f} Hz (Median)",
-            'PRESENTED_AS': presented_sex,
-            'PHYSICAL_BASELINE_FORMANTS': (
-                f"F1: {f1_median:.0f} Hz, F2: {f2_median:.0f} Hz, F3: {f3_median:.0f} Hz"
-            ),
-            'PROBABLE_SEX': probable_sex,
-            'ALTERATION_DETECTED': alteration_detected,
-            'AI_VOICE_DETECTED': ai_detected,
-            'AI_TYPE': ai_type,
-            'EVIDENCE_VECTOR_1_PITCH': evidence_pitch,
-            'EVIDENCE_VECTOR_2_TIME': evidence_time,
-            'EVIDENCE_VECTOR_3_SPECTRAL': evidence_spectral,
-            'EVIDENCE_VECTOR_4_AI': evidence_ai,
-            'CONFIDENCE': f"{confidence:.0%} ({self._confidence_label(confidence)})",
-            'DETAILED_FINDINGS': detailed_findings
+            'asset_id': asset_id,
+            'timestamp': datetime.utcnow().isoformat() + 'Z',
+            'f0_baseline': f"{f0_median:.1f} Hz",
+            'presented_sex': presented_sex,
+            'formant_baseline': {
+                'f1': f"{f1_median:.0f} Hz",
+                'f2': f"{f2_median:.0f} Hz",
+                'f3': f"{f3_median:.0f} Hz",
+            },
+            'probable_sex': probable_sex,
+            'alteration_detected': alteration_detected,
+            'ai_voice_detected': ai_detected,
+            'ai_voice_type': ai_type,
+            'confidence': {
+                'score': confidence,
+                'label': self._confidence_label(confidence)
+            },
+            'evidence': {
+                'pitch': evidence_pitch,
+                'time': evidence_time,
+                'spectral': evidence_spectral,
+                'ai': evidence_ai,
+            },
+            'summary': detailed_findings['summary'],
+            'details': detailed_findings
         }
 
         return report
@@ -267,24 +275,59 @@ class ReportSynthesizer:
         Args:
             report: Report dictionary
         """
-        print("\n" + "━" * 80)
-        print("FORENSIC AUDIO ANALYSIS REPORT")
-        print("━" * 80)
-        print(f"ASSET_ID: {report['ASSET_ID']}")
-        print(f"TIMESTAMP: {report['ANALYSIS_TIMESTAMP']}")
-        print("━" * 80)
-        print(f"DECEPTION BASELINE (F0): {report['DECEPTION_BASELINE_F0']}")
-        print(f"PRESENTED AS: {report['PRESENTED_AS']}")
-        print(f"PHYSICAL BASELINE (Formants): {report['PHYSICAL_BASELINE_FORMANTS']}")
-        print(f"PROBABLE SEX: {report['PROBABLE_SEX']}")
-        print("━" * 80)
-        print(f"ALTERATION DETECTED: {report['ALTERATION_DETECTED']}")
-        print(f"CONFIDENCE: {report['CONFIDENCE']}")
-        print("━" * 80)
-        print("EVIDENCE VECTORS:")
-        print(f"  [1] PITCH: {report['EVIDENCE_VECTOR_1_PITCH']}")
-        print(f"  [2] TIME: {report['EVIDENCE_VECTOR_2_TIME']}")
-        print(f"  [3] SPECTRAL: {report['EVIDENCE_VECTOR_3_SPECTRAL']}")
-        print("━" * 80)
-        print(f"SUMMARY: {report['DETAILED_FINDINGS']['summary']}")
-        print("━" * 80 + "\n")
+        # --- Helper for color coding ---
+        def get_color(text, color_code):
+            return f"\033[{color_code}m{text}\033[0m"
+
+        # --- Colors ---
+        HEADER = '1;94'
+        SECTION = '1;96'
+        LABEL = '1;97'
+        PASS = '1;92'
+        FAIL = '1;91'
+        INFO = '93'
+
+        # --- Report Data ---
+        asset_id = report['asset_id']
+        timestamp = report['timestamp']
+        alteration_detected = report['alteration_detected']
+        confidence = report['confidence']['score']
+        confidence_label = report['confidence']['label']
+
+        # --- Header ---
+        print("\n" + get_color(" " * 80, '44'))
+        print(get_color(f" F O R E N S I C   A U D I O   A N A L Y S I S", HEADER))
+        print(get_color("=" * 80, '1;94'))
+        print(f"{get_color('Asset ID:', LABEL)} {asset_id}")
+        print(f"{get_color('Timestamp:', LABEL)} {timestamp}")
+        print(get_color("-" * 80, '94'))
+
+
+        # --- Primary Findings ---
+        print(get_color("\n[ P R I M A R Y   F I N D I N G S ]", SECTION))
+        if alteration_detected:
+            print(f"{get_color('Status:', LABEL)}      {get_color('ALTERATION DETECTED', FAIL)}")
+        else:
+            print(f"{get_color('Status:', LABEL)}      {get_color('No Alteration Detected', PASS)}")
+        print(f"{get_color('Confidence:', LABEL)} {confidence:.0%} ({confidence_label})")
+
+
+        # --- Vocal Profile ---
+        print(get_color("\n[ V O C A L   P R O F I L E ]", SECTION))
+        print(f"{get_color('Pitch (F0):', LABEL)}     {report['f0_baseline']} (Presented as {report['presented_sex']})")
+        print(f"{get_color('Formants (Phys):', LABEL)} F1: {report['formant_baseline']['f1']}, F2: {report['formant_baseline']['f2']} (Probable Sex: {report['probable_sex']})")
+
+
+        # --- Evidence Summary ---
+        print(get_color("\n[ E V I D E N C E   S U M M A R Y ]", SECTION))
+        print(f"  {'Pitch:'.ljust(10)} {report['evidence']['pitch']}")
+        print(f"  {'Time:'.ljust(10)} {report['evidence']['time']}")
+        print(f"  {'Spectral:'.ljust(10)} {report['evidence']['spectral']}")
+        print(f"  {'AI Voice:'.ljust(10)} {report['evidence']['ai']}")
+
+
+        # --- Executive Summary ---
+        print(get_color("\n[ E X E C U T I V E   S U M M A R Y ]", SECTION))
+        print(get_color(report['summary'], INFO))
+        print(get_color(" " * 80, '44'))
+        print()

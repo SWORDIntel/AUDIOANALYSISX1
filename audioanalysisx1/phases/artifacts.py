@@ -14,6 +14,28 @@ class ArtifactAnalyzer:
     Multi-vector artifact detection for voice manipulation.
     Detects pitch-shifting and time-stretching artifacts.
     """
+    # --- Pitch-Formant Incoherence Constants ---
+    FEMALE_EXPECTED_F1_RANGE = (600, 1000)
+    FEMALE_EXPECTED_F2_RANGE = (1400, 2200)
+    MALE_EXPECTED_F1_RANGE = (400, 800)
+    MALE_EXPECTED_F2_RANGE = (1000, 1500)
+    CONFIDENCE_BASE = 0.5
+    MAX_CONFIDENCE = 0.99
+
+    # --- Mel Spectrogram Constants ---
+    N_MELS = 128
+    NOISE_FLOOR_PERCENTILE = 10
+    NOISE_FLOOR_STD_THRESHOLD = 2.0
+    SPECTRAL_SMOOTHNESS_THRESHOLD = 6.2 # Tuned to avoid false positives on clean female speech
+
+    # --- Phase Coherence Constants ---
+    N_FFT = 2048
+    HOP_LENGTH = 512
+    PHASE_ENTROPY_BINS = 50
+    ONSET_SHARPNESS_THRESHOLD = 0.1 # Lowered to detect subtle smearing
+    PHASE_VARIANCE_THRESHOLD = 4.0 # Increased to avoid false positives
+    PHASE_EVIDENCE_VARIANCE_THRESHOLD = 2.5
+
 
     def __init__(self):
         self.detection_results = {}
@@ -81,12 +103,12 @@ class ArtifactAnalyzer:
         # Calculate how far the formants are from expected values for presented pitch
         if presented_sex == 'Female':
             # If presented as female, but formants are male-like
-            expected_f1_range = (600, 1000)
-            expected_f2_range = (1400, 2200)
+            expected_f1_range = self.FEMALE_EXPECTED_F1_RANGE
+            expected_f2_range = self.FEMALE_EXPECTED_F2_RANGE
         else:
             # If presented as male, but formants are female-like
-            expected_f1_range = (400, 800)
-            expected_f2_range = (1000, 1500)
+            expected_f1_range = self.MALE_EXPECTED_F1_RANGE
+            expected_f2_range = self.MALE_EXPECTED_F2_RANGE
 
         # Calculate deviation scores
         f1_deviation = 0
@@ -102,7 +124,7 @@ class ArtifactAnalyzer:
             f2_deviation = (f2_median - expected_f2_range[1]) / expected_f2_range[1]
 
         # Average deviation as confidence metric
-        confidence = min(0.5 + (f1_deviation + f2_deviation) / 2, 0.99)
+        confidence = min(self.CONFIDENCE_BASE + (f1_deviation + f2_deviation) / 2, self.MAX_CONFIDENCE)
 
         return {
             'incoherence_detected': incoherence_detected,
@@ -133,16 +155,16 @@ class ArtifactAnalyzer:
             dict: Mel spectrogram artifact analysis
         """
         # Compute Mel spectrogram
-        mel_spec = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
+        mel_spec = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=self.N_MELS)
         mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
 
         # Analyze noise floor consistency (artifact of processing)
         # Natural recordings have variable noise floor, processed audio has consistent floor
-        noise_floor = np.percentile(mel_spec_db, 10, axis=1)
+        noise_floor = np.percentile(mel_spec_db, self.NOISE_FLOOR_PERCENTILE, axis=1)
         noise_floor_std = np.std(noise_floor)
 
         # Lower std indicates more consistent (artificial) noise floor
-        consistent_noise_floor = noise_floor_std < 2.0  # More conservative threshold
+        consistent_noise_floor = noise_floor_std < self.NOISE_FLOOR_STD_THRESHOLD  # More conservative threshold
 
         # Analyze spectral smoothness (ringing detection)
         # Calculate variation in spectral envelope
@@ -151,7 +173,7 @@ class ArtifactAnalyzer:
         spectral_smoothness = np.std(spectral_gradient)
 
         # High smoothness variance can indicate artificial harmonics
-        unnatural_harmonics = spectral_smoothness > 6.2 # Increased threshold
+        unnatural_harmonics = spectral_smoothness > self.SPECTRAL_SMOOTHNESS_THRESHOLD # Increased threshold
 
         artifacts_detected = consistent_noise_floor or unnatural_harmonics
 
@@ -193,7 +215,7 @@ class ArtifactAnalyzer:
             dict: Phase coherence analysis results
         """
         # Compute STFT
-        D = librosa.stft(y, n_fft=2048, hop_length=512)
+        D = librosa.stft(y, n_fft=self.N_FFT, hop_length=self.HOP_LENGTH)
 
         # Extract magnitude and phase
         magnitude = np.abs(D)
@@ -214,7 +236,7 @@ class ArtifactAnalyzer:
         # Calculate phase entropy (measure of disorder)
         # Time-stretched audio has higher entropy
         phase_entropy = stats.entropy(
-            np.histogram(phase_diff.flatten(), bins=50)[0] + 1e-10
+            np.histogram(phase_diff.flatten(), bins=self.PHASE_ENTROPY_BINS)[0] + 1e-10
         )
 
         # Detect transient smearing
@@ -226,11 +248,11 @@ class ArtifactAnalyzer:
         onset_sharpness = np.mean(np.abs(np.diff(onset_env)))
 
         # Low sharpness indicates smeared transients
-        transient_smearing = onset_sharpness < 0.1 # Lowered threshold
+        transient_smearing = onset_sharpness < self.ONSET_SHARPNESS_THRESHOLD # Lowered threshold
 
         # Overall detection
         # High phase variance OR low transient sharpness indicates time-stretching
-        time_stretch_detected = (phase_variance > 4.0) or transient_smearing # Increased threshold
+        time_stretch_detected = (phase_variance > self.PHASE_VARIANCE_THRESHOLD) or transient_smearing # Increased threshold
 
         return {
             'transient_smearing_detected': time_stretch_detected,
@@ -252,7 +274,7 @@ class ArtifactAnalyzer:
             return "No phase artifacts detected - natural timing characteristics"
 
         evidence = []
-        if variance > 2.5:
+        if variance > self.PHASE_EVIDENCE_VARIANCE_THRESHOLD:
             evidence.append(f"High phase variance detected ({variance:.2f})")
         if smearing:
             evidence.append(f"Transient smearing detected (sharpness: {sharpness:.2f})")
