@@ -1,0 +1,106 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║                   AUDIOANALYSISX1                            ║
+║          Voice Manipulation & AI Detection System            ║
+╚══════════════════════════════════════════════════════════════╝
+
+
+📁 Analyzing: female_time_stretched.wav
+📂 Output: results/
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INITIATING FORENSIC ANALYSIS: female_time_stretched
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[*] Loading audio file...
+    ✓ Loaded: 91875 samples @ 22050 Hz (4.17 seconds)
+
+[PHASE 1] BASELINE ANALYSIS (ISOLATE THE DECEPTION)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Extracting fundamental frequency (F0)...
+    ✓ F0 Median: 219.6 Hz
+    ✓ Presented as: Female
+
+[PHASE 2] VOCAL TRACT ANALYSIS (BYPASS THE DECEPTION)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Extracting formants (F1, F2, F3)...
+    ✓ F1: 536 Hz
+    ✓ F2: 2449 Hz
+    ✓ F3: 3535 Hz
+    ✓ Probable sex: Male
+
+[PHASE 3] ARTIFACT & COHERENCE ANALYSIS (AUGMENTED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Analyzing pitch-formant coherence...
+[*] Scanning mel spectrogram for artifacts...
+[*] Detecting phase decoherence and transient smearing...
+    ⚠ PITCH-FORMANT INCOHERENCE DETECTED
+
+[PHASE 4] AI VOICE DETECTION (DEEPFAKE/TTS/SYNTHETIC)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Analyzing spectral artifacts (neural vocoder detection)...
+[*] Analyzing prosody and naturalness...
+[*] Detecting breathing patterns and pauses...
+[*] Analyzing micro-timing consistency...
+[*] Performing harmonic analysis...
+[*] Extracting statistical features...
+    ⚠ AI VOICE DETECTED: Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN)
+    ⚠ Confidence: 90%
+
+[PHASE 5] SYNTHESIS & FINAL REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Synthesizing findings...
+[*] Computing cryptographic verification...
+    ✓ Report saved: results/female_time_stretched_report.json
+    ✓ Markdown report: results/female_time_stretched_report.md
+[*] Generating visualizations...
+    ✓ Visualizations saved: 4 plots
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORENSIC AUDIO ANALYSIS REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ASSET_ID: female_time_stretched
+TIMESTAMP: 2025-10-31T08:42:07.364017Z
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DECEPTION BASELINE (F0): 219.6 Hz (Median)
+PRESENTED AS: Female
+PHYSICAL BASELINE (Formants): F1: 536 Hz, F2: 2449 Hz, F3: 3535 Hz
+PROBABLE SEX: Male
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ALTERATION DETECTED: True
+CONFIDENCE: 85% (High)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EVIDENCE VECTORS:
+  [1] PITCH: Pitch-Formant Incoherence Detected. Pitch suggests Female (F0: 219.6 Hz), but formants suggest Male (F1: 536.1 Hz, F2: 2449.0 Hz)
+  [2] TIME: No time-stretch artifacts detected
+  [3] SPECTRAL: No spectral artifacts detected
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUMMARY: MANIPULATION DETECTED: Audio presents as Female (F0: 219.6 Hz) but physical vocal tract characteristics indicate Male (F1: 536 Hz). AI voice detected: Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN). Multiple independent artifact detection methods confirm alteration.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+======================================================================
+ANALYSIS RESULTS
+======================================================================
+
+                               Detection Summary
+╭──────────────────────────┬──────────┬────────────────────────────────────────╮
+│ Category                 │ Result   │ Details                                │
+├──────────────────────────┼──────────┼────────────────────────────────────────┤
+│ Voice Type               │ Female   │ F0: 219.6 Hz (Median)                  │
+│ Physical Characteristics │ Male     │ F1: 536 Hz, F2: 2449 Hz, F3: 3535 Hz   │
+│ Manipulation             │ DETECTED │ 85% (High)                             │
+│ AI Voice                 │ DETECTED │ Neural Vocoder                         │
+│                          │          │ (WaveNet/WaveGlow/HiFi-GAN)            │
+╰──────────────────────────┴──────────┴────────────────────────────────────────╯
+
+⚠ EVIDENCE DETECTED:
+  [1] Pitch-Formant Incoherence Detected. Pitch suggests Female (F0: 219.6 Hz),
+but formants suggest Male (F1: 536.1 Hz, F2: 2449.0 Hz)
+  [4] AI Voice Detected (Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN), 90%
+confidence). Neural vocoder artifacts detected; Lack of natural
+breathing/pauses; Unnatural harmonics; Statistical anomalies
+
+✓ Analysis complete!
+📄 Full report: results/female_time_stretched_report.json

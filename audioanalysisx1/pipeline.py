@@ -114,12 +114,7 @@ class VoiceManipulationDetector:
         # PHASE 4: AI Voice Detection
         print("[PHASE 4] AI VOICE DETECTION (DEEPFAKE/TTS/SYNTHETIC)")
         print("━" * 80)
-        print("[*] Analyzing spectral artifacts (neural vocoder detection)...")
-        print("[*] Analyzing prosody and naturalness...")
-        print("[*] Detecting breathing patterns and pauses...")
-        print("[*] Analyzing micro-timing consistency...")
-        print("[*] Performing harmonic analysis...")
-        print("[*] Extracting statistical features...")
+        print("[*] Analyzing audio for AI voice artifacts...")
         phase4_results = self.phase4.analyze(y, sr)
 
         if phase4_results['ai_detected']:

@@ -1,0 +1,104 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║                   AUDIOANALYSISX1                            ║
+║          Voice Manipulation & AI Detection System            ║
+╚══════════════════════════════════════════════════════════════╝
+
+
+📁 Analyzing: synthetic_male.wav
+📂 Output: results/
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INITIATING FORENSIC ANALYSIS: synthetic_male
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[*] Loading audio file...
+    ✓ Loaded: 110250 samples @ 22050 Hz (5.00 seconds)
+
+[PHASE 1] BASELINE ANALYSIS (ISOLATE THE DECEPTION)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Extracting fundamental frequency (F0)...
+    ✓ F0 Median: 119.6 Hz
+    ✓ Presented as: Male
+
+[PHASE 2] VOCAL TRACT ANALYSIS (BYPASS THE DECEPTION)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Extracting formants (F1, F2, F3)...
+    ✓ F1: 255 Hz
+    ✓ F2: 1967 Hz
+    ✓ F3: 3017 Hz
+    ✓ Probable sex: Male
+
+[PHASE 3] ARTIFACT & COHERENCE ANALYSIS (AUGMENTED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Analyzing pitch-formant coherence...
+[*] Scanning mel spectrogram for artifacts...
+[*] Detecting phase decoherence and transient smearing...
+    ✓ No manipulation artifacts detected
+
+[PHASE 4] AI VOICE DETECTION (DEEPFAKE/TTS/SYNTHETIC)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Analyzing spectral artifacts (neural vocoder detection)...
+[*] Analyzing prosody and naturalness...
+[*] Detecting breathing patterns and pauses...
+[*] Analyzing micro-timing consistency...
+[*] Performing harmonic analysis...
+[*] Extracting statistical features...
+    ⚠ AI VOICE DETECTED: Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN)
+    ⚠ Confidence: 95%
+
+[PHASE 5] SYNTHESIS & FINAL REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[*] Synthesizing findings...
+[*] Computing cryptographic verification...
+    ✓ Report saved: results/synthetic_male_report.json
+    ✓ Markdown report: results/synthetic_male_report.md
+[*] Generating visualizations...
+    ✓ Visualizations saved: 4 plots
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORENSIC AUDIO ANALYSIS REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ASSET_ID: synthetic_male
+TIMESTAMP: 2025-10-31T07:53:43.325441Z
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DECEPTION BASELINE (F0): 119.6 Hz (Median)
+PRESENTED AS: Male
+PHYSICAL BASELINE (Formants): F1: 255 Hz, F2: 1967 Hz, F3: 3017 Hz
+PROBABLE SEX: Male
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ALTERATION DETECTED: True
+CONFIDENCE: 95% (Very High)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EVIDENCE VECTORS:
+  [1] PITCH: No pitch-formant incoherence detected
+  [2] TIME: No time-stretch artifacts detected
+  [3] SPECTRAL: No spectral artifacts detected
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUMMARY: MANIPULATION DETECTED: Audio presents as Male (F0: 119.6 Hz) but physical vocal tract characteristics indicate Male (F1: 255 Hz). AI voice detected: Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN). Multiple independent artifact detection methods confirm alteration.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+======================================================================
+ANALYSIS RESULTS
+======================================================================
+
+                               Detection Summary
+╭──────────────────────────┬──────────┬────────────────────────────────────────╮
+│ Category                 │ Result   │ Details                                │
+├──────────────────────────┼──────────┼────────────────────────────────────────┤
+│ Voice Type               │ Male     │ F0: 119.6 Hz (Median)                  │
+│ Physical Characteristics │ Male     │ F1: 255 Hz, F2: 1967 Hz, F3: 3017 Hz   │
+│ Manipulation             │ DETECTED │ 95% (Very High)                        │
+│ AI Voice                 │ DETECTED │ Neural Vocoder                         │
+│                          │          │ (WaveNet/WaveGlow/HiFi-GAN)            │
+╰──────────────────────────┴──────────┴────────────────────────────────────────╯
+
+⚠ EVIDENCE DETECTED:
+  [4] AI Voice Detected (Neural Vocoder (WaveNet/WaveGlow/HiFi-GAN), 95%
+confidence). Neural vocoder artifacts detected; Unnatural prosody patterns; Lack
+of natural breathing/pauses; Unnatural harmonics; Statistical anomalies
+
+✓ Analysis complete!
+📄 Full report: results/synthetic_male_report.json
