@@ -1,12 +1,30 @@
+# Core audio processing
 librosa>=0.10.0
 numpy>=1.24.0
 scipy>=1.10.0
 matplotlib>=3.7.0
 praat-parselmouth>=0.4.3
 soundfile>=0.12.0
+
+# CLI and GUI
 rich>=13.0.0
 click>=8.1.0
 gradio>=4.0.0
+
+# Data processing
 pandas>=2.0.0
+
+# AI/ML
 transformers>=4.30.0
 torch>=2.0.0
+
+# API Server (FastAPI)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+httpx>=0.25.0
+websockets>=12.0
+python-multipart>=0.0.6
+
+# Configuration
+pyyaml>=6.0

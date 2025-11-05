@@ -21,10 +21,10 @@ if requirements_file.exists():
 
 setup(
     name="audioanalysisx1",
-    version="1.0.0",
+    version="2.0.0",
     author="SWORD Intelligence",
     author_email="intel@swordintelligence.airforce",
-    description="Forensic audio analysis system for detecting voice manipulation and AI-generated voices",
+    description="Forensic audio analysis system for detecting voice manipulation and AI-generated voices with REST API",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/SWORDIntel/AUDIOANALYSISX1",
@@ -37,6 +37,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     license="MIT",
     python_requires=">=3.10",
@@ -46,6 +47,7 @@ setup(
             'audioanalysisx1=audioanalysisx1.cli.simple:main',
             'audioanalysisx1-gui=audioanalysisx1.gui.app:main',
             'audioanalysisx1-tui=audioanalysisx1.cli.interactive:main',
+            'audioanalysisx1-api=audioanalysisx1.api.server:run_server',
         ],
     },
     include_package_data=True,
