@@ -48,6 +48,8 @@ setup(
             'audioanalysisx1-gui=audioanalysisx1.gui.app:main',
             'audioanalysisx1-tui=audioanalysisx1.cli.interactive:main',
             'audioanalysisx1-api=audioanalysisx1.api.server:run_server',
+            'voicemod=run_voice_modifier:main',
+            'voicemod-gui=run_voice_modifier_gui:main',
         ],
     },
     include_package_data=True,

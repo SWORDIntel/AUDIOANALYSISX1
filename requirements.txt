@@ -5,6 +5,7 @@ scipy>=1.10.0
 matplotlib>=3.7.0
 praat-parselmouth>=0.4.3
 soundfile>=0.12.0
+sounddevice>=0.4.6
 
 # CLI and GUI
 rich>=13.0.0
