@@ -18,13 +18,13 @@
 ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
-**A multi-phase forensic analysis pipeline for detecting voice manipulation through pitch-shifting and time-stretching artifacts.**
+**A comprehensive system for voice manipulation detection AND real-time voice modification with forensic-grade analysis.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[Features](#features) • [Installation](#installation) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Examples](#examples)
+[Features](#features) • [Voice Modification](#-voice-modification-system-new) • [Installation](#installation) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Examples](#examples)
 
 </div>
 
@@ -32,7 +32,11 @@
 
 ## 🎯 Overview
 
-This pipeline implements a **5-phase forensic audio analysis system** designed to detect voice manipulation and AI-generated voices, including:
+This system provides **comprehensive voice manipulation capabilities** with both detection and modification features:
+
+### 🔍 Detection: 5-Phase Forensic Analysis
+
+Detects voice manipulation and AI-generated voices, including:
 
 - **Pitch-shifting** (male ↔ female voice conversion)
 - **Time-stretching** (speed manipulation)
@@ -41,7 +45,20 @@ This pipeline implements a **5-phase forensic audio analysis system** designed t
 - **AI-generated voices** (TTS, voice cloning, deepfakes)
 - **Neural vocoder detection** (WaveNet, WaveGlow, HiFi-GAN)
 
-The system uses **multiple independent detection methods** across manipulation detection and AI voice detection to provide high-confidence results with cryptographically verifiable outputs.
+Uses **multiple independent detection methods** to provide high-confidence results with cryptographically verifiable outputs.
+
+### 🎭 Modification: Real-Time Voice Transformation (NEW)
+
+Transform voices in real-time for legitimate purposes:
+
+- **Gender transformation** (male ↔ female voice conversion)
+- **Character voices** (robot, alien, demon, chipmunk, giant)
+- **Anonymization** (privacy protection presets)
+- **Utility effects** (whisper, megaphone, telephone, cave)
+- **Custom parameters** (pitch, formant, time stretch, reverb, echo)
+- **Live audio I/O** with low latency (~43ms at 48kHz)
+
+Perfect for **privacy protection, content creation, research, and testing detection systems**.
 
 ### 🔬 How It Works
 
@@ -100,6 +117,183 @@ Generates 4 plots per analysis:
 - Mel spectrogram with artifact annotations
 - Phase coherence analysis
 - Pitch-formant comparison chart
+
+---
+
+## 🎭 Voice Modification System (NEW)
+
+In addition to detection capabilities, this system now includes **real-time voice modification/obfuscation** for legitimate purposes such as privacy protection, content creation, and testing detection systems.
+
+### 🔊 Real-Time Voice Transformation
+
+The voice modification system provides low-latency, real-time audio processing with:
+
+- **Live Audio I/O** - Real-time microphone input and speaker output
+- **Multiple Effect Types** - Pitch shifting, formant shifting, time stretching, reverb, echo
+- **Preset Library** - 15+ pre-configured voice transformations
+- **Custom Controls** - Fine-tune all parameters in real-time
+- **Low Latency** - ~43ms processing latency at 48kHz
+- **Professional Quality** - Broadcast-ready audio processing
+
+### 🎨 Available Presets
+
+#### Gender Transformation
+- **male_to_female** - Transform male voice to female voice
+- **female_to_male** - Transform female voice to male voice
+- **male_to_female_subtle** - Subtle male to female transformation
+- **female_to_male_subtle** - Subtle female to male transformation
+
+#### Character Voices
+- **chipmunk** - High-pitched cartoon voice
+- **giant** - Deep, slow voice
+- **robot** - Robotic/synthetic voice
+- **demon** - Deep, reverberant voice
+- **alien** - Otherworldly voice
+
+#### Utility Effects
+- **whisper** - Quiet, breathy voice
+- **megaphone** - Loud, compressed voice
+- **telephone** - Phone line quality
+- **cave** - Large reverberant space
+
+#### Anonymization
+- **anonymous_1** - Voice anonymization (subtle)
+- **anonymous_2** - Voice anonymization (moderate)
+- **anonymous_3** - Voice anonymization (heavy)
+
+### 🚀 Using Voice Modification
+
+#### Option 1: Web GUI (Recommended)
+
+```bash
+python run_voice_modifier_gui.py
+
+# Custom port
+python run_voice_modifier_gui.py --port 7861
+
+# Public share link
+python run_voice_modifier_gui.py --share
+```
+
+Opens a web interface at `http://localhost:7861` with:
+- 🎚️ **Real-time controls** for all parameters
+- 🎭 **Preset selector** with all voice transformations
+- 📊 **Live level meters** for input/output monitoring
+- 🔊 **Device selection** for audio input/output
+- ⚡ **Instant preview** of voice modifications
+
+#### Option 2: Command Line
+
+```bash
+# List available audio devices
+python run_voice_modifier.py --list-devices
+
+# List available presets
+python run_voice_modifier.py --list-presets
+
+# Use a preset
+python run_voice_modifier.py --preset male_to_female
+
+# Custom settings
+python run_voice_modifier.py --pitch 6 --formant 1.15
+
+# Specify devices
+python run_voice_modifier.py --preset robot --input-device 1 --output-device 2
+
+# Start in bypass mode (no processing)
+python run_voice_modifier.py --bypass
+```
+
+#### Option 3: Python API
+
+```python
+from audioanalysisx1.voicemod import VoiceModifier, AudioProcessor, PRESET_LIBRARY
+
+# Create modifier with configuration
+config = AudioConfig(sample_rate=48000, block_size=2048)
+modifier = VoiceModifier(config)
+
+# Create processor and apply preset
+processor = AudioProcessor()
+processor.apply_preset_by_name('male_to_female')
+
+# Add processor and start
+modifier.add_effect(processor)
+modifier.start()
+
+# Modify settings in real-time
+processor.set_pitch(8.0)  # 8 semitones up
+processor.set_formant(1.2)  # 20% higher formants
+
+# Stop when done
+modifier.stop()
+```
+
+### 🎛️ Effect Parameters
+
+| Parameter | Range | Description |
+|-----------|-------|-------------|
+| **Pitch** | -12 to +12 semitones | Shift fundamental frequency |
+| **Formant** | 0.5 to 2.0 ratio | Shift vocal tract resonances |
+| **Time Stretch** | 0.5 to 2.0x | Change speaking speed |
+| **Reverb** | 0.0 to 1.0 wet mix | Add room reverberation |
+| **Echo** | 0.0 to 1.0 wet mix | Add delayed repetitions |
+| **Noise Gate** | On/Off | Remove background noise |
+| **Compression** | On/Off | Normalize volume levels |
+
+### 🔒 Ethical Use Notice
+
+The voice modification system is designed for **legitimate purposes only**:
+
+#### ✅ Intended Uses
+- **Privacy protection** and anonymization
+- **Entertainment** and gaming
+- **Content creation** and podcasting
+- **Research** and development
+- **Testing detection systems** (like this one!)
+- **Accessibility** features
+
+#### ❌ Prohibited Uses
+- Impersonation without consent
+- Fraud or deception
+- Harassment or abuse
+- Illegal activities
+- Violation of platform terms of service
+
+**By using this software, you agree to use it responsibly and in accordance with all applicable laws and regulations.**
+
+### 📊 Technical Specifications
+
+- **Sample Rates:** 44.1kHz, 48kHz (configurable)
+- **Block Size:** 1024-4096 samples (configurable)
+- **Latency:** ~43ms at 48kHz with 2048 block size
+- **Bit Depth:** 32-bit float processing
+- **Supported Devices:** All ASIO, CoreAudio, and ALSA compatible devices
+
+### 🔬 Integration with Detection
+
+The voice modification system is intentionally designed to be **detectable** by this analysis pipeline:
+
+```python
+# Create modified audio
+modifier = VoiceModifier()
+processor = AudioProcessor()
+processor.apply_preset_by_name('male_to_female')
+# ... record modified audio ...
+
+# Analyze it
+detector = VoiceManipulationDetector()
+report = detector.analyze('modified_audio.wav')
+
+# Should detect manipulation
+assert report['alteration_detected'] == True
+```
+
+This makes the system ideal for:
+- Testing detection algorithms
+- Training forensic analysts
+- Demonstrating manipulation artifacts
+- Security research and education
 
 ---
 
@@ -442,7 +636,15 @@ AUDIOANALYSISX1/
 │   │   ├── ai_detection.py     # PHASE 4: AI Detection
 │   │   └── reporting.py        # PHASE 5: Report Synthesis
 │   │
-│   ├── gui/                    # Web GUI
+│   ├── voicemod/               # 🎭 Voice Modification System (NEW)
+│   │   ├── __init__.py         # Module interface
+│   │   ├── realtime.py         # Real-time audio I/O
+│   │   ├── processor.py        # Audio processor
+│   │   ├── effects.py          # Effect implementations
+│   │   ├── presets.py          # Voice presets library
+│   │   └── gui.py              # Web GUI for modification
+│   │
+│   ├── gui/                    # Web GUI (Detection)
 │   │   ├── app.py             # Gradio interface
 │   │   └── utils.py           # GUI utilities
 │   │
@@ -451,9 +653,12 @@ AUDIOANALYSISX1/
 │       └── interactive.py      # Interactive TUI
 │
 ├── scripts/                    # 🚀 Executable Scripts
-│   ├── start-gui               # Launch web GUI
+│   ├── start-gui               # Launch detection GUI
 │   ├── analyze                 # Simple analysis
 │   └── download-samples        # Sample generator
+│
+├── run_voice_modifier.py       # 🎭 Voice modifier CLI
+├── run_voice_modifier_gui.py   # 🎭 Voice modifier GUI
 │
 ├── deepfake_model/             # 🤖 Pre-trained AI model
 │
@@ -534,7 +739,7 @@ Each report includes:
 
 ## 🤝 Use Cases
 
-### Authorized Applications
+### Detection System - Authorized Applications
 
 - ✅ **Forensic investigations** (law enforcement, legal proceedings)
 - ✅ **Security testing** (authorized penetration testing)
@@ -542,12 +747,23 @@ Each report includes:
 - ✅ **Quality assurance** (detecting processing artifacts)
 - ✅ **CTF challenges** (cybersecurity competitions)
 
-### Prohibited Applications
+### Voice Modification - Authorized Applications
 
-- ❌ Unauthorized surveillance
-- ❌ Privacy violations
+- ✅ **Privacy protection** (whistleblowers, journalists, activists)
+- ✅ **Content creation** (podcasts, videos, gaming, streaming)
+- ✅ **Entertainment** (voice acting, character voices)
+- ✅ **Research and education** (testing detection systems)
+- ✅ **Accessibility** (voice assistance for medical conditions)
+- ✅ **Training** (security analyst training, forensic education)
+
+### Prohibited Applications (Both Systems)
+
+- ❌ Unauthorized surveillance or monitoring
+- ❌ Impersonation without consent
+- ❌ Fraud, deception, or illegal activities
 - ❌ Harassment or stalking
 - ❌ Discrimination based on voice characteristics
+- ❌ Violation of platform terms of service
 
 ---
 
@@ -603,7 +819,7 @@ report = detector.analyze('sample.wav')
 
 ## 🗺️ Roadmap
 
-### Current Version: 1.0.0
+### Current Version: 2.0.0
 
 - [x] Multi-phase detection pipeline
 - [x] Interactive TUI
@@ -611,15 +827,20 @@ report = detector.analyze('sample.wav')
 - [x] Comprehensive visualizations
 - [x] Batch processing
 - [x] Test suite
+- [x] **Real-time voice modification system** (NEW in v2.0)
+- [x] **15+ voice transformation presets** (NEW in v2.0)
+- [x] **Low-latency audio processing** (NEW in v2.0)
+- [x] **Web GUI for voice modification** (NEW in v2.0)
 
 ### Planned Features
 
-- [ ] Real-time stream analysis
+- [ ] Real-time stream analysis (for detection)
 - [ ] Machine learning enhancement (optional deepfake detection)
 - [ ] REST API server mode
 - [ ] Docker containerization
 - [ ] GPU acceleration
 - [ ] Additional language support
+- [ ] Mobile app support
 
 ---
 
