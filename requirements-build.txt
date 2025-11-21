@@ -1,0 +1,20 @@
+# Build Requirements for AVX2 Optimizations
+# ==========================================
+#
+# Install these dependencies BEFORE building:
+#   pip install -r requirements-build.txt
+#
+# Then build with AVX2:
+#   python build_avx2.py
+
+# Core build dependencies
+numpy>=1.24.0
+setuptools>=65.0.0
+wheel>=0.40.0
+
+# Optional: For faster builds
+Cython>=0.29.0
+
+# Testing dependencies (optional)
+pytest>=7.0.0
+pytest-benchmark>=4.0.0
