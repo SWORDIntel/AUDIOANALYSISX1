@@ -1,28 +1,23 @@
 """
-AUDIOANALYSISX1 - Voice Manipulation & AI Detection System
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AUDIOANALYSISX1 - Federal Voice Obfuscation and Analysis Suite
 
-A comprehensive forensic audio analysis pipeline for detecting voice
-manipulation and AI-generated voices.
+Classification: SECRET
+DSMIL Device: 9 (Audio) | Layer: 3 | Clearance: 0x03030303
 
-Usage:
-    from audioanalysisx1 import VoiceManipulationDetector
-
-    detector = VoiceManipulationDetector()
-    report = detector.analyze('audio.wav')
+Core capabilities:
+- Real-time voice manipulation detection (5-phase forensic pipeline)
+- AI voice/deepfake detection
+- Real-time voice obfuscation (pitch, formant, effects)
+- DSMILBrain telemetry integration
+- DSSSL quantum crypto (CNSA 2.0)
 """
 
-__version__ = '1.0.0'
-__author__ = 'SWORD Intelligence'
-__license__ = 'MIT'
+__version__ = "3.0.0"
+__classification__ = "SECRET"
+__device_id__ = 9
+__layer__ = 3
 
-from .pipeline import VoiceManipulationDetector
-from .verification import OutputVerifier, ReportExporter
-from .visualizer import Visualizer
+from .fvoas import FVOASController
 
-__all__ = [
-    'VoiceManipulationDetector',
-    'OutputVerifier',
-    'ReportExporter',
-    'Visualizer',
-]
+__all__ = ['FVOASController', '__version__']
+

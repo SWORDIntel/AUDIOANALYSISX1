@@ -54,11 +54,34 @@ Transform voices in real-time for legitimate purposes:
 - **Gender transformation** (male ↔ female voice conversion)
 - **Character voices** (robot, alien, demon, chipmunk, giant)
 - **Anonymization** (privacy protection presets)
+- **Dynamic Anonymization** (NEW) - Adaptive mode that maintains consistent anonymized output regardless of input variations
 - **Utility effects** (whisper, megaphone, telephone, cave)
 - **Custom parameters** (pitch, formant, time stretch, reverb, echo)
 - **Live audio I/O** with low latency (~43ms at 48kHz)
 
 Perfect for **privacy protection, content creation, research, and testing detection systems**.
+
+### 🔐 FVOAS: Federal Voice Obfuscation and Analysis Suite (SECRET)
+
+**Classification: SECRET | Device: 9 (Audio) | Layer: 3**
+
+Advanced federal-grade voice obfuscation system with:
+
+- **Kernel-Level Processing**: ALSA virtual soundcard driver for system-wide integration
+- **Dynamic Anonymization**: Adaptive mode that maintains consistent anonymized voice characteristics
+- **DSMILBrain Integration**: Real-time telemetry streaming to distributed intelligence system
+- **DSSSL Quantum Crypto**: CNSA 2.0 compliant encryption for SECRET-level data
+- **Threat Detection**: Real-time detection of deepfake, TTS, and voice cloning attempts
+
+**Key Feature: Dynamic Anonymization Mode**
+
+Maintains consistent anonymized output regardless of:
+- Natural pitch variations
+- Emotional state changes (excited, whispered, etc.)
+- Speaking style differences
+- Tone variations
+
+See [Dynamic Anonymization Documentation](docs/DYNAMIC_ANONYMIZATION.md) for details.
 
 ### 🔬 How It Works
 
