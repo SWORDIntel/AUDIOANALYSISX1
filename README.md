@@ -63,7 +63,8 @@ Perfect for **privacy protection, content creation, research, and testing detect
 
 ### 🔐 FVOAS: Federal Voice Obfuscation and Analysis Suite (SECRET)
 
-**Classification: SECRET | Device: 9 (Audio) | Layer: 3**
+**Via Device: 9 (Audio) | Layer: 3**
+**THis is designed for particular systems with modules that may not be present on yours***
 
 Advanced federal-grade voice obfuscation system with:
 
