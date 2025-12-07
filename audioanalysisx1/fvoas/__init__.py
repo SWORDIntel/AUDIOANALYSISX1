@@ -45,6 +45,13 @@ from .dynamic_anonymizer import (
     create_dynamic_anonymizer,
 )
 
+# Web module (optional, requires DSMilWebFrame)
+try:
+    from .web_module import FVOASAnonymizationModule, FVOASBackend
+    WEB_MODULE_AVAILABLE = True
+except ImportError:
+    WEB_MODULE_AVAILABLE = False
+
 __all__ = [
     'FVOASController',
     'FVOASKernelInterface',
@@ -63,7 +70,12 @@ __all__ = [
     'VoiceProfile',
     'DynamicState',
     'create_dynamic_anonymizer',
+    # Web module
+    'WEB_MODULE_AVAILABLE',
 ]
+
+if WEB_MODULE_AVAILABLE:
+    __all__.extend(['FVOASAnonymizationModule', 'FVOASBackend'])
 
 __version__ = '1.0.0'
 __classification__ = 'SECRET'

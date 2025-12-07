@@ -156,6 +156,12 @@ setup(
             'voicemod=run_voice_modifier:main',
             'voicemod-gui=run_voice_modifier_gui:main',
             'audioanalysisx1-cpuinfo=audioanalysisx1.cpu_features:print_cpu_info',
+            'fvoas-interface=run_fvoas_interface:main',
+            'fvoas-electron=run_fvoas_electron:main',
+        ],
+        # Register FVOAS module with DSMilWebFrame (if framework available)
+        'dsmil.modules': [
+            'fvoas_anonymization=audioanalysisx1.fvoas.web_module:FVOASAnonymizationModule',
         ],
     },
     include_package_data=True,
