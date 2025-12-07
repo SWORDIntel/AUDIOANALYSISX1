@@ -161,15 +161,25 @@ def create_gui():
     # Get device choices
     input_devices, output_devices = gui.list_audio_devices()
 
-    # Get preset choices
-    preset_choices = ["Custom"] + list(PRESET_LIBRARY.keys())
+    # Get preset choices - prioritize anonymization presets
+    anonymization_presets = [
+        'anonymous_subtle', 'anonymous_moderate', 'anonymous_strong',
+        'anonymous_neutral', 'anonymous_high', 'anonymous_low',
+        'anonymous_spectral', 'anonymous_temporal', 'anonymous_combined'
+    ]
+    other_presets = [p for p in PRESET_LIBRARY.keys() if p not in anonymization_presets]
+    preset_choices = ["Custom"] + anonymization_presets + other_presets
 
     with gr.Blocks(title="Voice Modifier", theme=gr.themes.Soft()) as app:
         gr.Markdown("""
-# 🎤 Voice Modifier - Real-time Voice Transformation
+# 🔒 Voice Anonymization System - Real-time Privacy Protection
+
+**Primary Purpose: Voice Anonymization for Privacy Protection**
+
+This system provides real-time voice anonymization to protect your privacy and identity during voice communications.
 
 **⚠️ Ethical Use Notice:**
-This tool is for legitimate purposes: privacy protection, entertainment, content creation, research, and testing.
+This tool is designed for legitimate privacy protection purposes: whistleblowing, journalism, activism, privacy-conscious communications, and authorized security testing.
 Do not use for impersonation, fraud, harassment, or illegal activities.
 
 ---
@@ -181,9 +191,9 @@ Do not use for impersonation, fraud, harassment, or illegal activities.
                 gr.Markdown("### Preset Selection")
                 preset_dropdown = gr.Dropdown(
                     choices=preset_choices,
-                    value="passthrough",
-                    label="Voice Preset",
-                    info="Choose a preset or select 'Custom' for manual settings"
+                    value="anonymous_moderate",
+                    label="Anonymization Preset",
+                    info="Choose an anonymization preset (recommended: anonymous_moderate) or select 'Custom' for manual settings"
                 )
 
                 load_preset_btn = gr.Button("Load Preset Settings", variant="secondary")
@@ -255,26 +265,29 @@ Do not use for impersonation, fraud, harassment, or illegal activities.
                 stats_md = gr.Markdown("**Status:** Stopped")
 
                 # Preset descriptions
-                gr.Markdown("### Preset Descriptions")
+                gr.Markdown("### Anonymization Presets")
                 preset_info = gr.Markdown("""
-**Gender Transformation:**
-- `male_to_female` - Transform male to female voice
-- `female_to_male` - Transform female to male voice
+**Recommended Anonymization Presets:**
 
-**Character Voices:**
-- `chipmunk` - High-pitched cartoon voice
-- `giant` - Deep, slow voice
-- `robot` - Robotic/synthetic voice
-- `demon` - Deep, reverberant voice
-- `alien` - Otherworldly voice
+**Primary Options:**
+- `anonymous_subtle` - Minimal changes, preserves naturalness
+- `anonymous_moderate` - Balanced privacy and naturalness (recommended)
+- `anonymous_strong` - Maximum privacy protection
+- `anonymous_neutral` - Gender-neutral androgynous voice
+- `anonymous_high` - High-pitch anonymization profile
+- `anonymous_low` - Low-pitch anonymization profile
+- `anonymous_spectral` - Spectral masking with reverb
+- `anonymous_temporal` - Temporal anonymization (speaking rate)
+- `anonymous_combined` - Multi-technique maximum obfuscation
 
-**Anonymization:**
-- `anonymous_1/2/3` - Voice anonymization presets
+**Dynamic Anonymization (FVOAS):**
+- `dynamic_neutral` - Adaptive gender-neutral (maintains consistency)
+- `dynamic_male` - Adaptive masculine profile
+- `dynamic_female` - Adaptive feminine profile
 
-**Utility:**
-- `whisper` - Quiet, breathy voice
-- `megaphone` - Loud, compressed
-- `cave` - Large reverberant space
+**Other Options:**
+- Gender transformation presets (for testing/comparison)
+- Character voices (for testing/comparison)
 """)
 
         # Event handlers

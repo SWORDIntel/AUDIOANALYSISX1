@@ -270,23 +270,55 @@ class FVOASKernelInterface:
         self._simulated_state = DeviceState()
 
     def open(self) -> bool:
-        """Open connection to kernel driver"""
+        """Open connection to kernel driver with robust error handling"""
         try:
             if os.path.exists(FVOAS_DEVICE_PATH):
-                self.fd = os.open(FVOAS_DEVICE_PATH, os.O_RDWR)
-                logger.info(f"Opened FVOAS device: {FVOAS_DEVICE_PATH}")
-                return True
-        except OSError as e:
-            logger.warning(f"Failed to open FVOAS device: {e}")
+                try:
+                    self.fd = os.open(FVOAS_DEVICE_PATH, os.O_RDWR)
+                    # Verify device is actually accessible
+                    try:
+                        test_state = self.get_state()
+                        logger.info(f"Opened FVOAS device: {FVOAS_DEVICE_PATH}")
+                        return True
+                    except (OSError, IOError, ValueError) as e:
+                        logger.warning(f"Device opened but not functional: {e}")
+                        try:
+                            os.close(self.fd)
+                        except OSError:
+                            pass
+                        self.fd = None
+                except (OSError, IOError, PermissionError) as e:
+                    logger.warning(f"Failed to open FVOAS device: {e}")
+                    if self.fd is not None:
+                        try:
+                            os.close(self.fd)
+                        except OSError:
+                            pass
+                        self.fd = None
+        except Exception as e:
+            logger.error(f"Unexpected error opening device: {e}")
+            if self.fd is not None:
+                try:
+                    os.close(self.fd)
+                except OSError:
+                    pass
+                self.fd = None
 
         # Check sysfs fallback
         if os.path.exists(FVOAS_SYSFS_PATH):
-            logger.info("Using sysfs fallback (limited functionality)")
-            self._software_mode = True
-            return True
+            try:
+                # Test sysfs access
+                test_read = self._read_sysfs('enabled')
+                if test_read is not None:
+                    logger.info("Using sysfs fallback (limited functionality)")
+                    self._software_mode = True
+                    return True
+            except Exception as e:
+                logger.debug(f"Sysfs test failed: {e}")
 
         # Pure software mode
         logger.warning("FVOAS driver not loaded - running in software simulation mode")
+        logger.info("All operations will be simulated. Install kernel driver for hardware acceleration.")
         self._software_mode = True
         return True
 
@@ -306,8 +338,12 @@ class FVOASKernelInterface:
         return self.fd is not None and not self._software_mode
 
     def _ioctl(self, cmd: int, data: bytes = b'', size: int = 0) -> bytes:
-        """Execute ioctl on device"""
+        """Execute ioctl on device with robust error handling"""
         if self.fd is None:
+            if self._software_mode:
+                # Return empty/default data in software mode
+                buf_size = max(len(data), size, (cmd >> 16) & 0x3FFF)
+                return bytes(buf_size)
             raise RuntimeError("Device not open")
 
         with self._lock:
@@ -320,8 +356,26 @@ class FVOASKernelInterface:
             try:
                 fcntl.ioctl(self.fd, cmd, buf)
                 return bytes(buf)
-            except OSError as e:
-                logger.error(f"ioctl 0x{cmd:08x} failed: {e}")
+            except (OSError, IOError) as e:
+                errno = getattr(e, 'errno', None)
+                if errno == 19:  # ENODEV - device removed
+                    logger.error("Device removed during operation")
+                    self.close()
+                    self._software_mode = True
+                elif errno == 5:  # EIO - I/O error
+                    logger.error("I/O error during ioctl operation")
+                else:
+                    logger.error(f"ioctl 0x{cmd:08x} failed: {e} (errno={errno})")
+                
+                # Fallback to software mode if device fails
+                if not self._software_mode:
+                    logger.warning("Falling back to software simulation mode")
+                    self._software_mode = True
+                    buf_size = max(len(data), size, (cmd >> 16) & 0x3FFF)
+                    return bytes(buf_size)
+                raise
+            except Exception as e:
+                logger.error(f"Unexpected ioctl error: {e}")
                 raise
 
     def get_state(self) -> DeviceState:
@@ -333,14 +387,20 @@ class FVOASKernelInterface:
         return DeviceState.from_bytes(data)
 
     def set_state(self, state: DeviceState):
-        """Set device state"""
+        """Set device state with error recovery"""
         if self._software_mode:
             self._simulated_state = state
-            logger.info(f"[SIM] Set state: mode={state.mode.name}, bypass={state.bypass}")
+            logger.debug(f"[SIM] Set state: mode={state.mode.name}, bypass={state.bypass}")
             return
 
-        self._ioctl(FVOAS_IOC_SET_STATE, state.to_bytes())
-        logger.info(f"Set state: mode={state.mode.name}, bypass={state.bypass}")
+        try:
+            self._ioctl(FVOAS_IOC_SET_STATE, state.to_bytes())
+            logger.info(f"Set state: mode={state.mode.name}, bypass={state.bypass}")
+        except (OSError, IOError, RuntimeError) as e:
+            logger.warning(f"Failed to set state via ioctl: {e}, using software mode")
+            self._software_mode = True
+            self._simulated_state = state
+            logger.info(f"[SIM] Set state: mode={state.mode.name}, bypass={state.bypass}")
 
     def get_params(self) -> ObfuscationParams:
         """Get current obfuscation parameters"""
@@ -351,14 +411,20 @@ class FVOASKernelInterface:
         return ObfuscationParams.from_bytes(data)
 
     def set_params(self, params: ObfuscationParams):
-        """Set obfuscation parameters"""
+        """Set obfuscation parameters with error recovery"""
         if self._software_mode:
             self._simulated_state.params = params
-            logger.info(f"[SIM] Set params: pitch={params.pitch_semitones}, formant={params.formant_ratio}")
+            logger.debug(f"[SIM] Set params: pitch={params.pitch_semitones:.2f}, formant={params.formant_ratio:.2f}")
             return
 
-        self._ioctl(FVOAS_IOC_SET_PARAMS, params.to_bytes())
-        logger.info(f"Set params: pitch={params.pitch_semitones}, formant={params.formant_ratio}")
+        try:
+            self._ioctl(FVOAS_IOC_SET_PARAMS, params.to_bytes())
+            logger.info(f"Set params: pitch={params.pitch_semitones:.2f}, formant={params.formant_ratio:.2f}")
+        except (OSError, IOError, RuntimeError) as e:
+            logger.warning(f"Failed to set params via ioctl: {e}, using software mode")
+            self._software_mode = True
+            self._simulated_state.params = params
+            logger.info(f"[SIM] Set params: pitch={params.pitch_semitones:.2f}, formant={params.formant_ratio:.2f}")
 
     def set_mode(self, mode: ObfuscationMode):
         """Set obfuscation mode"""

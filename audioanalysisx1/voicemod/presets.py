@@ -198,10 +198,120 @@ PRESET_LIBRARY = {
         noise_gate=True
     ),
 
-    # Anonymization presets
+    # ============================================================================
+    # Anonymization Presets (Primary Focus)
+    # ============================================================================
+    
+    # Subtle anonymization - minimal changes for privacy
+    'anonymous_subtle': VoicePreset(
+        name='Anonymous Subtle',
+        description='Minimal voice anonymization for privacy protection',
+        pitch_semitones=2.5,
+        formant_ratio=1.05,
+        time_stretch=0.98,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Moderate anonymization - balanced privacy and naturalness
+    'anonymous_moderate': VoicePreset(
+        name='Anonymous Moderate',
+        description='Balanced voice anonymization (recommended)',
+        pitch_semitones=-4.0,
+        formant_ratio=0.90,
+        time_stretch=1.05,
+        reverb_wet=0.10,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Strong anonymization - maximum privacy
+    'anonymous_strong': VoicePreset(
+        name='Anonymous Strong',
+        description='Strong voice anonymization for maximum privacy',
+        pitch_semitones=6.0,
+        formant_ratio=1.18,
+        time_stretch=0.92,
+        reverb_wet=0.20,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Gender-neutral anonymization - androgynous voice
+    'anonymous_neutral': VoicePreset(
+        name='Anonymous Neutral',
+        description='Gender-neutral anonymization (androgynous voice)',
+        pitch_semitones=3.0,
+        formant_ratio=1.0,
+        time_stretch=1.0,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # High-pitch anonymization - shifts to higher register
+    'anonymous_high': VoicePreset(
+        name='Anonymous High',
+        description='High-pitch anonymization profile',
+        pitch_semitones=5.5,
+        formant_ratio=1.15,
+        time_stretch=0.94,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Low-pitch anonymization - shifts to lower register
+    'anonymous_low': VoicePreset(
+        name='Anonymous Low',
+        description='Low-pitch anonymization profile',
+        pitch_semitones=-6.0,
+        formant_ratio=0.85,
+        time_stretch=1.10,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Spectral masking anonymization - uses reverb for spectral obfuscation
+    'anonymous_spectral': VoicePreset(
+        name='Anonymous Spectral',
+        description='Spectral masking anonymization (reverb-based)',
+        pitch_semitones=3.5,
+        formant_ratio=1.08,
+        time_stretch=0.96,
+        reverb_wet=0.25,
+        reverb_room=0.6,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Time-based anonymization - alters speaking rate
+    'anonymous_temporal': VoicePreset(
+        name='Anonymous Temporal',
+        description='Temporal anonymization (speaking rate variation)',
+        pitch_semitones=2.0,
+        formant_ratio=1.02,
+        time_stretch=0.88,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Combined anonymization - multiple techniques
+    'anonymous_combined': VoicePreset(
+        name='Anonymous Combined',
+        description='Multi-technique anonymization (maximum obfuscation)',
+        pitch_semitones=4.5,
+        formant_ratio=1.12,
+        time_stretch=0.91,
+        reverb_wet=0.18,
+        echo_wet=0.15,
+        echo_delay=120.0,
+        compression=True,
+        noise_gate=True
+    ),
+
+    # Legacy presets (for backward compatibility)
     'anonymous_1': VoicePreset(
-        name='Anonymous 1',
-        description='Voice anonymization (subtle)',
+        name='Anonymous 1 (Legacy)',
+        description='Legacy anonymization preset (use anonymous_moderate)',
         pitch_semitones=4.0,
         formant_ratio=1.1,
         time_stretch=0.95,
@@ -210,8 +320,8 @@ PRESET_LIBRARY = {
     ),
 
     'anonymous_2': VoicePreset(
-        name='Anonymous 2',
-        description='Voice anonymization (moderate)',
+        name='Anonymous 2 (Legacy)',
+        description='Legacy anonymization preset (use anonymous_moderate)',
         pitch_semitones=-5.0,
         formant_ratio=0.88,
         time_stretch=1.08,
@@ -221,8 +331,8 @@ PRESET_LIBRARY = {
     ),
 
     'anonymous_3': VoicePreset(
-        name='Anonymous 3',
-        description='Voice anonymization (heavy)',
+        name='Anonymous 3 (Legacy)',
+        description='Legacy anonymization preset (use anonymous_strong)',
         pitch_semitones=7.0,
         formant_ratio=1.2,
         time_stretch=0.9,
@@ -327,11 +437,16 @@ class PresetManager:
             Dictionary of presets in category
         """
         categories = {
+            'anonymization': [
+                'anonymous_subtle', 'anonymous_moderate', 'anonymous_strong',
+                'anonymous_neutral', 'anonymous_high', 'anonymous_low',
+                'anonymous_spectral', 'anonymous_temporal', 'anonymous_combined',
+                'anonymous_1', 'anonymous_2', 'anonymous_3'  # Legacy
+            ],
             'gender': ['male_to_female', 'female_to_male',
                       'male_to_female_subtle', 'female_to_male_subtle'],
             'character': ['chipmunk', 'giant', 'robot', 'demon', 'alien'],
             'utility': ['whisper', 'megaphone', 'telephone', 'cave'],
-            'anonymous': ['anonymous_1', 'anonymous_2', 'anonymous_3'],
         }
 
         category_names = categories.get(category, [])

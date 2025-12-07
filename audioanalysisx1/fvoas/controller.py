@@ -49,13 +49,101 @@ PRESETS: Dict[str, Dict[str, Any]] = {
         'params': ObfuscationParams(),
         'description': 'No processing (passthrough)',
     },
+    # ========================================================================
+    # Anonymization Presets (Primary Focus)
+    # ========================================================================
+    'anonymous_subtle': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=2.5,
+            formant_ratio=1.05,
+            noise_gate_enabled=True,
+        ),
+        'description': 'Subtle anonymization - minimal changes for privacy',
+    },
+    'anonymous_moderate': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=-4.0,
+            formant_ratio=0.90,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'Moderate anonymization - balanced privacy and naturalness (recommended)',
+    },
+    'anonymous_strong': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=6.0,
+            formant_ratio=1.18,
+            reverb_wet=0.20,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'Strong anonymization - maximum privacy protection',
+    },
+    'anonymous_neutral': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=3.0,
+            formant_ratio=1.0,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'Gender-neutral anonymization - androgynous voice profile',
+    },
+    'anonymous_high': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=5.5,
+            formant_ratio=1.15,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'High-pitch anonymization profile',
+    },
+    'anonymous_low': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=-6.0,
+            formant_ratio=0.85,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'Low-pitch anonymization profile',
+    },
+    'anonymous_spectral': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=3.5,
+            formant_ratio=1.08,
+            reverb_wet=0.25,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'Spectral masking anonymization - reverb-based obfuscation',
+    },
+    'anonymous_combined': {
+        'mode': ObfuscationMode.ANONYMIZE,
+        'params': ObfuscationParams(
+            pitch_semitones=4.5,
+            formant_ratio=1.12,
+            reverb_wet=0.18,
+            echo_wet=0.15,
+            echo_delay_ms=120,
+            noise_gate_enabled=True,
+            compression_enabled=True,
+        ),
+        'description': 'Multi-technique anonymization - maximum obfuscation',
+    },
+    # Legacy presets (for backward compatibility)
     'anonymous_1': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
             pitch_semitones=2.0,
             formant_ratio=1.1,
         ),
-        'description': 'Subtle anonymization (+2 semitones)',
+        'description': 'Legacy: Subtle anonymization (use anonymous_subtle)',
     },
     'anonymous_2': {
         'mode': ObfuscationMode.ANONYMIZE,
@@ -64,7 +152,7 @@ PRESETS: Dict[str, Dict[str, Any]] = {
             formant_ratio=1.15,
             noise_gate_enabled=True,
         ),
-        'description': 'Moderate anonymization (+4 semitones)',
+        'description': 'Legacy: Moderate anonymization (use anonymous_moderate)',
     },
     'anonymous_3': {
         'mode': ObfuscationMode.ANONYMIZE,
@@ -75,7 +163,7 @@ PRESETS: Dict[str, Dict[str, Any]] = {
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Heavy anonymization (+6 semitones with effects)',
+        'description': 'Legacy: Heavy anonymization (use anonymous_strong)',
     },
     'male_to_female': {
         'mode': ObfuscationMode.FULL_OBFUSCATION,

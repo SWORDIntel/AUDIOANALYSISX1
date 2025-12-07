@@ -18,7 +18,7 @@
 ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
-**A comprehensive system for voice manipulation detection AND real-time voice modification with forensic-grade analysis.**
+**A comprehensive system for voice manipulation detection AND real-time voice anonymization for privacy protection with forensic-grade analysis.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -47,19 +47,24 @@ Detects voice manipulation and AI-generated voices, including:
 
 Uses **multiple independent detection methods** to provide high-confidence results with cryptographically verifiable outputs.
 
-### 🎭 Modification: Real-Time Voice Transformation (NEW)
+### 🔒 Voice Anonymization: Real-Time Privacy Protection (PRIMARY FOCUS)
 
-Transform voices in real-time for legitimate purposes:
+Protect your voice identity in real-time with advanced anonymization:
 
-- **Gender transformation** (male ↔ female voice conversion)
-- **Character voices** (robot, alien, demon, chipmunk, giant)
-- **Anonymization** (privacy protection presets)
-- **Dynamic Anonymization** (NEW) - Adaptive mode that maintains consistent anonymized output regardless of input variations
-- **Utility effects** (whisper, megaphone, telephone, cave)
-- **Custom parameters** (pitch, formant, time stretch, reverb, echo)
-- **Live audio I/O** with low latency (~43ms at 48kHz)
+- **Multiple Anonymization Profiles** - 9+ specialized presets for different privacy needs
+  - Subtle, moderate, and strong anonymization levels
+  - Gender-neutral androgynous voice profiles
+  - High/low pitch anonymization variants
+  - Spectral masking and temporal anonymization
+  - Combined multi-technique obfuscation
+- **Dynamic Anonymization** (ADVANCED) - Adaptive mode that maintains consistent anonymized output regardless of input variations (emotion, tone, speaking style)
+- **Real-time Processing** - Low latency (~43ms at 48kHz) for live communications
+- **Kernel-Level Integration** - System-wide anonymization via kernel driver (FVOAS)
+- **Custom Parameters** - Fine-tune pitch, formant, time stretch, reverb, echo for your needs
 
-Perfect for **privacy protection, content creation, research, and testing detection systems**.
+**Primary Use Cases:** Privacy protection, whistleblowing, journalism, activism, secure communications, authorized security testing.
+
+**Note:** Entertainment voice modifications (character voices, etc.) are available but secondary to the anonymization focus.
 
 ### 🔐 FVOAS: Federal Voice Obfuscation and Analysis Suite (SECRET)
 
@@ -144,46 +149,44 @@ Generates 4 plots per analysis:
 
 ---
 
-## 🎭 Voice Modification System (NEW)
+## 🔒 Voice Anonymization System (PRIMARY FOCUS)
 
-In addition to detection capabilities, this system now includes **real-time voice modification/obfuscation** for legitimate purposes such as privacy protection, content creation, and testing detection systems.
+This system provides **real-time voice anonymization** as its primary function, designed for privacy protection, whistleblowing, journalism, and secure communications. The anonymization system uses multiple techniques to protect voice identity while maintaining naturalness and intelligibility.
 
-### 🔊 Real-Time Voice Transformation
+### 🔊 Real-Time Voice Anonymization
 
-The voice modification system provides low-latency, real-time audio processing with:
+The anonymization system provides low-latency, real-time audio processing with:
 
 - **Live Audio I/O** - Real-time microphone input and speaker output
-- **Multiple Effect Types** - Pitch shifting, formant shifting, time stretching, reverb, echo
-- **Preset Library** - 15+ pre-configured voice transformations
-- **Custom Controls** - Fine-tune all parameters in real-time
-- **Low Latency** - ~43ms processing latency at 48kHz
-- **Professional Quality** - Broadcast-ready audio processing
+- **Multiple Anonymization Techniques** - Pitch shifting, formant shifting, time stretching, spectral masking, reverb
+- **Anonymization Preset Library** - 9+ specialized anonymization profiles plus dynamic adaptive modes
+- **Custom Controls** - Fine-tune all parameters in real-time for your specific privacy needs
+- **Low Latency** - ~43ms processing latency at 48kHz for natural conversation
+- **Professional Quality** - High-quality processing maintains intelligibility while protecting identity
 
-### 🎨 Available Presets
+### 🎨 Available Anonymization Presets
 
-#### Gender Transformation
-- **male_to_female** - Transform male voice to female voice
-- **female_to_male** - Transform female voice to male voice
-- **male_to_female_subtle** - Subtle male to female transformation
-- **female_to_male_subtle** - Subtle female to male transformation
+#### Primary Anonymization Profiles (Recommended)
+- **anonymous_subtle** - Minimal changes, preserves naturalness
+- **anonymous_moderate** - Balanced privacy and naturalness ⭐ **RECOMMENDED**
+- **anonymous_strong** - Maximum privacy protection
+- **anonymous_neutral** - Gender-neutral androgynous voice
+- **anonymous_high** - High-pitch anonymization profile
+- **anonymous_low** - Low-pitch anonymization profile
+- **anonymous_spectral** - Spectral masking with reverb obfuscation
+- **anonymous_temporal** - Temporal anonymization (speaking rate variation)
+- **anonymous_combined** - Multi-technique maximum obfuscation
 
-#### Character Voices
-- **chipmunk** - High-pitched cartoon voice
-- **giant** - Deep, slow voice
-- **robot** - Robotic/synthetic voice
-- **demon** - Deep, reverberant voice
-- **alien** - Otherworldly voice
+#### Dynamic Anonymization (FVOAS - Advanced)
+- **dynamic_neutral** - Adaptive gender-neutral (maintains consistency across variations)
+- **dynamic_male** - Adaptive masculine profile
+- **dynamic_female** - Adaptive feminine profile
+- **dynamic_robot** - Adaptive robotic voice (strict consistency)
 
-#### Utility Effects
-- **whisper** - Quiet, breathy voice
-- **megaphone** - Loud, compressed voice
-- **telephone** - Phone line quality
-- **cave** - Large reverberant space
-
-#### Anonymization
-- **anonymous_1** - Voice anonymization (subtle)
-- **anonymous_2** - Voice anonymization (moderate)
-- **anonymous_3** - Voice anonymization (heavy)
+#### Other Presets (Available but Secondary)
+- Gender transformation presets (for testing/comparison)
+- Character voices (for testing/comparison)
+- Utility effects (whisper, megaphone, telephone, cave)
 
 ### 🚀 Using Voice Modification
 
@@ -267,15 +270,20 @@ modifier.stop()
 
 ### 🔒 Ethical Use Notice
 
-The voice modification system is designed for **legitimate purposes only**:
+The voice anonymization system is designed for **legitimate privacy protection purposes**:
 
-#### ✅ Intended Uses
-- **Privacy protection** and anonymization
-- **Entertainment** and gaming
-- **Content creation** and podcasting
+#### ✅ Primary Intended Uses
+- **Privacy protection** - Protect your voice identity during communications
+- **Whistleblowing** - Secure anonymous reporting
+- **Journalism** - Protect sources and journalists
+- **Activism** - Secure communications for activists
+- **Secure communications** - Privacy-conscious voice calls
+- **Authorized security testing** - Testing detection systems and security research
+
+#### ✅ Secondary Uses
 - **Research** and development
-- **Testing detection systems** (like this one!)
 - **Accessibility** features
+- **Content creation** (with appropriate disclosure)
 
 #### ❌ Prohibited Uses
 - Impersonation without consent
@@ -283,6 +291,7 @@ The voice modification system is designed for **legitimate purposes only**:
 - Harassment or abuse
 - Illegal activities
 - Violation of platform terms of service
+- Unauthorized surveillance or monitoring
 
 **By using this software, you agree to use it responsibly and in accordance with all applicable laws and regulations.**
 
@@ -296,28 +305,29 @@ The voice modification system is designed for **legitimate purposes only**:
 
 ### 🔬 Integration with Detection
 
-The voice modification system is intentionally designed to be **detectable** by this analysis pipeline:
+The anonymization system can be analyzed by the detection pipeline for testing and validation:
 
 ```python
-# Create modified audio
+# Create anonymized audio
 modifier = VoiceModifier()
 processor = AudioProcessor()
-processor.apply_preset_by_name('male_to_female')
-# ... record modified audio ...
+processor.apply_preset_by_name('anonymous_moderate')
+# ... record anonymized audio ...
 
-# Analyze it
+# Analyze it (for testing/validation)
 detector = VoiceManipulationDetector()
-report = detector.analyze('modified_audio.wav')
+report = detector.analyze('anonymized_audio.wav')
 
-# Should detect manipulation
+# Should detect anonymization artifacts
 assert report['alteration_detected'] == True
 ```
 
-This makes the system ideal for:
+This integration is useful for:
 - Testing detection algorithms
+- Validating anonymization effectiveness
 - Training forensic analysts
-- Demonstrating manipulation artifacts
 - Security research and education
+- Demonstrating anonymization techniques
 
 ---
 
@@ -771,14 +781,14 @@ Each report includes:
 - ✅ **Quality assurance** (detecting processing artifacts)
 - ✅ **CTF challenges** (cybersecurity competitions)
 
-### Voice Modification - Authorized Applications
+### Voice Anonymization - Authorized Applications
 
-- ✅ **Privacy protection** (whistleblowers, journalists, activists)
-- ✅ **Content creation** (podcasts, videos, gaming, streaming)
-- ✅ **Entertainment** (voice acting, character voices)
-- ✅ **Research and education** (testing detection systems)
-- ✅ **Accessibility** (voice assistance for medical conditions)
-- ✅ **Training** (security analyst training, forensic education)
+- ✅ **Privacy protection** (whistleblowers, journalists, activists, privacy-conscious users)
+- ✅ **Secure communications** (anonymous voice calls, protected conversations)
+- ✅ **Source protection** (protecting identity of sources and informants)
+- ✅ **Research and education** (testing detection systems, security research)
+- ✅ **Authorized security testing** (penetration testing, security audits)
+- ✅ **Accessibility** (voice assistance for medical conditions, privacy-preserving assistive tech)
 
 ### Prohibited Applications (Both Systems)
 
@@ -851,10 +861,12 @@ report = detector.analyze('sample.wav')
 - [x] Comprehensive visualizations
 - [x] Batch processing
 - [x] Test suite
-- [x] **Real-time voice modification system** (NEW in v2.0)
-- [x] **15+ voice transformation presets** (NEW in v2.0)
-- [x] **Low-latency audio processing** (NEW in v2.0)
-- [x] **Web GUI for voice modification** (NEW in v2.0)
+- [x] **Real-time voice anonymization system** (PRIMARY FOCUS)
+- [x] **9+ specialized anonymization presets** (PRIMARY FOCUS)
+- [x] **Dynamic adaptive anonymization** (FVOAS - ADVANCED)
+- [x] **Low-latency audio processing** (~43ms)
+- [x] **Web GUI for anonymization** (FULLY FUNCTIONAL)
+- [x] **Kernel-level integration** (FVOAS - ROBUST)
 
 ### Planned Features
 
