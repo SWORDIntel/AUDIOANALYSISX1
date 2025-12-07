@@ -228,7 +228,11 @@ class FVOASBackend:
 
 @register_module(
     "fvoas_anonymization",
-    gui_frameworks={GUIFramework.WEB} if DSMIL_FRAMEWORK_AVAILABLE else set()
+    gui_frameworks={
+        GUIFramework.TEXTUAL,
+        GUIFramework.PYSIDE6,
+        GUIFramework.WEB
+    } if DSMIL_FRAMEWORK_AVAILABLE else set()
 )
 class FVOASAnonymizationModule(EngineModuleBase):
     """FVOAS Voice Anonymization Module for DSMilWebFrame."""
@@ -250,6 +254,7 @@ class FVOASAnonymizationModule(EngineModuleBase):
     )
     
     supports_headless = True
+    preferred_framework = GUIFramework.TEXTUAL  # Default to TUI, not web
     
     def __init__(
         self,
@@ -312,6 +317,71 @@ class FVOASAnonymizationModule(EngineModuleBase):
             "hardware_mode": status.get("hardware_mode", False),
             "compliance": status.get("compliance", {}),
         }
+    
+    def mount_textual(self, container: Any) -> None:
+        """Mount Textual TUI components."""
+        try:
+            from textual.widgets import Static, Button, DataTable
+            from textual.containers import Container, Vertical, Horizontal
+            
+            # Status panel
+            status_container = Container(
+                Static("[bold cyan]FVOAS Status[/bold cyan]", id="status_title"),
+                Static("", id="status_content"),
+            )
+            
+            # Preset selection
+            preset_container = Container(
+                Static("[bold yellow]Anonymization Presets[/bold yellow]", id="preset_title"),
+                Static("", id="preset_content"),
+            )
+            
+            # Compliance panel
+            compliance_container = Container(
+                Static("[bold green]Federal Compliance[/bold green]", id="compliance_title"),
+                Static("", id="compliance_content"),
+            )
+            
+            container.mount(status_container)
+            container.mount(preset_container)
+            container.mount(compliance_container)
+            
+            # Update content
+            self._update_textual_status(status_container)
+            
+        except ImportError:
+            from textual.widgets import Static
+            container.mount(Static("Textual not available - install with: pip install textual"))
+    
+    def _update_textual_status(self, container: Any) -> None:
+        """Update Textual UI with current status."""
+        if not self.backend_instance:
+            return
+        
+        status = self.backend_instance.get_status()
+        compliance = self.backend_instance.verify_compliance()
+        
+        # Update status widget
+        status_widget = container.query_one("#status_content", Static)
+        if status_widget:
+            status_text = f"""
+Running: {'✓ Yes' if status.get('running') else '✗ No'}
+Preset: {status.get('current_preset', 'None')}
+Hardware Mode: {'✓ Yes' if status.get('hardware_mode') else '⚠ Software'}
+Uptime: {status.get('uptime_seconds', 0)}s
+            """
+            status_widget.update(status_text)
+        
+        # Update compliance widget
+        compliance_widget = container.query_one("#compliance_content", Static)
+        if compliance_widget:
+            comp = compliance.get('compliance', {})
+            comp_text = f"""
+CNSA 2.0: {'✓' if comp.get('cnsa_2_0') else '✗'}
+NIST SP 800-63B: {'✓' if comp.get('nist_800_63b') else '✗'}
+Federal Mandate: {'✓' if comp.get('federal_mandate') else '✗'}
+            """
+            compliance_widget.update(comp_text)
     
     def mount_web(self, container: Any) -> None:
         """Mount web UI components."""
