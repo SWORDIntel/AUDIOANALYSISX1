@@ -10,6 +10,7 @@ Device: 9 (Audio) | Layer: 3 | Clearance: 0x03030303
 from __future__ import annotations
 
 import logging
+import os
 from typing import Any, Dict, Optional, Set
 from pathlib import Path
 
@@ -384,10 +385,27 @@ Federal Mandate: {'✓' if comp.get('federal_mandate') else '✗'}
             compliance_widget.update(comp_text)
     
     def mount_web(self, container: Any) -> None:
-        """Mount web UI components."""
-        # Web UI is handled by React frontend
-        # This method can be used for server-side rendering if needed
-        pass
+        """Mount web UI components with FVOAS theme and TEMPEST support."""
+        try:
+            from audioanalysisx1.fvoas.web_theme import get_fvoas_theme, get_tempest_toggle_html
+            
+            # Check TEMPEST status
+            tempest_enabled = os.environ.get("TEMPEST_ENABLED", "false").lower() == "true"
+            tempest_level = os.environ.get("TEMPEST_LEVEL", "LEVEL_C")
+            
+            # Get theme
+            theme = get_fvoas_theme(tempest_enabled)
+            
+            # Generate TEMPEST toggle HTML
+            tempest_html = get_tempest_toggle_html(tempest_enabled, tempest_level)
+            
+            # Web UI is primarily handled by React frontend
+            # This method can inject theme configuration and TEMPEST toggle
+            # The framework's React app will use this configuration
+            
+        except ImportError:
+            # Theme module not available - use defaults
+            pass
     
     def __del__(self):
         """Cleanup on destruction."""

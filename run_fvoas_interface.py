@@ -39,6 +39,16 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Create desktop shortcut on first launch
+try:
+    from audioanalysisx1.fvoas.desktop_shortcut import create_desktop_shortcut
+    # Check if shortcut already exists (don't recreate every time)
+    shortcut_created = create_desktop_shortcut()
+    if shortcut_created:
+        logger.info("Desktop shortcut created/updated")
+except Exception as e:
+    logger.debug(f"Desktop shortcut creation skipped: {e}")
+
 # Register FVOAS module with framework
 try:
     from dsmil_framework.core.module_registry import MODULE_REGISTRY
@@ -182,12 +192,22 @@ def launch_web_framework(port=None):
     try:
         from dsmil_framework.web.react_app import create_app
         import uvicorn
+        from pathlib import Path
         
         if port is None:
             port = find_free_port(8000, 9000)
             logger.info(f"Using random port: {port}")
         
         app = create_app()
+        
+        # Mount FVOAS assets (logo)
+        try:
+            from fastapi.staticfiles import StaticFiles
+            assets_dir = Path(__file__).parent / "assets"
+            if assets_dir.exists():
+                app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
+        except Exception as e:
+            logger.debug(f"Could not mount assets: {e}")
         
         print("=" * 80)
         print("FVOAS Voice Anonymization - Web Interface")
@@ -196,6 +216,7 @@ def launch_web_framework(port=None):
         print("   This system is COMPLIANT with federal specifications")
         print("   but NOT AUDITED/CERTIFIED.")
         print(f"\n🌐 Web interface: http://127.0.0.1:{port}")
+        print(f"📁 Logo: http://127.0.0.1:{port}/assets/fvoas_logo.svg")
         print("\n" + "=" * 80 + "\n")
         
         uvicorn.run(app, host='127.0.0.1', port=port)
