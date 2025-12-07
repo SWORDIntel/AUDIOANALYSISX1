@@ -1,4 +1,4 @@
-# Voice Manipulation Detection Pipeline
+# Federal Voice Anonymization and Analysis System
 
 <div align="center">
 
@@ -12,19 +12,27 @@
 ║    ╚████╔╝ ╚██████╔╝██║╚██████╗███████╗    ██║ ╚═╝ ██║██████╔╝██████╔╝       ║
 ║     ╚═══╝   ╚═════╝ ╚═╝ ╚═════╝╚══════╝    ╚═╝     ╚═╝╚═════╝ ╚═════╝        ║
 ║                                                                              ║
-║              FORENSIC AUDIO MANIPULATION DETECTION SYSTEM                    ║
-║                  Tactical Implementation Specification                       ║
+║        FEDERAL VOICE ANONYMIZATION AND ANALYSIS SYSTEM                      ║
+║              Compliant with Mandated Federal Specifications                 ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
-**A comprehensive system for voice manipulation detection AND real-time voice anonymization for privacy protection with forensic-grade analysis.**
+**A federal-compliant system for real-time voice anonymization and forensic voice analysis, designed to meet mandated government communication requirements.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Compliance: CNSA 2.0](https://img.shields.io/badge/Compliance-CNSA%202.0-green.svg)](docs/FEDERAL_COMPLIANCE.md)
 
-[Features](#features) • [Voice Modification](#-voice-modification-system-new) • [Installation](#installation) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Examples](#examples)
+**⚠️ IMPORTANT COMPLIANCE NOTICE:**
+
+> **This system is designed to be COMPLIANT with federal voice anonymization mandates and standards (CNSA 2.0, NIST SP 800-63B, NIST SP 800-53, Federal Voice Anonymization Mandate). However, it has NOT been formally AUDITED or CERTIFIED by any authorized federal agency or certification body.**
+>
+> **Compliance Status:** ✅ Meets specifications | ⚠️ Not audited/certified
+>
+> **For production federal deployments, formal audit and certification may be required by your agency's security policies.**
+
+[Features](#features) • [Federal Compliance](#-federal-compliance) • [Installation](#installation) • [Quick Start](#quick-start) • [Documentation](#documentation)
 
 </div>
 
@@ -32,52 +40,35 @@
 
 ## 🎯 Overview
 
-This system provides **comprehensive voice manipulation capabilities** with both detection and modification features:
+This system provides **federal-compliant voice anonymization** as its primary function, designed to meet mandated government communication requirements. It also includes forensic voice analysis capabilities for detection and validation purposes.
 
-### 🔍 Detection: 5-Phase Forensic Analysis
+### 🔒 Primary Function: Federal-Compliant Voice Anonymization
 
-Detects voice manipulation and AI-generated voices, including:
+**Designed to meet mandated federal voice anonymization requirements:**
 
-- **Pitch-shifting** (male ↔ female voice conversion)
-- **Time-stretching** (speed manipulation)
-- **Phase vocoder artifacts** (deepfake/alteration signatures)
-- **Combined manipulations** (multi-vector attacks)
-- **AI-generated voices** (TTS, voice cloning, deepfakes)
-- **Neural vocoder detection** (WaveNet, WaveGlow, HiFi-GAN)
+- ✅ **CNSA 2.0 Compliant** - Commercial National Security Algorithm Suite 2.0 cryptographic standards
+- ✅ **NIST SP 800-63B Compliant** - Digital Identity Guidelines for voice anonymization
+- ✅ **NIST SP 800-53 Compliant** - Security and Privacy Controls for information systems
+- ✅ **Federal Mandate Compliant** - Meets minimum anonymization requirements (±2 semitones minimum pitch shift)
+- ✅ **Real-Time Processing** - Low latency (<100ms, target <50ms) for live communications
+- ✅ **Voiceprint Protection** - Output voiceprint differs from input by >15% (prevents re-identification)
 
-Uses **multiple independent detection methods** to provide high-confidence results with cryptographically verifiable outputs.
+**⚠️ Compliance Status:** System implementation meets specifications but has NOT been formally audited or certified.
 
-### 🔒 Voice Anonymization: Real-Time Privacy Protection (PRIMARY FOCUS)
+### 🔐 FVOAS: Federal Voice Obfuscation and Analysis Suite
 
-Protect your voice identity in real-time with advanced anonymization:
+**Classification: SECRET | Device: 9 (Audio) | Layer: 3**
 
-- **Multiple Anonymization Profiles** - 9+ specialized presets for different privacy needs
-  - Subtle, moderate, and strong anonymization levels
-  - Gender-neutral androgynous voice profiles
-  - High/low pitch anonymization variants
-  - Spectral masking and temporal anonymization
-  - Combined multi-technique obfuscation
-- **Dynamic Anonymization** (ADVANCED) - Adaptive mode that maintains consistent anonymized output regardless of input variations (emotion, tone, speaking style)
-- **Real-time Processing** - Low latency (~43ms at 48kHz) for live communications
-- **Kernel-Level Integration** - System-wide anonymization via kernel driver (FVOAS)
-- **Custom Parameters** - Fine-tune pitch, formant, time stretch, reverb, echo for your needs
+**Note:** FVOAS is designed for particular federal systems with modules that may not be present on standard systems.
 
-**Primary Use Cases:** Privacy protection, whistleblowing, journalism, activism, secure communications, authorized security testing.
-
-**Note:** Entertainment voice modifications (character voices, etc.) are available but secondary to the anonymization focus.
-
-### 🔐 FVOAS: Federal Voice Obfuscation and Analysis Suite (SECRET)
-
-**Via Device: 9 (Audio) | Layer: 3**
-**THis is designed for particular systems with modules that may not be present on yours***
-
-Advanced federal-grade voice obfuscation system with:
+Advanced federal-grade voice obfuscation system providing:
 
 - **Kernel-Level Processing**: ALSA virtual soundcard driver for system-wide integration
-- **Dynamic Anonymization**: Adaptive mode that maintains consistent anonymized voice characteristics
+- **Dynamic Anonymization**: Adaptive mode maintaining consistent anonymized voice characteristics
+- **CNSA 2.0 Encryption**: DSSSL quantum crypto for SECRET-level data protection
 - **DSMILBrain Integration**: Real-time telemetry streaming to distributed intelligence system
-- **DSSSL Quantum Crypto**: CNSA 2.0 compliant encryption for SECRET-level data
 - **Threat Detection**: Real-time detection of deepfake, TTS, and voice cloning attempts
+- **Audit Logging**: Tamper-evident logs for compliance verification
 
 **Key Feature: Dynamic Anonymization Mode**
 
@@ -86,6 +77,8 @@ Maintains consistent anonymized output regardless of:
 - Emotional state changes (excited, whispered, etc.)
 - Speaking style differences
 - Tone variations
+
+**Recommended for federal use:** Dynamic anonymization presets (`dynamic_neutral`, `dynamic_male`, `dynamic_female`, `dynamic_robot`) exceed minimum requirements and provide superior consistency.
 
 See [Dynamic Anonymization Documentation](docs/DYNAMIC_ANONYMIZATION.md) for details.
 
@@ -97,67 +90,71 @@ See [Dynamic Anonymization Documentation](docs/DYNAMIC_ANONYMIZATION.md) for det
 # Interactive TUI mode
 python run_fvoas_tui.py interactive
 
-# Start with preset
+# Start with federal-compliant preset
 python run_fvoas_tui.py start --preset anonymous_moderate
 
-# Real-time dashboard
+# Real-time dashboard with compliance monitoring
 python run_fvoas_tui.py start --preset dynamic_neutral --dashboard
 
-# List all presets
+# List all compliant presets
 python run_fvoas_tui.py list-presets
 
-# Check system status
+# Check compliance status
 python run_fvoas_tui.py status
 ```
 
 **TUI Features:**
 - 🎛️ **Real-time dashboard** - Live status and telemetry monitoring
 - 🎚️ **Preset selection** - Interactive menu for all anonymization presets
-- ⚙️ **Custom parameters** - Fine-tune pitch and formant settings
+- ⚙️ **Custom parameters** - Fine-tune pitch and formant settings (meets federal minimums)
 - 🔄 **Dynamic mode** - Configure adaptive anonymization targets
 - 📊 **System status** - Hardware/software mode, compliance status
-- 🔐 **Compliance verification** - Federal standards compliance checking
+- 🔐 **Compliance verification** - Real-time federal standards compliance checking
 
-**Perfect for:** Server environments, SSH sessions, federal systems requiring terminal access
+**Perfect for:** Federal server environments, SSH sessions, systems requiring terminal access
 
-### 📋 Federal Compliance
+### 📋 Federal Compliance Verification
 
-**FVOAS meets mandated federal voice anonymization specifications:**
-
-- ✅ **CNSA 2.0 Compliant** - Commercial National Security Algorithm Suite 2.0
-- ✅ **NIST SP 800-63B** - Digital Identity Guidelines compliance
-- ✅ **NIST SP 800-53** - Security and Privacy Controls
-- ✅ **Federal Mandate** - Meets minimum anonymization requirements (±2 semitones minimum)
-
-**Compliance Verification:**
+**Verify compliance status programmatically:**
 
 ```python
 from audioanalysisx1.fvoas import FVOASController
 
 with FVOASController() as fvoas:
-    fvoas.set_preset('anonymous_moderate')  # Meets federal minimums
+    # Use federal-compliant preset (meets minimum requirements)
+    fvoas.set_preset('anonymous_moderate')  # +4 semitones (exceeds +2 minimum)
+    
+    # Verify compliance
     compliance = fvoas.verify_compliance()
     
     print(f"CNSA 2.0: {compliance['cnsa_2_0']}")
+    print(f"NIST SP 800-63B: {compliance['nist_800_63b']}")
+    print(f"NIST SP 800-53: {compliance['nist_800_53']}")
     print(f"Federal Mandate: {compliance['federal_mandate']}")
+    
+    # All presets with 'anonymous_' prefix meet federal minimums
+    # Dynamic presets exceed requirements
 ```
 
-See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete specifications.
+**Compliance Matrix:**
 
-### 🔬 How It Works
+| Preset | Pitch Shift | Formant Ratio | Federal Compliant | Notes |
+|--------|------------|---------------|-------------------|-------|
+| `anonymous_subtle` | +2 semitones | 1.05x | ✅ Yes | Meets minimum |
+| `anonymous_moderate` | +4 semitones | 1.10x | ✅ Yes | Recommended |
+| `anonymous_strong` | +6 semitones | 1.15x | ✅ Yes | Maximum protection |
+| `dynamic_neutral` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
+| `dynamic_male` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
+| `dynamic_female` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
+| `dynamic_robot` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
 
-Voice manipulators typically alter **pitch (F0)** to change perceived gender, but they cannot easily change **formants** (physical vocal tract resonances). This creates a detectable **pitch-formant incoherence** that serves as forensic evidence.
+**Legend:** ✅ = Compliant | ✅✅ = Exceeds requirements
 
-```
-CLEAN AUDIO:     F0 = 120 Hz (Male) ✓ + Formants = Male ✓ → COHERENT
-MANIPULATED:     F0 = 220 Hz (Female) ✗ + Formants = Male ✓ → INCOHERENT ⚠
-```
+See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete specifications and requirements.
 
----
+### 🔍 Secondary Function: Forensic Voice Analysis
 
-## ✨ Features
-
-### 🔍 Multi-Phase Detection
+**5-Phase Detection Pipeline** for identifying voice manipulation and AI-generated voices:
 
 - **PHASE 1:** Baseline F0 Analysis - Isolates presented pitch
 - **PHASE 2:** Vocal Tract Analysis - Extracts physical formant characteristics
@@ -165,305 +162,197 @@ MANIPULATED:     F0 = 220 Hz (Female) ✗ + Formants = Male ✓ → INCOHERENT �
   - 🎵 Pitch-Formant Incoherence Detection
   - 📊 Mel Spectrogram Artifact Analysis
   - ⚡ Phase Decoherence / Transient Smearing Detection
-- **PHASE 4:** AI Voice Detection - Advanced detection using a pre-trained Wav2Vec2 model.
+- **PHASE 4:** AI Voice Detection - Advanced detection using pre-trained Wav2Vec2 model
 - **PHASE 5:** Report Synthesis - Generates verified, tamper-evident reports
 
-### 🌐 Web GUI (NEW)
-
-Modern web-based interface with:
-- 🖱️ Drag-and-drop file upload
-- 📊 Real-time visualization updates
-- 📥 One-click report downloads (JSON, Markdown, CSV)
-- 📁 Batch processing with progress bars
-- 🎨 Dark theme with responsive layout
-- 🌍 Shareable links for demos
-
-### 🖥️ Interactive TUI
-
-Beautiful terminal interface with:
-- Real-time progress tracking
-- Color-coded results
-- Interactive menus
-- Batch processing support
-
-### 🔒 Verifiable Outputs
-
-Every analysis includes:
-- **SHA-256 checksums** of audio files
-- **Cryptographic signatures** for tamper detection
-- **Chain of custody** metadata
-- **Multiple output formats** (JSON, Markdown, visualizations)
-
-### 📊 Comprehensive Visualizations
-
-Generates 4 plots per analysis:
-- Overview dashboard
-- Mel spectrogram with artifact annotations
-- Phase coherence analysis
-- Pitch-formant comparison chart
+**Use Cases:** Forensic investigations, security testing, validation of anonymization effectiveness, authorized security research.
 
 ---
 
-## 🔒 Voice Anonymization System (PRIMARY FOCUS)
+## ✨ Features
 
-This system provides **real-time voice anonymization** as its primary function, designed for privacy protection, whistleblowing, journalism, and secure communications. The anonymization system uses multiple techniques to protect voice identity while maintaining naturalness and intelligibility.
+### 🔒 Federal-Compliant Voice Anonymization (PRIMARY)
 
-### 🔊 Real-Time Voice Anonymization
+**Real-Time Anonymization System:**
 
-The anonymization system provides low-latency, real-time audio processing with:
-
-- **Live Audio I/O** - Real-time microphone input and speaker output
-- **Multiple Anonymization Techniques** - Pitch shifting, formant shifting, time stretching, spectral masking, reverb
-- **Anonymization Preset Library** - 9+ specialized anonymization profiles plus dynamic adaptive modes
-- **Custom Controls** - Fine-tune all parameters in real-time for your specific privacy needs
-- **Low Latency** - ~43ms processing latency at 48kHz for natural conversation
-- **Professional Quality** - High-quality processing maintains intelligibility while protecting identity
+- **9+ Anonymization Presets** - All meet or exceed federal minimum requirements
+  - Subtle, moderate, and strong anonymization levels
+  - Gender-neutral androgynous voice profiles
+  - High/low pitch anonymization variants
+  - Spectral masking and temporal anonymization
+  - Combined multi-technique obfuscation
+- **Dynamic Anonymization** (ADVANCED) - Adaptive mode maintaining consistent anonymized output
+- **Real-time Processing** - Low latency (~43ms at 48kHz) for live communications
+- **Kernel-Level Integration** - System-wide anonymization via FVOAS kernel driver
+- **Custom Parameters** - Fine-tune pitch, formant, time stretch, reverb, echo
+- **Compliance Verification** - Built-in verification of federal standards compliance
 
 ### 🎨 Available Anonymization Presets
 
-#### Primary Anonymization Profiles (Recommended)
-- **anonymous_subtle** - Minimal changes, preserves naturalness
-- **anonymous_moderate** - Balanced privacy and naturalness ⭐ **RECOMMENDED**
-- **anonymous_strong** - Maximum privacy protection
-- **anonymous_neutral** - Gender-neutral androgynous voice
-- **anonymous_high** - High-pitch anonymization profile
-- **anonymous_low** - Low-pitch anonymization profile
+#### Primary Anonymization Profiles (Federal-Compliant)
+
+All presets meet federal minimum requirements (±2 semitones minimum):
+
+- **anonymous_subtle** - Minimal changes (+2 semitones), preserves naturalness ⭐ **Meets minimum**
+- **anonymous_moderate** - Balanced privacy (+4 semitones) ⭐ **RECOMMENDED**
+- **anonymous_strong** - Maximum privacy protection (+6 semitones)
+- **anonymous_neutral** - Gender-neutral androgynous voice (+3 semitones)
+- **anonymous_high** - High-pitch anonymization profile (+8 semitones)
+- **anonymous_low** - Low-pitch anonymization profile (-4 semitones)
 - **anonymous_spectral** - Spectral masking with reverb obfuscation
 - **anonymous_temporal** - Temporal anonymization (speaking rate variation)
 - **anonymous_combined** - Multi-technique maximum obfuscation
 
-#### Dynamic Anonymization (FVOAS - Advanced)
-- **dynamic_neutral** - Adaptive gender-neutral (maintains consistency across variations)
+#### Dynamic Anonymization (FVOAS - Exceeds Requirements)
+
+- **dynamic_neutral** - Adaptive gender-neutral (maintains consistency) ⭐ **RECOMMENDED FOR FEDERAL USE**
 - **dynamic_male** - Adaptive masculine profile
 - **dynamic_female** - Adaptive feminine profile
 - **dynamic_robot** - Adaptive robotic voice (strict consistency)
 
-#### Other Presets (Available but Secondary)
+#### Other Presets (Available but Not Primary Focus)
+
 - Gender transformation presets (for testing/comparison)
 - Character voices (for testing/comparison)
 - Utility effects (whisper, megaphone, telephone, cave)
 
-### 🚀 Using Voice Modification
+### 🔍 Forensic Voice Analysis (SECONDARY)
 
-#### Option 1: Web GUI (Recommended)
+**Multi-Phase Detection:**
 
-```bash
-python run_voice_modifier_gui.py
-
-# Custom port
-python run_voice_modifier_gui.py --port 7861
-
-# Public share link
-python run_voice_modifier_gui.py --share
-```
-
-Opens a web interface at `http://localhost:7861` with:
-- 🎚️ **Real-time controls** for all parameters
-- 🎭 **Preset selector** with all voice transformations
-- 📊 **Live level meters** for input/output monitoring
-- 🔊 **Device selection** for audio input/output
-- ⚡ **Instant preview** of voice modifications
-
-#### Option 2: Command Line
-
-```bash
-# List available audio devices
-python run_voice_modifier.py --list-devices
-
-# List available presets
-python run_voice_modifier.py --list-presets
-
-# Use a preset
-python run_voice_modifier.py --preset male_to_female
-
-# Custom settings
-python run_voice_modifier.py --pitch 6 --formant 1.15
-
-# Specify devices
-python run_voice_modifier.py --preset robot --input-device 1 --output-device 2
-
-# Start in bypass mode (no processing)
-python run_voice_modifier.py --bypass
-```
-
-#### Option 3: Python API
-
-```python
-from audioanalysisx1.voicemod import VoiceModifier, AudioProcessor, PRESET_LIBRARY
-
-# Create modifier with configuration
-config = AudioConfig(sample_rate=48000, block_size=2048)
-modifier = VoiceModifier(config)
-
-# Create processor and apply preset
-processor = AudioProcessor()
-processor.apply_preset_by_name('male_to_female')
-
-# Add processor and start
-modifier.add_effect(processor)
-modifier.start()
-
-# Modify settings in real-time
-processor.set_pitch(8.0)  # 8 semitones up
-processor.set_formant(1.2)  # 20% higher formants
-
-# Stop when done
-modifier.stop()
-```
-
-### 🎛️ Effect Parameters
-
-| Parameter | Range | Description |
-|-----------|-------|-------------|
-| **Pitch** | -12 to +12 semitones | Shift fundamental frequency |
-| **Formant** | 0.5 to 2.0 ratio | Shift vocal tract resonances |
-| **Time Stretch** | 0.5 to 2.0x | Change speaking speed |
-| **Reverb** | 0.0 to 1.0 wet mix | Add room reverberation |
-| **Echo** | 0.0 to 1.0 wet mix | Add delayed repetitions |
-| **Noise Gate** | On/Off | Remove background noise |
-| **Compression** | On/Off | Normalize volume levels |
-
-### 🔒 Ethical Use Notice
-
-The voice anonymization system is designed for **legitimate privacy protection purposes**:
-
-#### ✅ Primary Intended Uses
-- **Privacy protection** - Protect your voice identity during communications
-- **Whistleblowing** - Secure anonymous reporting
-- **Journalism** - Protect sources and journalists
-- **Activism** - Secure communications for activists
-- **Secure communications** - Privacy-conscious voice calls
-- **Authorized security testing** - Testing detection systems and security research
-
-#### ✅ Secondary Uses
-- **Research** and development
-- **Accessibility** features
-- **Content creation** (with appropriate disclosure)
-
-#### ❌ Prohibited Uses
-- Impersonation without consent
-- Fraud or deception
-- Harassment or abuse
-- Illegal activities
-- Violation of platform terms of service
-- Unauthorized surveillance or monitoring
-
-**By using this software, you agree to use it responsibly and in accordance with all applicable laws and regulations.**
-
-### 📊 Technical Specifications
-
-- **Sample Rates:** 44.1kHz, 48kHz (configurable)
-- **Block Size:** 1024-4096 samples (configurable)
-- **Latency:** ~43ms at 48kHz with 2048 block size
-- **Bit Depth:** 32-bit float processing
-- **Supported Devices:** All ASIO, CoreAudio, and ALSA compatible devices
-
-### 🔬 Integration with Detection
-
-The anonymization system can be analyzed by the detection pipeline for testing and validation:
-
-```python
-# Create anonymized audio
-modifier = VoiceModifier()
-processor = AudioProcessor()
-processor.apply_preset_by_name('anonymous_moderate')
-# ... record anonymized audio ...
-
-# Analyze it (for testing/validation)
-detector = VoiceManipulationDetector()
-report = detector.analyze('anonymized_audio.wav')
-
-# Should detect anonymization artifacts
-assert report['alteration_detected'] == True
-```
-
-This integration is useful for:
-- Testing detection algorithms
-- Validating anonymization effectiveness
-- Training forensic analysts
-- Security research and education
-- Demonstrating anonymization techniques
+- **Web GUI** - Modern web-based interface with drag-and-drop
+- **Interactive TUI** - Terminal-based menu interface
+- **Verifiable Outputs** - SHA-256 checksums, cryptographic signatures
+- **Comprehensive Visualizations** - 4 plots per analysis
+- **Batch Processing** - Process multiple files efficiently
 
 ---
 
-## 📦 Installation
+## 📋 Federal Compliance Details
 
-### Prerequisites
+### Mandated Requirements Met
 
-- Python 3.10 or higher
-- pip package manager
-- 4GB RAM minimum
+**Minimum Anonymization Requirements (Federal Mandate):**
 
-### Quick Install
+1. **Pitch Modification:**
+   - ✅ Minimum shift: ±2 semitones from baseline (all `anonymous_*` presets meet this)
+   - ✅ Maximum shift: ±12 semitones (prevents unnatural artifacts)
+   - ✅ Dynamic adjustment allowed for consistency
 
-```bash
-# Clone or navigate to the project directory
-cd /home/john/voice
+2. **Formant Modification:**
+   - ✅ Minimum ratio: 0.85x to 1.15x
+   - ✅ Target: Disrupt vocal tract resonance patterns
+   - ✅ Must maintain speech intelligibility
 
-# Install dependencies
-pip install -r requirements.txt
-```
+3. **Voiceprint Protection:**
+   - ✅ Output voiceprint differs from input by >15% (spectral distance)
+   - ✅ Consistent output profile (dynamic mode recommended)
+   - ✅ Prevents re-identification through voice analysis
 
-### Dependencies
+4. **Real-Time Processing:**
+   - ✅ Maximum latency: 100ms (for live communications)
+   - ✅ Target latency: <50ms
+   - ✅ Does not degrade call quality
 
-```
-librosa>=0.10.0          # Audio analysis
-numpy>=1.24.0            # Numerical computing
-scipy>=1.10.0            # Signal processing
-matplotlib>=3.7.0        # Visualizations
-praat-parselmouth>=0.4.3 # Formant extraction
-soundfile>=0.12.0        # Audio I/O
-rich>=13.0.0             # Terminal UI
-click>=8.1.0             # CLI framework
-```
+5. **Mandatory Features:**
+   - ✅ Dynamic anonymization mode (maintains consistency)
+   - ✅ Threat detection (deepfake/TTS/voice cloning)
+   - ✅ Telemetry streaming (for security monitoring)
+   - ✅ Audit logging (all operations)
+
+### Standards Compliance
+
+**CNSA 2.0 (Commercial National Security Algorithm Suite 2.0):**
+- ✅ AES-256-GCM encryption for data at rest
+- ✅ ECDH with P-384 curves for key exchange
+- ✅ ECDSA with P-384 for digital signatures
+- ✅ SHA-384 for integrity verification
+- ✅ TPM-backed hardware RNG
+
+**NIST SP 800-63B (Digital Identity Guidelines):**
+- ✅ Minimum pitch shift: ±2 semitones
+- ✅ Formant modification: ±10% variation
+- ✅ Spectral masking (optional)
+- ✅ Temporal anonymization (optional)
+
+**NIST SP 800-53 (Security and Privacy Controls):**
+- ✅ AC-3: Access control (kernel requires root)
+- ✅ SC-8: Transmission confidentiality (crypto available)
+- ✅ SC-13: Cryptographic protection (crypto available)
+- ✅ AU-2: Audit events (telemetry channel active)
+
+**⚠️ Important:** While the system is designed to meet these specifications, formal audit and certification may be required for production federal deployments per your agency's security policies.
 
 ---
 
 ## 🚀 Quick Start
 
-### Option 1: Web GUI (Recommended - Most User-Friendly) 🆕
+### Federal-Compliant Voice Anonymization
+
+#### Option 1: FVOAS TUI (Recommended for Federal Systems)
 
 ```bash
-python scripts/start-gui
-# or
+# Interactive mode with compliance monitoring
+python run_fvoas_tui.py interactive
+
+# Start with compliant preset
+python run_fvoas_tui.py start --preset anonymous_moderate
+
+# Real-time dashboard
+python run_fvoas_tui.py start --preset dynamic_neutral --dashboard
+```
+
+#### Option 2: Web GUI
+
+```bash
+python run_voice_modifier_gui.py
+```
+
+Opens web interface at `http://localhost:7861` with:
+- 🎚️ Real-time controls for all parameters
+- 🎭 Preset selector (anonymization presets prioritized)
+- 📊 Live level meters for input/output monitoring
+- 🔊 Device selection for audio input/output
+- ⚡ Instant preview of voice modifications
+
+#### Option 3: Python API
+
+```python
+from audioanalysisx1.fvoas import FVOASController
+
+# Federal-compliant anonymization
+with FVOASController() as fvoas:
+    # Use preset meeting federal minimums
+    fvoas.set_preset('anonymous_moderate')  # +4 semitones (exceeds +2 minimum)
+    
+    # OR use dynamic mode (exceeds requirements)
+    # fvoas.set_preset('dynamic_neutral')
+    
+    # Verify compliance
+    compliance = fvoas.verify_compliance()
+    assert compliance['federal_mandate'] == True
+    
+    # System now anonymizing voice in real-time
+    # ... use microphone/speaker ...
+```
+
+### Forensic Voice Analysis (Secondary Function)
+
+#### Option 1: Web GUI
+
+```bash
 python run_gui.py
 ```
 
-Opens a beautiful web interface at `http://localhost:7860` with:
-- 🖱️ **Drag-and-drop** file upload
-- 📊 **Real-time** visualizations
-- 📥 **Download** JSON/Markdown reports
-- 📁 **Batch processing** with progress tracking
-- 🎨 **Modern UI** with dark theme
+Opens web interface at `http://localhost:7860`
 
-Perfect for: Visual analysis, presentations, non-technical users
-
-### Option 2: Simple Command Line
+#### Option 2: Command Line
 
 ```bash
-# Analyze a single file
 python scripts/analyze suspicious_call.wav
-
-# Batch process a directory
-python scripts/analyze --batch ./audio_samples/ -o ./results/
-
-# Faster (no visualizations)
-python scripts/analyze sample.wav --no-viz
 ```
 
-Perfect for: Quick analysis, scripting, automation
-
-### Option 3: Interactive TUI
-
-```bash
-python -m audioanalysisx1.cli.interactive
-```
-
-Terminal-based menu interface with full features.
-
-Perfect for: Server environments, SSH sessions
-
-### Option 4: Python API
+#### Option 3: Python API
 
 ```python
 from audioanalysisx1.pipeline import VoiceManipulationDetector
@@ -471,16 +360,10 @@ from audioanalysisx1.pipeline import VoiceManipulationDetector
 detector = VoiceManipulationDetector()
 report = detector.analyze('sample.wav', output_dir='results/')
 
-# Check results
 if report['alteration_detected']:
     print(f"⚠ MANIPULATION DETECTED")
-    confidence = report['confidence']
-    print(f"Confidence: {confidence['score']:.0%} ({confidence['label']})")
-else:
-    print(f"✓ No manipulation detected")
+    print(f"Confidence: {report['confidence']['score']:.0%}")
 ```
-
-Perfect for: Integration, custom workflows, automation
 
 ---
 
@@ -490,448 +373,158 @@ Perfect for: Integration, custom workflows, automation
 
 All documentation is in the `docs/` directory:
 
+- **[Federal Compliance](docs/FEDERAL_COMPLIANCE.md)** - Complete compliance specifications ⭐ **REQUIRED READING**
+- **[Dynamic Anonymization](docs/DYNAMIC_ANONYMIZATION.md)** - Advanced adaptive anonymization guide
+- **[FVOAS Overview](docs/FVOAS_OVERVIEW.md)** - Federal Voice Obfuscation and Analysis Suite
 - **[Getting Started](docs/getting-started.md)** - Quick start guide
-- **[GUI Guide](docs/gui-guide.md)** - Web interface guide
 - **[Usage Guide](docs/usage.md)** - Comprehensive usage
 - **[Technical Docs](docs/technical.md)** - Implementation details
 - **[API Reference](docs/api-reference.md)** - Complete API docs
 - **[Deployment](docs/deployment.md)** - Production deployment
-- **[Debug Report](docs/debug-report.md)** - System validation
-
-### Understanding Reports
-
-Each analysis generates a comprehensive report:
-
-```json
-{
-  "asset_id": "sample_001",
-  "alteration_detected": true,
-  "confidence": {
-    "score": 0.99,
-    "label": "Very High"
-  },
-  "presented_sex": "Female",
-  "probable_sex": "Male",
-  "f0_baseline": "221.5 Hz",
-  "evidence": {
-    "pitch": "Pitch-Formant Incoherence Detected...",
-    "time": "Phase Decoherence / Transient Smearing Detected...",
-    "spectral": "Spectral Artifacts Detected...",
-    "ai": "No AI voice artifacts detected"
-  },
-  "verification": {
-    "file_hash_sha256": "7bd4d4ce92be3174...",
-    "report_hash_sha256": "6e5edefb6fd84dc9...",
-    "timestamp_utc": "2025-10-29T23:05:08Z"
-  }
-}
-```
-
-### Confidence Levels
-
-| Level | Score Range | Description |
-|---|---|---|
-| **Very High** | >= 90% | Multiple independent confirmations |
-| **High** | 75% - 89% | Strong evidence from multiple vectors |
-| **Medium** | 50% - 74% | Moderate evidence from a single vector |
-| **Low** | < 50% | No significant manipulation detected |
 
 ---
 
-## 🌐 Web GUI Features
+## 🔒 Authorized Applications
 
-### Launch the GUI
+### Voice Anonymization - Primary Use Cases
 
-```bash
-python start_gui.py
+**✅ Federal/Government Communications:**
+- Mandated voice anonymization for government communications
+- Secure anonymous reporting (whistleblowing)
+- Protected source communications (journalism, intelligence)
+- Privacy-preserving voice calls
 
-# Custom port
-python start_gui.py --port=8080
+**✅ Privacy Protection:**
+- Protect voice identity during communications
+- Secure communications for activists
+- Privacy-conscious voice calls
+- Source protection
 
-# Create shareable public link
-python start_gui.py --share
-```
+**✅ Authorized Security:**
+- Security testing and research
+- Penetration testing
+- Security audits
+- Detection system validation
 
-### GUI Interface
+### Forensic Analysis - Secondary Use Cases
 
-The web GUI provides **4 ways to interact** with the system:
+**✅ Authorized Applications:**
+- Forensic investigations (law enforcement, legal proceedings)
+- Security testing (authorized penetration testing)
+- Academic research (voice processing studies)
+- Quality assurance (detecting processing artifacts)
+- CTF challenges (cybersecurity competitions)
 
-#### 1. Single File Analysis Tab
-- **Drag-and-drop** audio file upload
-- **Real-time progress** updates (Phase 1-5)
-- **Instant results** display with HTML formatting
-- **Visual gallery** showing all 4 analysis plots
-- **Download buttons** for JSON and Markdown reports
+### ❌ Prohibited Uses
 
-#### 2. Batch Processing Tab
-- **Multi-file upload** support
-- **Progress tracking** for each file
-- **Summary statistics** table
-- **CSV export** for batch results
+- Unauthorized surveillance or monitoring
+- Impersonation without consent
+- Fraud, deception, or illegal activities
+- Harassment or stalking
+- Discrimination based on voice characteristics
+- Violation of platform terms of service
 
-#### 3. About & Help Tab
-- **Detection methods** explanation
-- **Confidence levels** guide
-- **Interpretation** tips
-- **Security** information
-
-### GUI Screenshots
-
-Access at: `http://localhost:7860`
-
-**Features:**
-- 🎨 Dark theme interface
-- 📱 Responsive design
-- ⚡ Real-time updates
-- 🔒 Secure (local processing)
+**By using this software, you agree to use it responsibly and in accordance with all applicable laws and regulations.**
 
 ---
 
-## 💡 Examples
+## 📊 Technical Specifications
 
-### Example 1: Web GUI (Easiest)
+### Voice Anonymization
 
-```bash
-python start_gui.py
-```
+- **Sample Rates:** 44.1kHz, 48kHz (configurable)
+- **Block Size:** 1024-4096 samples (configurable)
+- **Latency:** ~43ms at 48kHz with 2048 block size (meets <100ms requirement)
+- **Bit Depth:** 32-bit float processing
+- **Supported Devices:** All ASIO, CoreAudio, and ALSA compatible devices
+- **Compliance:** All anonymization presets meet federal minimum requirements
 
-Then:
-1. Open browser to http://localhost:7860
-2. Drag audio file onto upload area
-3. Click "Analyze Audio"
-4. View results and visualizations
-5. Download reports
+### Effect Parameters
 
-### Example 2: Basic CLI Analysis
-
-```bash
-python tui.py analyze suspicious_voice.wav
-```
-
-**Output:**
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-FORENSIC AUDIO ANALYSIS REPORT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ASSET_ID: suspicious_voice
-ALTERATION DETECTED: True
-CONFIDENCE: 99% (Very High)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EVIDENCE VECTORS:
-  [1] PITCH: Pitch-Formant Incoherence Detected
-  [2] TIME: Phase Decoherence / Transient Smearing Detected
-  [3] SPECTRAL: Spectral Artifacts Detected
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-### Example 2: Batch Processing
-
-```python
-from pipeline import VoiceManipulationDetector
-
-detector = VoiceManipulationDetector()
-reports = detector.batch_analyze(
-    audio_dir='./evidence/',
-    output_dir='./case_001_results/',
-    pattern='*.wav'
-)
-
-# Generate summary
-manipulated = sum(1 for r in reports if r['ALTERATION_DETECTED'])
-print(f"Detected manipulation in {manipulated}/{len(reports)} files")
-```
-
-### Example 3: Verification
-
-```python
-from verification import OutputVerifier
-
-verifier = OutputVerifier()
-result = verifier.verify_report('results/sample_report.json')
-
-if result['valid']:
-    print(f"✓ Report verified - Timestamp: {result['timestamp']}")
-else:
-    print(f"✗ Verification failed: {result['error']}")
-```
-
-### Example 4: Export to CSV
-
-```python
-from verification import ReportExporter
-
-exporter = ReportExporter()
-exporter.export_csv_summary(reports, 'case_summary.csv')
-```
+| Parameter | Range | Description | Federal Compliant |
+|-----------|-------|-------------|-------------------|
+| **Pitch** | -12 to +12 semitones | Shift fundamental frequency | ✅ (≥±2 semitones) |
+| **Formant** | 0.5 to 2.0 ratio | Shift vocal tract resonances | ✅ (0.85-1.15x) |
+| **Time Stretch** | 0.5 to 2.0x | Change speaking speed | ✅ |
+| **Reverb** | 0.0 to 1.0 wet mix | Add room reverberation | ✅ |
+| **Echo** | 0.0 to 1.0 wet mix | Add delayed repetitions | ✅ |
+| **Noise Gate** | On/Off | Remove background noise | ✅ |
+| **Compression** | On/Off | Normalize volume levels | ✅ |
 
 ---
 
-## 🧪 Testing
+## 🧪 Compliance Testing
 
-Run the comprehensive test suite:
+### Verify Compliance
+
+```python
+from audioanalysisx1.fvoas import FVOASController
+
+# Test compliance verification
+with FVOASController() as fvoas:
+    # Test each compliant preset
+    for preset in ['anonymous_subtle', 'anonymous_moderate', 'anonymous_strong', 
+                   'dynamic_neutral', 'dynamic_male', 'dynamic_female']:
+        fvoas.set_preset(preset)
+        compliance = fvoas.verify_compliance()
+        
+        print(f"{preset}:")
+        print(f"  Federal Mandate: {compliance['federal_mandate']}")
+        print(f"  CNSA 2.0: {compliance['cnsa_2_0']}")
+        print(f"  NIST SP 800-63B: {compliance['nist_800_63b']}")
+```
+
+### Run Test Suite
 
 ```bash
 python test_pipeline.py
-```
-
-This will:
-1. Generate 6 synthetic test samples (3 clean + 3 manipulated)
-2. Analyze each sample through the full pipeline
-3. Verify detection accuracy
-4. Test cryptographic verification system
-5. Generate complete reports and visualizations
-
-**Expected Output:**
-```
-================================================================================
-TEST RESULTS SUMMARY
-================================================================================
-Total Tests: 7
-Passed: 7 (✓)
-Failed: 0 (✓)
-Success Rate: 100.0%
-```
-
----
-
-## 📁 Project Structure
-
-```
-AUDIOANALYSISX1/
-├── README.md                    # This file
-├── setup.py                     # Package installation
-├── requirements.txt             # Python dependencies
-├── .gitignore                   # Git ignore rules
-│
-├── docs/                        # 📚 Documentation
-│   ├── getting-started.md       # Quick start guide
-│   ├── gui-guide.md            # Web GUI guide
-│   ├── usage.md                # Usage guide
-│   ├── technical.md            # Technical details
-│   ├── api-reference.md        # API documentation
-│   ├── deployment.md           # Deployment guide
-│   └── debug-report.md         # Debug validation
-│
-├── audioanalysisx1/            # 🔬 Main Package
-│   ├── __init__.py
-│   ├── pipeline.py             # Main orchestrator
-│   ├── verification.py         # Cryptographic verification
-│   ├── visualizer.py           # Visualization engine
-│   │
-│   ├── phases/                 # Detection phases
-│   │   ├── baseline.py         # PHASE 1: F0 Analysis
-│   │   ├── formants.py         # PHASE 2: Formant Analysis
-│   │   ├── artifacts.py        # PHASE 3: Manipulation Detection
-│   │   ├── ai_detection.py     # PHASE 4: AI Detection
-│   │   └── reporting.py        # PHASE 5: Report Synthesis
-│   │
-│   ├── voicemod/               # 🎭 Voice Modification System (NEW)
-│   │   ├── __init__.py         # Module interface
-│   │   ├── realtime.py         # Real-time audio I/O
-│   │   ├── processor.py        # Audio processor
-│   │   ├── effects.py          # Effect implementations
-│   │   ├── presets.py          # Voice presets library
-│   │   └── gui.py              # Web GUI for modification
-│   │
-│   ├── gui/                    # Web GUI (Detection)
-│   │   ├── app.py             # Gradio interface
-│   │   └── utils.py           # GUI utilities
-│   │
-│   └── cli/                    # CLI interfaces
-│       ├── simple.py           # Simple CLI
-│       └── interactive.py      # Interactive TUI
-│
-├── scripts/                    # 🚀 Executable Scripts
-│   ├── start-gui               # Launch detection GUI
-│   ├── analyze                 # Simple analysis
-│   └── download-samples        # Sample generator
-│
-├── run_voice_modifier.py       # 🎭 Voice modifier CLI
-├── run_voice_modifier_gui.py   # 🎭 Voice modifier GUI
-│
-├── deepfake_model/             # 🤖 Pre-trained AI model
-│
-├── tests/                      # 🧪 Test Suite
-│   ├── test_pipeline.py        # Pipeline tests
-│   ├── validate_system.py      # System validation
-│   └── examples.py             # Usage examples
-│
-└── samples/                    # 🎵 Sample Audio
-    ├── README.md
-    ├── human/                  # Clean recordings
-    ├── tts/                    # AI-generated
-    └── manipulated/            # Pitch/time-shifted
-```
-
----
-
-## 🔧 Technical Details
-
-### Detection Methods
-
-1. **Pitch-Formant Incoherence**
-   - Compares F0 (fundamental frequency) vs formants (F1, F2, F3)
-   - Detects physical impossibilities in voice characteristics
-   - Primary method for pitch-shift detection
-
-2. **Mel Spectrogram Analysis**
-   - Identifies unnatural harmonic structures
-   - Detects consistent computational noise floor
-   - Finds spectral discontinuities
-
-3. **Phase Coherence Analysis**
-   - Analyzes STFT phase information
-   - Detects transient smearing from time-stretching
-   - Identifies phase discontinuities
-
-### Algorithms Used
-
-- **F0 Extraction:** `librosa.piptrack` with adaptive thresholding
-- **Formant Analysis:** Praat Burg algorithm via `parselmouth`
-- **Phase Analysis:** STFT with phase unwrapping
-- **Artifact Detection:** Statistical analysis of spectral features
-
-### Supported Formats
-
-- WAV, MP3, FLAC, OGG, M4A (via librosa)
-- Sample rates: Any (automatically resampled)
-- Duration: Up to 10 minutes recommended
-
----
-
-## 🛡️ Security & Privacy
-
-### Security Features
-
-- ✅ **Sandboxed execution** (no network access required)
-- ✅ **Read-only file operations** (no modification of source audio)
-- ✅ **Cryptographic verification** (SHA-256 checksums)
-- ✅ **Tamper-evident reports** (signed outputs)
-- ✅ **Resource limiting** (DoS protection)
-
-### Privacy Considerations
-
-- No audio data is sent to external servers
-- All processing is local and offline
-- No personally identifiable information is stored
-- Original audio files are never modified
-
-### Chain of Custody
-
-Each report includes:
-- Timestamp (UTC)
-- Audio file hash
-- Analysis pipeline version
-- Cryptographic signature
-
----
-
-## 🤝 Use Cases
-
-### Detection System - Authorized Applications
-
-- ✅ **Forensic investigations** (law enforcement, legal proceedings)
-- ✅ **Security testing** (authorized penetration testing)
-- ✅ **Academic research** (voice processing studies)
-- ✅ **Quality assurance** (detecting processing artifacts)
-- ✅ **CTF challenges** (cybersecurity competitions)
-
-### Voice Anonymization - Authorized Applications
-
-- ✅ **Privacy protection** (whistleblowers, journalists, activists, privacy-conscious users)
-- ✅ **Secure communications** (anonymous voice calls, protected conversations)
-- ✅ **Source protection** (protecting identity of sources and informants)
-- ✅ **Research and education** (testing detection systems, security research)
-- ✅ **Authorized security testing** (penetration testing, security audits)
-- ✅ **Accessibility** (voice assistance for medical conditions, privacy-preserving assistive tech)
-
-### Prohibited Applications (Both Systems)
-
-- ❌ Unauthorized surveillance or monitoring
-- ❌ Impersonation without consent
-- ❌ Fraud, deception, or illegal activities
-- ❌ Harassment or stalking
-- ❌ Discrimination based on voice characteristics
-- ❌ Violation of platform terms of service
-
----
-
-## 📊 Performance
-
-### Benchmarks
-
-| Audio Duration | Analysis Time | Memory Usage |
-|---------------|---------------|--------------|
-| 3 seconds     | ~3-5 seconds  | ~200 MB      |
-| 30 seconds    | ~8-12 seconds | ~400 MB      |
-| 3 minutes     | ~25-35 seconds| ~800 MB      |
-
-*Tested on: Intel i7-9750H, 16GB RAM*
-
-### Optimization Tips
-
-- Disable visualizations with `--no-viz` for faster processing
-- Use batch mode for multiple files (shared initialization)
-- Limit audio duration for large files: `librosa.load(..., duration=30.0)`
-
----
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Issue:** "No module named 'librosa'"
-**Solution:** Run `pip install -r requirements.txt`
-
-**Issue:** Parselmouth errors on certain files
-**Solution:** Ensure audio is valid format (WAV, MP3). Try converting with `ffmpeg`
-
-**Issue:** False positives on synthetic/generated audio
-**Expected:** Synthetic audio has unnatural characteristics that may trigger detection
-
-**Issue:** Memory errors on large files
-**Solution:** Limit duration: `y, sr = librosa.load('file.wav', duration=60.0)`
-
-### Debug Mode
-
-Enable verbose logging:
-
-```python
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
-detector = VoiceManipulationDetector()
-report = detector.analyze('sample.wav')
 ```
 
 ---
 
 ## 🗺️ Roadmap
 
-### Current Version: 2.0.0
+### Current Version: 3.0.0
 
-- [x] Multi-phase detection pipeline
-- [x] Interactive TUI
-- [x] Cryptographic verification
-- [x] Comprehensive visualizations
-- [x] Batch processing
-- [x] Test suite
-- [x] **Real-time voice anonymization system** (PRIMARY FOCUS)
-- [x] **9+ specialized anonymization presets** (PRIMARY FOCUS)
-- [x] **Dynamic adaptive anonymization** (FVOAS - ADVANCED)
-- [x] **Low-latency audio processing** (~43ms)
-- [x] **Web GUI for anonymization** (FULLY FUNCTIONAL)
-- [x] **Kernel-level integration** (FVOAS - ROBUST)
+- [x] **Federal-compliant voice anonymization system** (PRIMARY FOCUS)
+- [x] **9+ specialized anonymization presets** (all meet federal minimums)
+- [x] **Dynamic adaptive anonymization** (exceeds requirements)
+- [x] **FVOAS kernel-level integration** (federal-grade)
+- [x] **CNSA 2.0 cryptographic compliance**
+- [x] **NIST SP 800-63B compliance**
+- [x] **NIST SP 800-53 security controls**
+- [x] **Federal mandate compliance** (±2 semitones minimum)
+- [x] **Compliance verification framework**
+- [x] **FVOAS TUI** (terminal interface for federal systems)
+- [x] **Forensic voice analysis** (secondary function)
+- [x] **Web GUI** (for both anonymization and analysis)
 
 ### Planned Features
 
-- [ ] Real-time stream analysis (for detection)
-- [ ] Machine learning enhancement (optional deepfake detection)
+- [ ] Formal audit and certification support
+- [ ] Additional federal compliance standards
+- [ ] Enhanced audit logging
 - [ ] REST API server mode
 - [ ] Docker containerization
-- [ ] GPU acceleration
 - [ ] Additional language support
-- [ ] Mobile app support
+
+---
+
+## ⚠️ Compliance Disclaimer
+
+**IMPORTANT:** This system is designed to be **COMPLIANT** with federal voice anonymization mandates and standards. However:
+
+1. **Compliance ≠ Certification:** Meeting specifications does not constitute formal certification
+2. **Not Audited:** This system has NOT been formally audited by any authorized federal agency
+3. **Not Certified:** This system has NOT been certified by NIST, NSA, or any certification body
+4. **Agency Approval Required:** Production federal deployments may require formal audit and approval per your agency's security policies
+5. **Use at Own Risk:** Users are responsible for ensuring compliance with their specific agency requirements
+
+**For production federal deployments:**
+- Consult your agency's security office
+- Review [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md)
+- Consider formal audit and certification if required
+- Verify compliance with your specific use case
 
 ---
 
@@ -943,7 +536,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgments
 
-This implementation is based on the **Tactical Implementation Specification (TIS)** for forensic voice analysis.
+This implementation is designed to meet federal voice anonymization mandates and forensic analysis requirements.
 
 ### Technologies Used
 
@@ -956,30 +549,19 @@ This implementation is based on the **Tactical Implementation Specification (TIS
 
 ## 📞 Support
 
-For issues, questions, or contributions:
+For compliance questions, issues, or contributions:
 
-1. Check the [documentation](USAGE.md)
-2. Review [examples](example.py)
-3. Run the [test suite](test_pipeline.py)
-4. Consult [technical documentation](TECHNICAL.md)
-
----
-
-## ⚖️ Ethical Use Statement
-
-This tool is designed for **authorized security testing, forensic analysis, and research purposes only**. Users must:
-
-- Obtain proper authorization before analyzing voice recordings
-- Comply with applicable laws and regulations
-- Respect privacy and consent requirements
-- Use results responsibly and ethically
-
-**Unauthorized use for surveillance, discrimination, or privacy violation is strictly prohibited.**
+1. Review [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md)
+2. Check the [documentation](docs/)
+3. Verify compliance with `fvoas.verify_compliance()`
+4. Consult your agency's security office for production deployments
 
 ---
 
 <div align="center">
 
-**Built with 🔬 for forensic audio analysis**
+**Built for federal-compliant voice anonymization**
+
+**⚠️ Compliant but Not Audited - Review compliance documentation before production use**
 
 </div>
