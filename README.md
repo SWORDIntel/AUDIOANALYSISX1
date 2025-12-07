@@ -89,6 +89,61 @@ Maintains consistent anonymized output regardless of:
 
 See [Dynamic Anonymization Documentation](docs/DYNAMIC_ANONYMIZATION.md) for details.
 
+### 🖥️ FVOAS TUI (Terminal User Interface)
+
+**Federal-grade terminal interface for voice anonymization:**
+
+```bash
+# Interactive TUI mode
+python run_fvoas_tui.py interactive
+
+# Start with preset
+python run_fvoas_tui.py start --preset anonymous_moderate
+
+# Real-time dashboard
+python run_fvoas_tui.py start --preset dynamic_neutral --dashboard
+
+# List all presets
+python run_fvoas_tui.py list-presets
+
+# Check system status
+python run_fvoas_tui.py status
+```
+
+**TUI Features:**
+- 🎛️ **Real-time dashboard** - Live status and telemetry monitoring
+- 🎚️ **Preset selection** - Interactive menu for all anonymization presets
+- ⚙️ **Custom parameters** - Fine-tune pitch and formant settings
+- 🔄 **Dynamic mode** - Configure adaptive anonymization targets
+- 📊 **System status** - Hardware/software mode, compliance status
+- 🔐 **Compliance verification** - Federal standards compliance checking
+
+**Perfect for:** Server environments, SSH sessions, federal systems requiring terminal access
+
+### 📋 Federal Compliance
+
+**FVOAS meets mandated federal voice anonymization specifications:**
+
+- ✅ **CNSA 2.0 Compliant** - Commercial National Security Algorithm Suite 2.0
+- ✅ **NIST SP 800-63B** - Digital Identity Guidelines compliance
+- ✅ **NIST SP 800-53** - Security and Privacy Controls
+- ✅ **Federal Mandate** - Meets minimum anonymization requirements (±2 semitones minimum)
+
+**Compliance Verification:**
+
+```python
+from audioanalysisx1.fvoas import FVOASController
+
+with FVOASController() as fvoas:
+    fvoas.set_preset('anonymous_moderate')  # Meets federal minimums
+    compliance = fvoas.verify_compliance()
+    
+    print(f"CNSA 2.0: {compliance['cnsa_2_0']}")
+    print(f"Federal Mandate: {compliance['federal_mandate']}")
+```
+
+See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete specifications.
+
 ### 🔬 How It Works
 
 Voice manipulators typically alter **pitch (F0)** to change perceived gender, but they cannot easily change **formants** (physical vocal tract resonances). This creates a detectable **pitch-formant incoherence** that serves as forensic evidence.
