@@ -266,6 +266,12 @@ Examples:
         help='Port for web interface (random if not specified)'
     )
     
+    parser.add_argument(
+        '--electron',
+        action='store_true',
+        help='Launch Electron desktop app (no browser)'
+    )
+    
     args = parser.parse_args()
     
     if not FRAMEWORK_AVAILABLE and (args.web or args.qt):
@@ -273,7 +279,18 @@ Examples:
         logger.info("Install DSMilWebFrame or use standalone TUI")
         sys.exit(1)
     
-    if args.qt:
+    if args.electron:
+        # Launch Electron app
+        try:
+            from run_fvoas_electron import launch_electron
+            if not launch_electron():
+                logger.error("Electron launch failed, falling back to web interface")
+                launch_web_framework(args.port)
+        except ImportError:
+            logger.error("Electron launcher not available")
+            logger.info("Use: python run_fvoas_electron.py")
+            sys.exit(1)
+    elif args.qt:
         launch_qt_framework()
     elif args.web:
         launch_web_framework(args.port)

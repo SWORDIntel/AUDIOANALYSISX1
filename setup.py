@@ -157,6 +157,7 @@ setup(
             'voicemod-gui=run_voice_modifier_gui:main',
             'audioanalysisx1-cpuinfo=audioanalysisx1.cpu_features:print_cpu_info',
             'fvoas-interface=run_fvoas_interface:main',
+            'fvoas-electron=run_fvoas_electron:main',
         ],
         # Register FVOAS module with DSMilWebFrame (if framework available)
         'dsmil.modules': [
