@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """
-FVOAS Interface Launcher
+FVOAS Interface Launcher (DEPRECATED - Use run_fvoas_interface.py)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Launch FVOAS interface (TUI by default, web optional)
+This file is kept for backward compatibility.
+Use run_fvoas_interface.py instead, which uses DSMilWebFrame properly.
 
 Classification: SECRET
 Device: 9 (Audio) | Layer: 3 | Clearance: 0x03030303
 
-Usage:
-    python run_fvoas_web.py                    # TUI (default)
-    python run_fvoas_web.py --web              # Web interface (random port)
-    python run_fvoas_web.py --web --port 9000  # Web interface (specific port)
-    python run_fvoas_web.py --qt               # Qt desktop GUI
+Proper Usage (using framework):
+    dsmil --module fvoas_anonymization                    # TUI
+    python -m dsmil_framework.gui.qt_app fvoas_anonymization  # Qt
+    python -m dsmil_framework.web.react_app              # Web
+    
+Or use convenience wrapper:
+    python run_fvoas_interface.py                        # TUI
+    python run_fvoas_interface.py --qt                   # Qt
+    python run_fvoas_interface.py --web                  # Web
 """
 
 import argparse
