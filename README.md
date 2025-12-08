@@ -140,9 +140,9 @@ with FVOASController() as fvoas:
 
 | Preset | Pitch Shift | Formant Ratio | Federal Compliant | Notes |
 |--------|------------|---------------|-------------------|-------|
-| `anonymous_subtle` | +2 semitones | 1.05x | ✅ Yes | Meets minimum |
-| `anonymous_moderate` | +4 semitones | 1.10x | ✅ Yes | Recommended |
-| `anonymous_strong` | +6 semitones | 1.15x | ✅ Yes | Maximum protection |
+| `anonymous_subtle` | +2.5 semitones | 1.03x | ✅ Yes | Meets minimum, optimized for clarity |
+| `anonymous_moderate` | +3.0 semitones | 1.04x | ✅ Yes | Recommended - optimal clarity/anonymity balance |
+| `anonymous_strong` | +4.0 semitones | 1.06x | ✅ Yes | Maximum protection with maintained clarity |
 | `dynamic_neutral` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
 | `dynamic_male` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
 | `dynamic_female` | Adaptive | Adaptive | ✅✅ Yes | Exceeds requirements |
@@ -177,6 +177,7 @@ See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete 
 
 - **9+ Anonymization Presets** - All meet or exceed federal minimum requirements
   - Subtle, moderate, and strong anonymization levels
+  - **Optimized for clarity** - Presets balanced to maintain speech intelligibility
   - Gender-neutral androgynous voice profiles
   - High/low pitch anonymization variants
   - Spectral masking and temporal anonymization
@@ -196,9 +197,9 @@ See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete 
 
 All presets meet federal minimum requirements (±2 semitones minimum):
 
-- **anonymous_subtle** - Minimal changes (+2 semitones), preserves naturalness ⭐ **Meets minimum**
-- **anonymous_moderate** - Balanced privacy (+4 semitones) ⭐ **RECOMMENDED**
-- **anonymous_strong** - Maximum privacy protection (+6 semitones)
+- **anonymous_subtle** - Minimal changes (+2.5 semitones), preserves naturalness and clarity ⭐ **Meets minimum**
+- **anonymous_moderate** - Balanced privacy (+3.0 semitones), optimal clarity/anonymity balance ⭐ **RECOMMENDED**
+- **anonymous_strong** - Maximum privacy protection (+4.0 semitones), maintains clarity
 - **anonymous_neutral** - Gender-neutral androgynous voice (+3 semitones)
 - **anonymous_high** - High-pitch anonymization profile (+8 semitones)
 - **anonymous_low** - Low-pitch anonymization profile (-4 semitones)

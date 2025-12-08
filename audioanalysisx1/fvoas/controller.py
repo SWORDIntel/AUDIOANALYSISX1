@@ -56,31 +56,32 @@ PRESETS: Dict[str, Dict[str, Any]] = {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
             pitch_semitones=2.5,
-            formant_ratio=1.05,
+            formant_ratio=1.03,  # Reduced from 1.05 for better clarity
             noise_gate_enabled=True,
+            compression_enabled=True,  # Added compression for clarity
         ),
-        'description': 'Subtle anonymization - minimal changes for privacy',
+        'description': 'Subtle anonymization - minimal changes for privacy (preserves clarity)',
     },
     'anonymous_moderate': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=-4.0,
-            formant_ratio=0.90,
+            pitch_semitones=3.0,   # Changed from -4.0 to +3.0, reduced magnitude
+            formant_ratio=1.04,    # Changed from 0.90 to 1.04 (closer to 1.0)
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Moderate anonymization - balanced privacy and naturalness (recommended)',
+        'description': 'Moderate anonymization - optimal clarity and anonymity (recommended)',
     },
     'anonymous_strong': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=6.0,
-            formant_ratio=1.18,
-            reverb_wet=0.20,
+            pitch_semitones=4.0,   # Reduced from 6.0 to preserve intelligibility
+            formant_ratio=1.06,    # Reduced from 1.18 to maintain clarity
+            reverb_wet=0.0,       # Removed reverb - it muddies clarity
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Strong anonymization - maximum privacy protection',
+        'description': 'Strong anonymization - maximum privacy with maintained clarity',
     },
     'anonymous_neutral': {
         'mode': ObfuscationMode.ANONYMIZE,
@@ -90,80 +91,83 @@ PRESETS: Dict[str, Dict[str, Any]] = {
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Gender-neutral anonymization - androgynous voice profile',
+        'description': 'Gender-neutral anonymization - androgynous voice profile (preserves clarity)',
     },
     'anonymous_high': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=5.5,
-            formant_ratio=1.15,
+            pitch_semitones=4.0,   # Reduced from 5.5
+            formant_ratio=1.05,    # Reduced from 1.15
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'High-pitch anonymization profile',
+        'description': 'High-pitch anonymization profile - maintains clarity',
     },
     'anonymous_low': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=-6.0,
-            formant_ratio=0.85,
+            pitch_semitones=-4.0,  # Reduced from -6.0
+            formant_ratio=0.96,    # Changed from 0.85 (closer to 1.0)
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Low-pitch anonymization profile',
+        'description': 'Low-pitch anonymization profile - maintains clarity',
     },
     'anonymous_spectral': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=3.5,
-            formant_ratio=1.08,
-            reverb_wet=0.25,
+            pitch_semitones=3.0,   # Reduced from 3.5
+            formant_ratio=1.04,    # Reduced from 1.08
+            reverb_wet=0.08,       # Reduced from 0.25 - minimal reverb
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Spectral masking anonymization - reverb-based obfuscation',
+        'description': 'Spectral masking anonymization - minimal reverb for clarity',
     },
     'anonymous_combined': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=4.5,
-            formant_ratio=1.12,
-            reverb_wet=0.18,
-            echo_wet=0.15,
+            pitch_semitones=3.5,   # Reduced from 4.5
+            formant_ratio=1.05,    # Reduced from 1.12
+            reverb_wet=0.05,       # Reduced from 0.18 - minimal reverb
+            echo_wet=0.0,          # Removed echo - it muddies clarity
             echo_delay_ms=120,
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Multi-technique anonymization - maximum obfuscation',
+        'description': 'Multi-technique anonymization - balanced for clarity',
     },
-    # Legacy presets (for backward compatibility)
+    # Legacy presets (for backward compatibility) - updated for clarity
     'anonymous_1': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=2.0,
-            formant_ratio=1.1,
+            pitch_semitones=2.5,   # Slightly increased from 2.0
+            formant_ratio=1.03,    # Reduced from 1.1
+            noise_gate_enabled=True,
+            compression_enabled=True,
         ),
-        'description': 'Legacy: Subtle anonymization (use anonymous_subtle)',
+        'description': 'Legacy: Subtle anonymization (use anonymous_subtle) - updated for clarity',
     },
     'anonymous_2': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=4.0,
-            formant_ratio=1.15,
+            pitch_semitones=3.0,   # Reduced from 4.0
+            formant_ratio=1.04,    # Reduced from 1.15
             noise_gate_enabled=True,
+            compression_enabled=True,
         ),
-        'description': 'Legacy: Moderate anonymization (use anonymous_moderate)',
+        'description': 'Legacy: Moderate anonymization (use anonymous_moderate) - updated for clarity',
     },
     'anonymous_3': {
         'mode': ObfuscationMode.ANONYMIZE,
         'params': ObfuscationParams(
-            pitch_semitones=6.0,
-            formant_ratio=1.2,
-            reverb_wet=0.2,
+            pitch_semitones=4.0,   # Reduced from 6.0
+            formant_ratio=1.06,    # Reduced from 1.2
+            reverb_wet=0.0,       # Removed reverb
             noise_gate_enabled=True,
             compression_enabled=True,
         ),
-        'description': 'Legacy: Heavy anonymization (use anonymous_strong)',
+        'description': 'Legacy: Heavy anonymization (use anonymous_strong) - updated for clarity',
     },
     'male_to_female': {
         'mode': ObfuscationMode.FULL_OBFUSCATION,
