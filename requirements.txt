@@ -18,6 +18,8 @@ pandas>=2.0.0
 # AI/ML
 transformers>=4.30.0
 torch>=2.0.0
+openvino>=2023.0.0
+openvino-dev>=2023.0.0
 
 # API Server (FastAPI)
 fastapi>=0.104.0

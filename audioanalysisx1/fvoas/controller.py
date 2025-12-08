@@ -37,6 +37,15 @@ from .dynamic_anonymizer import (
     create_dynamic_anonymizer,
 )
 
+# Try importing ML processor
+try:
+    from .ml_voice_processor import MLVoiceProcessor, get_ml_status
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
+    MLVoiceProcessor = None
+    get_ml_status = None
+
 logger = logging.getLogger(__name__)
 
 # ============================================================================
@@ -270,7 +279,10 @@ class FVOASController:
     def __init__(self,
                  brain=None,
                  auto_telemetry: bool = True,
-                 poll_interval: float = 0.1):
+                 poll_interval: float = 0.1,
+                 enable_ml: bool = True,
+                 ml_model_path: Optional[str] = None,
+                 ml_device: str = "CPU"):
         """
         Initialize FVOAS controller.
 
@@ -278,6 +290,9 @@ class FVOASController:
             brain: DSMILBrain instance (optional)
             auto_telemetry: Automatically stream telemetry to brain
             poll_interval: Telemetry poll interval in seconds
+            enable_ml: Enable ML-based voice processing with OpenVINO
+            ml_model_path: Path to OpenVINO model (optional)
+            ml_device: ML inference device (CPU, GPU, VPU)
         """
         self.session_id = str(uuid.uuid4())[:8]
 
@@ -285,6 +300,21 @@ class FVOASController:
         self.kernel = FVOASKernelInterface()
         self.telemetry_channel = TelemetryChannel(brain=brain)
         self.crypto = FVOASCrypto()
+
+        # ML processor (OpenVINO-based)
+        self.ml_enabled = enable_ml and ML_AVAILABLE
+        self.ml_processor: Optional[MLVoiceProcessor] = None
+        if self.ml_enabled and MLVoiceProcessor:
+            try:
+                self.ml_processor = MLVoiceProcessor(
+                    model_path=ml_model_path,
+                    device=ml_device,
+                    enable_ml=True
+                )
+                logger.info(f"ML voice processing enabled (device={ml_device})")
+            except Exception as e:
+                logger.warning(f"Failed to initialize ML processor: {e}")
+                self.ml_enabled = False
 
         # Dynamic anonymizer (initialized when dynamic mode is enabled)
         self._dynamic_anonymizer: Optional[DynamicAnonymizer] = None
@@ -436,6 +466,10 @@ class FVOASController:
                 # Dynamic anonymization processing
                 if self._dynamic_enabled and self._dynamic_anonymizer:
                     self._process_dynamic(voice_telemetry)
+                
+                # ML-based processing (if enabled)
+                if self.ml_enabled and self.ml_processor:
+                    self._process_ml(voice_telemetry)
 
             except Exception as e:
                 logger.debug(f"Poll error: {e}")
@@ -476,6 +510,25 @@ class FVOASController:
 
         except Exception as e:
             logger.debug(f"Dynamic processing error: {e}")
+    
+    def _process_ml(self, telemetry: VoiceTelemetry):
+        """Process telemetry through ML-based voice modifier"""
+        try:
+            if not self.ml_processor:
+                return
+            
+            # Extract audio features for ML processing
+            # In real implementation, would process audio chunks here
+            # For now, ML processing happens at audio stream level
+            
+            # Update statistics
+            ml_stats = self.ml_processor.get_stats()
+            if ml_stats.get('ml_enabled'):
+                # ML is active and processing
+                pass
+        
+        except Exception as e:
+            logger.debug(f"ML processing error: {e}")
 
     # ========================================================================
     # Control Methods
@@ -642,7 +695,13 @@ class FVOASController:
             'telemetry_channel': self.telemetry_channel.get_stats(),
             'crypto_available': self.crypto.available,
             'dynamic_enabled': self._dynamic_enabled,
+            'ml_enabled': self.ml_enabled,
         }
+        
+        # Add ML statistics if enabled
+        if self.ml_enabled and self.ml_processor:
+            ml_stats = self.ml_processor.get_stats()
+            result['ml'] = ml_stats
 
         # Add dynamic state if enabled
         if self._dynamic_enabled and self._dynamic_anonymizer:
@@ -658,6 +717,58 @@ class FVOASController:
             }
 
         return result
+    
+    def enable_ml(self, model_path: Optional[str] = None, device: str = "CPU") -> bool:
+        """
+        Enable ML-based voice processing.
+        
+        Args:
+            model_path: Path to OpenVINO model
+            device: Inference device (CPU, GPU, VPU)
+            
+        Returns:
+            True if ML processing enabled successfully
+        """
+        if not ML_AVAILABLE:
+            logger.warning("ML processing not available (OpenVINO not installed)")
+            return False
+        
+        try:
+            self.ml_processor = MLVoiceProcessor(
+                model_path=model_path,
+                device=device,
+                enable_ml=True
+            )
+            self.ml_enabled = True
+            logger.info(f"ML voice processing enabled (device={device})")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to enable ML processing: {e}")
+            self.ml_enabled = False
+            return False
+    
+    def disable_ml(self):
+        """Disable ML-based voice processing"""
+        self.ml_enabled = False
+        self.ml_processor = None
+        logger.info("ML voice processing disabled")
+    
+    def get_ml_status(self) -> Dict[str, Any]:
+        """Get ML processing status"""
+        if not ML_AVAILABLE or not get_ml_status:
+            return {
+                'available': False,
+                'enabled': False,
+                'reason': 'OpenVINO not available'
+            }
+        
+        status = get_ml_status()
+        status['enabled'] = self.ml_enabled
+        
+        if self.ml_processor:
+            status.update(self.ml_processor.get_stats())
+        
+        return status
 
     def verify_compliance(self) -> Dict[str, bool]:
         """

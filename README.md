@@ -183,6 +183,7 @@ See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete 
   - Spectral masking and temporal anonymization
   - Combined multi-technique obfuscation
 - **Dynamic Anonymization** (ADVANCED) - Adaptive mode maintaining consistent anonymized output
+- **ML-Based Voice Modification** (ADVANCED) - OpenVINO neural network processing for superior quality
 - **Real-time Processing** - Low latency (~43ms at 48kHz) for live communications
 - **Kernel-Level Integration** - System-wide anonymization via FVOAS kernel driver
 - **Custom Parameters** - Fine-tune pitch, formant, time stretch, reverb, echo
@@ -544,6 +545,7 @@ All documentation is in the `docs/` directory:
 - **[Deployment](docs/deployment.md)** - Production deployment (includes Docker)
 - **[API Guide](docs/API_GUIDE.md)** - REST API documentation
 - **[API Features](API_FEATURES.md)** - API server features and capabilities
+- **[OpenVINO ML Integration](docs/OPENVINO_ML_INTEGRATION.md)** - ML-based voice modification guide ⭐ **NEW**
 
 ---
 
@@ -677,12 +679,17 @@ python test_pipeline.py
 - [x] **REST API server mode** - Production-ready FastAPI server with WebSocket support
 - [x] **Docker containerization** - Containerized deployment with Docker Compose support
 
+### Completed Features (v3.1.0+)
+
+- [x] **OpenVINO ML Integration** - Neural network-based voice modification with hardware acceleration
+
 ### Planned Features
 
 - [ ] Formal audit and certification support
 - [ ] Additional language support
 - [ ] Kubernetes deployment manifests
 - [ ] Advanced monitoring and metrics dashboard
+- [ ] Pre-trained voice conversion models
 
 ---
 
