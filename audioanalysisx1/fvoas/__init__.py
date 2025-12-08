@@ -45,6 +45,23 @@ from .dynamic_anonymizer import (
     create_dynamic_anonymizer,
 )
 
+# ML module (optional, requires OpenVINO)
+try:
+    from .ml_voice_processor import MLVoiceProcessor, get_ml_status
+    from .openvino_ml import (
+        OpenVINOVoiceModifier,
+        MLDynamicAnonymizer,
+        MLVoiceProfile,
+        MLInferenceResult,
+        create_ml_anonymizer,
+        check_openvino_availability,
+    )
+    ML_MODULE_AVAILABLE = True
+except ImportError:
+    ML_MODULE_AVAILABLE = False
+    MLVoiceProcessor = None
+    get_ml_status = None
+
 # Web module (optional, requires DSMilWebFrame)
 try:
     from .web_module import FVOASAnonymizationModule, FVOASBackend
@@ -70,9 +87,23 @@ __all__ = [
     'VoiceProfile',
     'DynamicState',
     'create_dynamic_anonymizer',
+    # ML module
+    'ML_MODULE_AVAILABLE',
     # Web module
     'WEB_MODULE_AVAILABLE',
 ]
+
+if ML_MODULE_AVAILABLE:
+    __all__.extend([
+        'MLVoiceProcessor',
+        'get_ml_status',
+        'OpenVINOVoiceModifier',
+        'MLDynamicAnonymizer',
+        'MLVoiceProfile',
+        'MLInferenceResult',
+        'create_ml_anonymizer',
+        'check_openvino_availability',
+    ])
 
 if WEB_MODULE_AVAILABLE:
     __all__.extend(['FVOASAnonymizationModule', 'FVOASBackend'])

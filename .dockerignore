@@ -1,0 +1,64 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+venv
+env
+.venv
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Tests
+tests/
+test_*.py
+*_test.py
+
+# Logs
+*.log
+logs/
+
+# Data
+data/
+samples/
+*.wav
+*.mp3
+*.flac
+
+# Results
+api_results/
+results/
+*.json
+*.png
+*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Electron app
+electron_app/
+
+# Build artifacts
+*.tar.gz
+*.zip

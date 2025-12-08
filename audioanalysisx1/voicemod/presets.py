@@ -202,13 +202,13 @@ PRESET_LIBRARY = {
     # Anonymization Presets (Primary Focus)
     # ============================================================================
     
-    # Subtle anonymization - minimal changes for privacy
+    # Subtle anonymization - minimal changes for privacy, preserves clarity
     'anonymous_subtle': VoicePreset(
         name='Anonymous Subtle',
-        description='Minimal voice anonymization for privacy protection',
+        description='Minimal voice anonymization for privacy protection (preserves clarity)',
         pitch_semitones=2.5,
-        formant_ratio=1.05,
-        time_stretch=0.98,
+        formant_ratio=1.03,
+        time_stretch=1.0,  # No time stretch - preserves natural speech rate
         compression=True,
         noise_gate=True
     ),
@@ -216,23 +216,23 @@ PRESET_LIBRARY = {
     # Moderate anonymization - balanced privacy and naturalness
     'anonymous_moderate': VoicePreset(
         name='Anonymous Moderate',
-        description='Balanced voice anonymization (recommended)',
-        pitch_semitones=-4.0,
-        formant_ratio=0.90,
-        time_stretch=1.05,
-        reverb_wet=0.10,
+        description='Balanced voice anonymization - optimal clarity and anonymity (recommended)',
+        pitch_semitones=3.0,  # Reduced from -4.0 to maintain clarity
+        formant_ratio=1.04,   # Reduced from 0.90 to preserve speech intelligibility
+        time_stretch=1.0,      # No time stretch - preserves natural speech rate
+        reverb_wet=0.0,        # Removed reverb - it muddies clarity
         compression=True,
         noise_gate=True
     ),
 
-    # Strong anonymization - maximum privacy
+    # Strong anonymization - maximum privacy while maintaining clarity
     'anonymous_strong': VoicePreset(
         name='Anonymous Strong',
-        description='Strong voice anonymization for maximum privacy',
-        pitch_semitones=6.0,
-        formant_ratio=1.18,
-        time_stretch=0.92,
-        reverb_wet=0.20,
+        description='Strong voice anonymization - maximum privacy with maintained clarity',
+        pitch_semitones=4.0,   # Reduced from 6.0 to preserve intelligibility
+        formant_ratio=1.06,    # Reduced from 1.18 to maintain clarity
+        time_stretch=1.0,      # No time stretch - preserves natural speech rate
+        reverb_wet=0.0,        # Removed reverb - it muddies clarity
         compression=True,
         noise_gate=True
     ),
@@ -240,10 +240,10 @@ PRESET_LIBRARY = {
     # Gender-neutral anonymization - androgynous voice
     'anonymous_neutral': VoicePreset(
         name='Anonymous Neutral',
-        description='Gender-neutral anonymization (androgynous voice)',
+        description='Gender-neutral anonymization (androgynous voice) - preserves clarity',
         pitch_semitones=3.0,
         formant_ratio=1.0,
-        time_stretch=1.0,
+        time_stretch=1.0,  # No time stretch
         compression=True,
         noise_gate=True
     ),
@@ -251,10 +251,10 @@ PRESET_LIBRARY = {
     # High-pitch anonymization - shifts to higher register
     'anonymous_high': VoicePreset(
         name='Anonymous High',
-        description='High-pitch anonymization profile',
-        pitch_semitones=5.5,
-        formant_ratio=1.15,
-        time_stretch=0.94,
+        description='High-pitch anonymization profile - maintains clarity',
+        pitch_semitones=4.0,   # Reduced from 5.5
+        formant_ratio=1.05,    # Reduced from 1.15
+        time_stretch=1.0,      # No time stretch
         compression=True,
         noise_gate=True
     ),
@@ -262,81 +262,81 @@ PRESET_LIBRARY = {
     # Low-pitch anonymization - shifts to lower register
     'anonymous_low': VoicePreset(
         name='Anonymous Low',
-        description='Low-pitch anonymization profile',
-        pitch_semitones=-6.0,
-        formant_ratio=0.85,
-        time_stretch=1.10,
+        description='Low-pitch anonymization profile - maintains clarity',
+        pitch_semitones=-4.0,  # Reduced from -6.0
+        formant_ratio=0.96,    # Reduced from 0.85 (closer to 1.0)
+        time_stretch=1.0,      # No time stretch
         compression=True,
         noise_gate=True
     ),
 
-    # Spectral masking anonymization - uses reverb for spectral obfuscation
+    # Spectral masking anonymization - minimal reverb for spectral obfuscation
     'anonymous_spectral': VoicePreset(
         name='Anonymous Spectral',
-        description='Spectral masking anonymization (reverb-based)',
-        pitch_semitones=3.5,
-        formant_ratio=1.08,
-        time_stretch=0.96,
-        reverb_wet=0.25,
-        reverb_room=0.6,
+        description='Spectral masking anonymization - minimal reverb for clarity',
+        pitch_semitones=3.0,   # Reduced from 3.5
+        formant_ratio=1.04,    # Reduced from 1.08
+        time_stretch=1.0,      # No time stretch
+        reverb_wet=0.08,       # Reduced from 0.25 - minimal reverb
+        reverb_room=0.4,       # Smaller room
         compression=True,
         noise_gate=True
     ),
 
-    # Time-based anonymization - alters speaking rate
+    # Time-based anonymization - minimal speaking rate variation
     'anonymous_temporal': VoicePreset(
         name='Anonymous Temporal',
-        description='Temporal anonymization (speaking rate variation)',
-        pitch_semitones=2.0,
-        formant_ratio=1.02,
-        time_stretch=0.88,
+        description='Temporal anonymization - minimal rate variation for clarity',
+        pitch_semitones=2.5,
+        formant_ratio=1.03,
+        time_stretch=0.97,     # Minimal stretch - preserves clarity
         compression=True,
         noise_gate=True
     ),
 
-    # Combined anonymization - multiple techniques
+    # Combined anonymization - multiple techniques with clarity focus
     'anonymous_combined': VoicePreset(
         name='Anonymous Combined',
-        description='Multi-technique anonymization (maximum obfuscation)',
-        pitch_semitones=4.5,
-        formant_ratio=1.12,
-        time_stretch=0.91,
-        reverb_wet=0.18,
-        echo_wet=0.15,
+        description='Multi-technique anonymization - balanced for clarity',
+        pitch_semitones=3.5,   # Reduced from 4.5
+        formant_ratio=1.05,    # Reduced from 1.12
+        time_stretch=1.0,      # No time stretch
+        reverb_wet=0.05,       # Minimal reverb
+        echo_wet=0.0,          # Removed echo - it muddies clarity
         echo_delay=120.0,
         compression=True,
         noise_gate=True
     ),
 
-    # Legacy presets (for backward compatibility)
+    # Legacy presets (for backward compatibility) - updated for clarity
     'anonymous_1': VoicePreset(
         name='Anonymous 1 (Legacy)',
-        description='Legacy anonymization preset (use anonymous_moderate)',
-        pitch_semitones=4.0,
-        formant_ratio=1.1,
-        time_stretch=0.95,
+        description='Legacy anonymization preset (use anonymous_moderate) - updated for clarity',
+        pitch_semitones=3.0,   # Reduced from 4.0
+        formant_ratio=1.04,    # Reduced from 1.1
+        time_stretch=1.0,      # No time stretch
         compression=True,
         noise_gate=True
     ),
 
     'anonymous_2': VoicePreset(
         name='Anonymous 2 (Legacy)',
-        description='Legacy anonymization preset (use anonymous_moderate)',
-        pitch_semitones=-5.0,
-        formant_ratio=0.88,
-        time_stretch=1.08,
-        reverb_wet=0.15,
+        description='Legacy anonymization preset (use anonymous_moderate) - updated for clarity',
+        pitch_semitones=3.0,   # Changed from -5.0 to +3.0, reduced magnitude
+        formant_ratio=1.04,    # Changed from 0.88 to 1.04
+        time_stretch=1.0,      # No time stretch
+        reverb_wet=0.0,        # Removed reverb
         compression=True,
         noise_gate=True
     ),
 
     'anonymous_3': VoicePreset(
         name='Anonymous 3 (Legacy)',
-        description='Legacy anonymization preset (use anonymous_strong)',
-        pitch_semitones=7.0,
-        formant_ratio=1.2,
-        time_stretch=0.9,
-        echo_wet=0.2,
+        description='Legacy anonymization preset (use anonymous_strong) - updated for clarity',
+        pitch_semitones=4.0,   # Reduced from 7.0
+        formant_ratio=1.06,    # Reduced from 1.2
+        time_stretch=1.0,      # No time stretch
+        echo_wet=0.0,          # Removed echo
         echo_delay=100.0,
         compression=True,
         noise_gate=True
