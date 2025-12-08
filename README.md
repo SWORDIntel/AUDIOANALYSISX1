@@ -183,7 +183,7 @@ See [Federal Compliance Documentation](docs/FEDERAL_COMPLIANCE.md) for complete 
   - Spectral masking and temporal anonymization
   - Combined multi-technique obfuscation
 - **Dynamic Anonymization** (ADVANCED) - Adaptive mode maintaining consistent anonymized output
-- **ML-Based Voice Modification** (ADVANCED) - OpenVINO neural network processing for superior quality
+- **ML-Based Voice Modification** (ADVANCED) - OpenVINO neural network processing optimized for Intel hardware (100-1000+ TOPS)
 - **Real-time Processing** - Low latency (~43ms at 48kHz) for live communications
 - **Kernel-Level Integration** - System-wide anonymization via FVOAS kernel driver
 - **Custom Parameters** - Fine-tune pitch, formant, time stretch, reverb, echo
