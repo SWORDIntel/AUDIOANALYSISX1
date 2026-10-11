@@ -21,7 +21,6 @@
 **A federal-compliant system for real-time voice anonymization and forensic voice analysis, designed to meet mandated government communication requirements.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Compliance: CNSA 2.0](https://img.shields.io/badge/Compliance-CNSA%202.0-green.svg)](docs/FEDERAL_COMPLIANCE.md)
 
 **⚠️ IMPORTANT COMPLIANCE NOTICE:**
@@ -711,11 +710,9 @@ python test_pipeline.py
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
+This project is licensed under the **SWORD Restricted Source Licence v1.0 (SRSL-1.0)**. Personal and non-commercial use is permitted under its terms; commercial exploitation requires a separate written agreement. See [LICENSE](LICENSE).
 
 ## 🙏 Acknowledgments
 
