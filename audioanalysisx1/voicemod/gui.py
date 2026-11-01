@@ -169,6 +169,8 @@ def create_gui():
     ]
     other_presets = [p for p in PRESET_LIBRARY.keys() if p not in anonymization_presets]
     preset_choices = ["Custom"] + anonymization_presets + other_presets
+    default_preset_name = "anonymous_moderate"
+    default_preset = PRESET_LIBRARY[default_preset_name]
 
     with gr.Blocks(title="Voice Modifier", theme=gr.themes.Soft()) as app:
         gr.Markdown("""
@@ -191,7 +193,7 @@ Do not use for impersonation, fraud, harassment, or illegal activities.
                 gr.Markdown("### Preset Selection")
                 preset_dropdown = gr.Dropdown(
                     choices=preset_choices,
-                    value="anonymous_moderate",
+                    value=default_preset_name,
                     label="Anonymization Preset",
                     info="Choose an anonymization preset (recommended: anonymous_moderate) or select 'Custom' for manual settings"
                 )
@@ -202,38 +204,38 @@ Do not use for impersonation, fraud, harassment, or illegal activities.
                 gr.Markdown("### Manual Controls")
 
                 pitch_slider = gr.Slider(
-                    minimum=-12, maximum=12, value=0, step=0.5,
+                    minimum=-12, maximum=12, value=default_preset.pitch_semitones, step=0.5,
                     label="Pitch Shift (semitones)",
                     info="-12 to +12 semitones (1 octave)"
                 )
 
                 formant_slider = gr.Slider(
-                    minimum=0.7, maximum=1.3, value=1.0, step=0.01,
+                    minimum=0.7, maximum=1.3, value=default_preset.formant_ratio, step=0.01,
                     label="Formant Shift Ratio",
                     info="<1.0 = male, >1.0 = female"
                 )
 
                 time_slider = gr.Slider(
-                    minimum=0.8, maximum=1.2, value=1.0, step=0.01,
+                    minimum=0.8, maximum=1.2, value=default_preset.time_stretch, step=0.01,
                     label="Time Stretch",
                     info="<1.0 = slower, >1.0 = faster"
                 )
 
                 reverb_slider = gr.Slider(
-                    minimum=0.0, maximum=1.0, value=0.0, step=0.05,
+                    minimum=0.0, maximum=1.0, value=default_preset.reverb_wet, step=0.05,
                     label="Reverb Wet/Dry",
                     info="Amount of reverb effect"
                 )
 
                 echo_slider = gr.Slider(
-                    minimum=0.0, maximum=1.0, value=0.0, step=0.05,
+                    minimum=0.0, maximum=1.0, value=default_preset.echo_wet, step=0.05,
                     label="Echo Wet/Dry",
                     info="Amount of echo effect"
                 )
 
                 with gr.Row():
-                    noise_gate_check = gr.Checkbox(value=True, label="Noise Gate")
-                    compression_check = gr.Checkbox(value=True, label="Compression")
+                    noise_gate_check = gr.Checkbox(value=default_preset.noise_gate, label="Noise Gate")
+                    compression_check = gr.Checkbox(value=default_preset.compression, label="Compression")
 
                 # Device selection
                 gr.Markdown("### Audio Devices")
@@ -295,6 +297,18 @@ Do not use for impersonation, fraud, harassment, or illegal activities.
             settings = gui.load_preset(preset_name)
             return settings
 
+        # Keep the visible controls in sync before Start reads them. Manual
+        # edits still override the selected preset until another is selected.
+        preset_dropdown.change(
+            fn=on_load_preset,
+            inputs=[preset_dropdown],
+            outputs=[
+                pitch_slider, formant_slider, time_slider,
+                reverb_slider, echo_slider,
+                noise_gate_check, compression_check
+            ]
+        )
+
         load_preset_btn.click(
             fn=on_load_preset,
             inputs=[preset_dropdown],
@@ -348,3 +362,4 @@ def launch_gui(share: bool = False, server_port: int = 7861):
 
 if __name__ == '__main__':
     launch_gui()
+
